@@ -1,0 +1,83 @@
+🎯 ÚLTIMOS 3 PASOS - DEPLOYMENT AUTOMÁTICO VA EN VIVO
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ YA HECHO:
+✓ Clave pública en Hostinger
+✓ Clave privada en GitHub (HOSTINGER_SSH_KEY)
+
+⏳ FALTA:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PASO 1: VERIFICAR 4 SECRETS EN GITHUB
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Ve a: https://github.com/guilleq18/mobels_alejandro/settings/secrets/actions
+
+Debe haber exactamente 4 secrets:
+
+Name: HOSTINGER_SSH_KEY
+Value: [ya tiene la clave privada]
+Status: ✓
+
+Name: HOSTINGER_HOST
+Value: 147.79.84.18
+Status: ¿EXISTE?
+
+Name: HOSTINGER_PORT
+Value: 65002
+Status: ¿EXISTE?
+
+Name: HOSTINGER_USER
+Value: u519347385
+Status: ¿EXISTE?
+
+Si faltan los últimos 3:
+1. Click "New repository secret"
+2. Escribe el Name (exacto)
+3. Escribe el Value (exacto)
+4. Click "Add secret"
+5. Repite 2 veces más
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PASO 2: CONECTAR A HOSTINGER POR SSH
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+En PowerShell, ejecuta:
+
+ssh -p 65002 u519347385@147.79.84.18
+
+Te pide password → Escribe la contraseña de tu cuenta Hostinger
+
+Cuando entres ejecuta:
+
+cd ~/public_html/laravel_app
+git config user.email "tu@email.com"
+git config user.name "Tu Nombre"
+
+Luego escribe:
+exit
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PASO 3: PRIMER PUSH (ACTIVA EL WORKFLOW)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+En PowerShell:
+
+cd e:\Dev\Projects\ecomerce_mobelsalejandro
+git add .
+git commit -m "Deployment automático activado"
+git push origin master
+
+Luego ve a: https://github.com/guilleq18/mobels_alejandro/actions
+
+Verás el workflow ejecutándose. Espera a que termine (debe estar verde ✓).
+
+Si todo está verde = LISTO! El deploy automático funciona.
+
+Cualquier cambio que hagas de aquí en adelante se sube automático a Hostinger.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
