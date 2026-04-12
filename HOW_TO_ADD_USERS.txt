@@ -1,0 +1,131 @@
+📝 CÓMO AGREGAR MÁS USUARIOS AL SEEDER
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+UBICACIÓN: database/seeders/DatabaseSeeder.php
+
+LÍNEA ACTUAL (18-26):
+
+    User::query()->updateOrCreate(
+        ['email' => 'alejandro@example.com'],
+        [
+            'name' => 'Alejandro Demo',
+            'password' => Hash::make('password'),
+        ],
+    );
+
+
+PARA AGREGAR MÁS USUARIOS - OPCIÓN A (SIMPLE):
+
+Después de la línea del usuario Alejandro, agrega:
+
+    User::query()->updateOrCreate(
+        ['email' => 'gerente@mobels.com'],
+        [
+            'name' => 'Gerente Ventas',
+            'password' => Hash::make('gerente2024'),
+        ],
+    );
+
+    User::query()->updateOrCreate(
+        ['email' => 'logistica@mobels.com'],
+        [
+            'name' => 'Logística',
+            'password' => Hash::make('logistica2024'),
+        ],
+    );
+
+
+PARA AGREGAR MÁS USUARIOS - OPCIÓN B (PROFESIONAL):
+
+Reemplaza el bloque de User::query()->updateOrCreate por:
+
+    // Definir usuarios en array
+    $usuarios = [
+        [
+            'email' => 'alejandro@example.com',
+            'name' => 'Alejandro Demo',
+            'password' => 'password',
+        ],
+        [
+            'email' => 'gerente@mobels.com',
+            'name' => 'Gerente Ventas',
+            'password' => 'gerente2024',
+        ],
+        [
+            'email' => 'logistica@mobels.com',
+            'name' => 'Logística',
+            'password' => 'logistica2024',
+        ],
+    ];
+
+    // Crear o actualizar cada usuario
+    foreach ($usuarios as $usuarioData) {
+        User::query()->updateOrCreate(
+            ['email' => $usuarioData['email']],
+            [
+                'name' => $usuarioData['name'],
+                'password' => Hash::make($usuarioData['password']),
+            ],
+        );
+    }
+
+
+DESPUÉS DE MODIFICAR:
+
+1. Guardar el archivo
+
+2. En tu máquina local:
+   
+   git add database/seeders/DatabaseSeeder.php
+   git commit -m "Agregar nuevos usuarios al seeder"
+   git push origin master
+
+3. En Hostinger (conectado por SSH):
+   
+   cd ~/public_html/laravel_app
+   git pull origin master
+   php artisan db:seed
+
+   (Solo seeds nuevos usuarios, no borra datos existentes)
+
+
+⚠️ CUIDADO - RESETEAR BD:
+
+Si quieres borrar TODO y comenzar de cero:
+
+php artisan migrate:refresh --seed
+
+Esto:
+✗ Borra TODAS las tablas
+✗ Borra todos los pedidos
+✗ Borra todos los productos
+✓ Crea todo de nuevo desde migraciones
+✓ Ejecuta el seeder (crea usuarios nuevos)
+
+
+MEJOR OPCIÓN - AGREGAR SIN BORRAR:
+
+Solo edita el seeder y ejecuta:
+
+php artisan db:seed
+
+Ya que usamos updateOrCreate(), solo:
+✓ Actualiza usuarios existentes
+✓ Crea usuarios nuevos
+✗ NO borra nada
+
+
+VALIDAR QUE LOS USUARIOS SE CREARON:
+
+En Hostinger, ejecuta:
+
+php artisan tinker
+
+User::all();
+
+Debe mostrar todos los usuarios creados.
+
+Luego: exit
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

@@ -1,0 +1,173 @@
+🔐 USUARIOS EN LARAVEL - MEJORES PRÁCTICAS
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ NO HAGAS ESTO:
+
+- Agregar contraseñas en código fuente
+- Commitear .env con credenciales reales
+- Hardcodear emails en controladores
+- Guardar passwords en plain text
+
+⚠️ Estas prácticas expondrían tu aplicación
+
+
+✅ HAZ ESTO SIEMPRE:
+
+- Usa .env para configuración sensible
+- Usa Seeders para datos de demostración
+- Usa migraciones para estructura
+- Usa Tinker para crear usuarios individuales
+- Usa Panel Admin para gestionar usuarios en producción
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+OPCIÓN 1: USAR SEEDER EXISTENTE (ACTUAL)
+
+Ya tienes en: database/seeders/DatabaseSeeder.php
+
+Ejecuta en Hostinger:
+
+php artisan db:seed
+
+Crea automáticamente:
+Email: alejandro@example.com
+Password: password
+
+
+OPCIÓN 2: MODIFICAR SEEDER PARA AGREGAR MÁS USUARIOS
+
+Edita: database/seeders/DatabaseSeeder.php
+
+Busca este bloque:
+
+    User::query()->updateOrCreate(
+        ['email' => 'alejandro@example.com'],
+        [
+            'name' => 'Alejandro Demo',
+            'password' => Hash::make('password'),
+        ],
+    );
+
+Debajo, agrega más usuarios:
+
+    User::query()->updateOrCreate(
+        ['email' => 'admin@example.com'],
+        [
+            'name' => 'Admin',
+            'password' => Hash::make('admin123'),
+        ],
+    );
+
+    User::query()->updateOrCreate(
+        ['email' => 'gerente@example.com'],
+        [
+            'name' => 'Gerente',
+            'password' => Hash::make('gerente123'),
+        ],
+    );
+
+Luego en Hostinger:
+
+php artisan db:seed
+
+
+OPCIÓN 3: CREAR USUARIO VÍA TINKER (INDIVIDUAL)
+
+Cuando estés conectado a Hostinger:
+
+php artisan tinker
+
+Copia y pega esto:
+
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
+User::create([
+    'name' => 'Mi Nuevo Usuario',
+    'email' => 'nuevo@ejemplo.com',
+    'password' => Hash::make('miContraseña123'),
+]);
+
+exit
+
+
+OPCIÓN 4: CREAR USUARIO VÍA PANEL ADMIN (FÁCIL)
+
+1. Ingresa a: https://mobelsalejandro.shop/admin/login
+2. Email: alejandro@example.com / Password: password
+3. Panel Admin → Crear nuevo usuario
+
+(Este método aún no está implementado pero puedes agregarlo)
+
+
+OPCIÓN 5: CREAR CUSTOM ARTISAN COMMAND (AVANZADO)
+
+En app/Console/Commands/ crea: CreateUserCommand.php
+
+Luego en Hostinger:
+
+php artisan command:create-admin
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+FLUJO RECOMENDADO:
+
+LOCAL (Desarrollo):
+├─ Modifica seeder con usuarios de demo
+├─ git add database/seeders/DatabaseSeeder.php
+├─ git commit -m "Agregar usuarios adicionales al seeder"
+└─ git push origin master
+
+HOSTINGER (Automático):
+├─ GitHub Actions detecta push
+├─ Descarga cambios
+├─ Ejecuta: php artisan migrate (si hay migraciones)
+└─ (No ejecuta seeder automáticamente - lo haces manual)
+
+MANUAL EN HOSTINGER:
+└─ php artisan db:seed
+
+
+IMPORTANTE - SEGURIDAD EN .env
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Tu .env en Hostinger NUNCA se sube a GitHub (está en .gitignore)
+
+Por eso variables sensibles van allí:
+
+DB_PASSWORD=Alejandro123!
+MAIL_PASSWORD=tuPasswordMail
+API_KEY=abc123...
+
+
+PERO credenciales de USUARIOS van en:
+✓ Database (creados con seeder/tinker)
+✓ Panel Admin (después de conectar)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+USUARIOS ACTUALES:
+
+Email: alejandro@example.com
+Pass: password
+
+Para cambiar, edita el seeder y ejecuta:
+
+php artisan migrate:refresh --seed
+
+⚠️ CUIDADO: Esto borra TODA la BD y la recrea
+
+
+CREAR USUARIOS SIN BORRAR DATOS:
+
+php artisan tinker
+User::create([...]) 
+exit
+
+O modificar seeder para usar updateOrCreate (no borra)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
