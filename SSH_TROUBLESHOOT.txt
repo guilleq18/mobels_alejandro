@@ -1,0 +1,163 @@
+🔐 SOLUCIONAR "PERMISSION DENIED" EN SSH
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PROBLEMA: Permission denied al conectarse a Hostinger
+
+CAUSAS POSIBLES:
+1. Clave privada no existe en C:\Users\willi\.ssh\hostinger_key
+2. Clave pública NO está registrada en Hostinger
+3. Permisos incorrectos en los archivos de clave
+4. Intentaste usar contraseña en lugar de clave SSH
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PASO 1: VERIFICAR QUE TU CLAVE PRIVADA EXISTE
+
+En PowerShell:
+
+Test-Path "$env:USERPROFILE\.ssh\hostinger_key"
+
+Debe devolver: True
+
+Si devuelve False → La clave no existe, crea una nueva:
+
+ssh-keygen -t rsa -b 4096 -N "" -f $env:USERPROFILE\.ssh\hostinger_key -C hostinger
+
+
+PASO 2: VERIFICAR QUE TU CLAVE PÚBLICA ESTÁ EN HOSTINGER
+
+A. Abre tu clave pública en Notepad:
+
+notepad $env:USERPROFILE\.ssh\hostinger_key.pub
+
+B. Copia TODO (Ctrl+A → Ctrl+C)
+
+C. Ve a: https://panel.hostinger.com
+   → Avanzado → SSH → Claves SSH → Agregar clave SSH
+   → Pega el contenido → Guarda
+
+D. Espera 2-3 minutos para que se sincronice
+
+
+PASO 3: CONECTAR CON CLAVE SSH (CORRECTO)
+
+En PowerShell:
+
+ssh -i $env:USERPROFILE\.ssh\hostinger_key -p 65002 u519347385@147.79.84.18
+
+✓ Debe conectar SIN pedir contraseña
+✓ Si pide contraseña = clave SSH no está registrada
+
+
+PASO 4: SI FALLA AÚN - DIAGNÓSTICO AVANZADO
+
+A. Verifica permisos de la clave:
+
+Get-Acl "$env:USERPROFILE\.ssh\hostinger_key" | Format-List
+
+B. Reinicia SSH-Agent:
+
+Stop-Service ssh-agent
+Start-Service ssh-agent
+
+C. Agrega tu clave a SSH-Agent:
+
+ssh-add $env:USERPROFILE\.ssh\hostinger_key
+
+D. Intenta conectar de nuevo:
+
+ssh -p 65002 u519347385@147.79.84.18
+
+
+PASO 5: SI SIGUE SIN FUNCIONAR - REGENERAR CLAVES
+
+OPCIÓN A - Elimina las claves viejas:
+
+Remove-Item -Path "$env:USERPROFILE\.ssh\hostinger_key*" -Force
+
+Genera nuevas:
+
+ssh-keygen -t rsa -b 4096 -N "" -f $env:USERPROFILE\.ssh\hostinger_key -C hostinger
+
+OPCIÓN B - Súbelas a Hostinger (nuevamente)
+
+notepad $env:USERPROFILE\.ssh\hostinger_key.pub
+
+Copia y pega en Hostinger panel → SSH keys
+
+Espera 3 minutos y prueba:
+
+ssh -i $env:USERPROFILE\.ssh\hostinger_key -p 65002 u519347385@147.79.84.18
+
+
+PASO 6: VERIFICAR DESDE HOSTINGER PANEL
+
+1. Ve a: https://panel.hostinger.com
+2. Busca: Avanzado → SSH
+3. Verifica que aparezca tu clave pública
+
+Si NO aparece → Vuelve a subirla
+
+
+PASO 7: ÚLTIMA OPCIÓN - USAR CONTRASEÑA TEMPORALMENTE
+
+Si nada funciona con SSH, conecta con contraseña:
+
+ssh -p 65002 u519347385@147.79.84.18
+
+Te pedirá: password → Escribe contraseña de Hostinger
+
+Una vez adentro, configura Git:
+
+cd ~/public_html/laravel_app
+git config user.email "tu@email.com"
+git config user.name "Tu Nombre"
+
+Luego:
+exit
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CUANDO LOGRES CONECTAR:
+
+Ejecuta esto para crear usuario admin:
+
+cd ~/public_html/laravel_app
+php artisan db:seed
+
+O crea usuario personalizado:
+
+php artisan tinker
+
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
+User::create([
+    'name' => 'Tu Nombre',
+    'email' => 'tu@email.com',
+    'password' => Hash::make('tuContraseña'),
+]);
+
+exit
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+COMANDOS ÚTILES PARA DESPUÉS DE CONECTAR:
+
+# Crear usuario admin
+php artisan db:seed
+
+# Migrar BD
+php artisan migrate --force
+
+# Ver logs de errores
+tail -f storage/logs/laravel.log
+
+# Verificar archivos
+ls -la
+
+# Salir
+exit
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
