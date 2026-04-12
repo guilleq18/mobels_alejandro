@@ -1,0 +1,99 @@
+✅ SOLUCIÓN: "Enter passphrase for key"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+VISTE ESTE PROMPT:
+Enter passphrase for key 'C:\Users\willi\.ssh\hostinger_key':
+
+¡PERFECTO! Significa que tu clave SI está siendo reconocida.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+QUÉ HACER AHORA:
+
+OPCIÓN A - PRESIONAR ENTER SIN ESCRIBIR NADA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Cuando veas el prompt:
+Enter passphrase for key 'C:\Users\willi\.ssh\hostinger_key':
+
+Simplemente presiona: ENTER (sin escribir nada)
+
+✓ Si funciona → Conectaste a Hostinger
+✓ Si falla → Vamos a Opción B
+
+
+OPCIÓN B - REGENERAR CLAVES SIN PASSPHRASE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PASO 1: Elimina claves antiguas
+
+Remove-Item -Path "$env:USERPROFILE\.ssh\hostinger_key*" -Force
+
+
+PASO 2: Genera nuevas claves SIN passphrase
+
+ssh-keygen -t rsa -b 4096 -N "" -f $env:USERPROFILE\.ssh\hostinger_key -C hostinger
+
+Presiona Enter si pide confirmación.
+
+
+PASO 3: Verifica que se crearon
+
+Test-Path "$env:USERPROFILE\.ssh\hostinger_key"
+Test-Path "$env:USERPROFILE\.ssh\hostinger_key.pub"
+
+Ambas deben devolver: True
+
+
+PASO 4: Copia la nueva clave pública a Hostinger
+
+notepad $env:USERPROFILE\.ssh\hostinger_key.pub
+
+Copia TODO (Ctrl+A → Ctrl+C)
+
+Ve a: https://panel.hostinger.com
+     → Avanzado → SSH → Claves SSH
+     → Elimina la clave vieja (si existe)
+     → Click "Agregar clave SSH"
+     → Pega el contenido
+     → Guarda
+
+
+PASO 5: Espera 2-3 minutos y conecta
+
+ssh -i $env:USERPROFILE\.ssh\hostinger_key -p 65002 u519347385@147.79.84.18
+
+Debe conectar directamente SIN pedir passphrase.
+
+
+CUANDO CONECTES EXITOSAMENTE:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Dentro del servidor verás algo como:
+
+u519347385@server [~]$
+
+Entonces ejecuta:
+
+cd ~/public_html/laravel_app
+php artisan db:seed
+
+Esto crea el usuario admin:
+Email: alejandro@example.com
+Password: password
+
+Luego: exit (para salir)
+
+
+VUELVE A TU MÁQUINA LOCAL E INGRESA EN:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+https://mobelsalejandro.shop/admin/login
+
+Email: alejandro@example.com
+Password: password
+
+¡LISTO! Ya tienes acceso al panel administrativo.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
