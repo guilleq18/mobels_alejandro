@@ -1,0 +1,104 @@
+🔍 SCRIPT DE DIAGNÓSTICO - ENCONTRAR laravel_app
+
+Si no encuentras la carpeta laravel_app, ejecuta ESTOS COMANDOS y reporta TODO:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+COMANDO 1: ¿Dónde estoy?
+pwd
+
+Debe mostrar: /home/u519347385
+
+
+COMANDO 2: ¿Qué hay en public_html?
+ls -la ~/public_html/
+
+Reporta TODAS las líneas que veas
+
+
+COMANDO 3: ¿Existe alguna carpeta que contenga "laravel"?
+find ~ -type d -name "*laravel*" 2>/dev/null
+
+Mostrará si existe en CUALQUIER lugar
+
+
+COMANDO 4: ¿Listar TODO lo que hay en home?
+ls -la ~/
+
+Puede estar fuera de public_html
+
+
+COMANDO 5: ¿Ver estructura completa de public_html?
+tree ~/public_html/ 2>/dev/null || find ~/public_html/ -type f | head -20
+
+Muestra estructura de carpetas
+
+
+COMANDO 6: ¿Verificar permisos de laravel_app?
+ls -ld ~/public_html/laravel_app 2>&1
+
+Reporta permisos o error
+
+
+COMANDO 7: ¿Buscar por nombre exacto?
+find ~ -maxdepth 3 -name "laravel_app" -type d 2>/dev/null
+
+Busca hasta 3 niveles de profundidad
+
+
+COMANDO 8: ¿Ver tamaño de laravel_app?
+du -sh ~/public_html/laravel_app 2>&1
+
+Muestra tamaño si existe
+
+
+COMANDO 9: ¿Verificar si hay .git?
+ls -la ~/public_html/laravel_app/.git 2>&1
+
+Verifica que es un repo clonado
+
+
+COMANDO 10: ¿Listar contenido de laravel_app?
+ls ~/public_html/laravel_app/ 2>&1
+
+Muestra qué hay adentro
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+POSIBLES SOLUCIONES:
+
+A) SI LA CARPETA EXISTE PERO NO LA ENCUENTRA:
+   Puede ser un problema de cache bash
+   
+   Ejecuta:
+   hash -r
+   cd ~/public_html/laravel_app
+
+B) SI NO APARECE EN COMANDOS PERO VES EN FILE MANAGER:
+   Puede ser un problema de permisos
+   
+   Ejecuta:
+   chmod -R 755 ~/public_html/laravel_app
+
+C) SI NO EXISTE EN NINGÚN LADO:
+   El cloning falló
+   
+   Ejecuta:
+   cd ~/public_html
+   git clone https://github.com/guilleq18/mobels_alejandro.git laravel_app
+
+D) SI ESTÁ EN OTRO LUGAR:
+   Muévela a public_html
+   
+   mv /ruta/real/laravel_app ~/public_html/laravel_app
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+IMPORTANTE:
+
+Reporta EXACTAMENTE la salida de los comandos.
+Copia y pega TODO lo que aparezca.
+Así podré ver qué está pasando.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
