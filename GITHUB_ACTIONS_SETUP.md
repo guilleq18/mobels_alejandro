@@ -2,160 +2,131 @@
 
 Este documento te guía para configurar el deploy automático desde GitHub a Hostinger.
 
-## ✅ Paso 1: Generar clave SSH en Hostinger
+## ⚠️ IMPORTANTE: Corrección de SSH
 
-Ve a tu panel de Hostinger:
+**Lo que viste en Hostinger NO era la clave SSH.** Era solo el comando para conectar.
 
-1. **Panel → SSH (u OpenSSH)**
-2. Asegúrate de que SSH esté **habilitado**
-3. Copia tu **usuario SSH** (generalmente: `mobelsalejandro`)
-4. **Genera una clave SSH** (si no la tienes) o copia tu clave privada existente
+Los datos correctos de Hostinger son:
+- **Host:** `147.79.84.18`
+- **Puerto:** `65002`
+- **Usuario:** `u519347385`
+
+## ✅ Paso 1: Generar clave SSH en tu computadora
+
+Abre PowerShell y ejecuta:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/generate-ssh-key.ps1
+```
+
+Esto generará dos archivos en `C:\Users\TuUsuario\.ssh\`:
+- `hostinger_key` → **CLAVE PRIVADA** 
+- `hostinger_key.pub` → **CLAVE PÚBLICA**
 
 ## ✅ Paso 2: Configurar Secrets en GitHub
 
-1. Ve a tu repositorio: https://github.com/guilleq18/mobels_alejandro
+Ve a tu repositorio: https://github.com/guilleq18/mobels_alejandro
 
-2. Ve a **Settings** → **Secrets and variables** → **Actions**
+1. **Settings** → **Secrets and variables** → **Actions**
 
-3. Crea 3 secretos:
+2. Crea 4 secretos:
 
-### Secret 1: `HOSTINGER_HOST`
-- **Valor:** `mobelsalejandro.shop`
+| Secreto | Valor |
+|---------|-------|
+| `HOSTINGER_HOST` | `147.79.84.18` |
+| `HOSTINGER_PORT` | `65002` |
+| `HOSTINGER_USER` | `u519347385` |
+| `HOSTINGER_SSH_KEY` | *Tu clave PRIVADA completa* |
 
-### Secret 2: `HOSTINGER_USER`
-- **Valor:** Tu usuario SSH de Hostinger (ej: `mobelsalejandro`)
+### Para el Secret `HOSTINGER_SSH_KEY`:
+- Abre el archivo `hostinger_key` (sin extensión)
+- Copia TODO el contenido
+- Pégalo en el Secret
 
-### Secret 3: `HOSTINGER_SSH_KEY`
-- **Valor:** Tu **clave SSH privada completa**
-  - En Hostinger, ve a SSH y descarga/copia la clave privada
-  - Si usas clave existente, copia el contenido de `~/.ssh/id_rsa` (en tu computadora)
+## ✅ Paso 3: Agregar clave pública a Hostinger
 
-> ⚠️ **IMPORTANTE:** Esta clave debe ser la clave PRIVADA (la que comienza con `-----BEGIN RSA PRIVATE KEY-----` o similar)
+En tu panel de Hostinger:
 
-## ✅ Paso 3: Configurar Git en Hostinger
+1. Ve a **Avanzado** → **Acceso SSH**
+2. Busca la sección **Claves SSH**
+3. Haz clic en **"Agregar clave SSH"**
+4. Pega el contenido de `hostinger_key.pub`
 
-SSH en tu servidor Hostinger y ejecuta:
+## ✅ Paso 4: Configurar Git en Hostinger
+
+En Hostinger, ve a **Acceso SSH** y usa el comando para conectar:
 
 ```bash
-ssh mobelsalejandro@mobelsalejandro.shop
-
-# Una vez conectado:
-cd public_html/laravel_app
-
-# Configura Git
-git config user.email "tu@email.com"
-git config user.name "Tu Nombre"
-
-# Genera clave SSH si no la tienes
-ssh-keygen -t rsa -b 4096 -N "" -f ~/.ssh/id_rsa
-
-# Muestra la clave pública
-cat ~/.ssh/id_rsa.pub
+ssh -p 65002 u519347385@147.79.84.18
 ```
 
-Copia la clave pública y agrégala a GitHub:
-- Ve a GitHub → Settings → **SSH and GPG keys**
-- Click en **New SSH key**
-- Pega la clave pública
-
-## ✅ Paso 4: Verificar que Git esté configurado
-
-En Hostinger, aún conectado vía SSH:
+Una vez conectado, ejecuta:
 
 ```bash
 cd ~/public_html/laravel_app
-git status
+
+# Configurar Git
+git config user.email "tu@email.com"
+git config user.name "Tu Nombre"
+
+# Configurar remote (si no lo tiene)
+git remote add origin https://github.com/guilleq18/mobels_alejandro.git || git remote set-url origin https://github.com/guilleq18/mobels_alejandro.git
+
+# Traer cambios
+git pull origin master
 ```
 
-¿Ves los cambios? Si no hay errores, está configurado.
-
-## ✅ Paso 5: Push y Deploy
+## ✅ Paso 5: Probar el Deploy
 
 Desde tu computadora:
 
 ```bash
+cd e:\Dev\Projects\ecomerce_mobelsalejandro
+
 git add .
-git commit -m "Deploy automático configurado"
-git push origin main
+git commit -m "Actualizar configuración de SSH para GitHub Actions"
+git push origin master
 ```
 
-**GitHub Actions se ejecutará automáticamente:**
-- Ve a tu repositorio → **Actions**
-- Verás una ejecución con el nombre del commit
-- Espera a que termine (green = éxito, red = error)
+## 📊 Verificar que funcionó
 
----
+1. Ve a GitHub → **Actions**
+2. Verás un workflow ejecutándose
+3. Espera a que termine (debe decir ✅ si fue exitoso)
+4. Visita tu sitio: https://mobelsalejandro.shop
 
-## 🧪 Verificar que funcionó
+## 🆘 Si falla
 
-1. En GitHub, ve a **Actions** y verifica que se ejecutó
-2. Ve a tu sitio: `https://mobelsalejandro.shop`
-3. Los cambios deberían estar en vivo
+### Error "Permission denied"
+- Verifica que la clave SSH privada en el Secret `HOSTINGER_SSH_KEY` sea COMPLETA
+- Incluye líneas `-----BEGIN RSA PRIVATE KEY-----` y `-----END RSA PRIVATE KEY-----`
 
-## ⚙️ Comandos útiles
+### Error "Key is not valid"
+- El contenido de la clave está incompleto o mal formateado
 
-### Ver logs del deploy
-```bash
-ssh mobelsalejandro@mobelsalejandro.shop
-cd ~/public_html/laravel_app
-git log --oneline -5
-```
+### Error "port 22: Connection refused"
+- Hostinger usa puerto **65002**, no 22
+- Verifica que el Secret `HOSTINGER_PORT` sea exactamente `65002`
 
-### Si algo falla, revisa el log de Laravel
-```bash
-ssh mobelsalejandro@mobelsalejandro.shop
-tail -f ~/public_html/laravel_app/storage/logs/laravel.log
-```
+## 📝 El workflow hace automáticamente:
 
----
-
-## 📝 Workflow incluido en `.github/workflows/deploy.yml`
-
-El workflow automático:
-1. Se ejecuta cada vez que haces `git push` a la rama `main`
+1. Se ejecuta cada `git push` a rama `master`
 2. Conecta vía SSH a Hostinger
-3. Ejecuta `git pull` para traer los cambios
-4. Instala las dependencias de Composer
-5. Limpia y cachea la configuración
-6. ¡Listo! Los cambios están en vivo
+3. Ejecuta `git pull` para traer cambios
+4. Instala dependencias con Composer
+5. Limpia caché y regenera configuración
+6. ¡Cambios en vivo!
+
+## ✅ Checklist final
+
+- [ ] Generaste clave SSH con el script
+- [ ] Agregaste 4 Secrets en GitHub
+- [ ] Copiaste clave pública a Hostinger
+- [ ] Conectaste vía SSH y configuraste Git
+- [ ] Hiciste push y workflow ejecutó exitosamente
+- [ ] Los cambios están visibles en mobelsalejandro.shop
 
 ---
 
-## ✅ Checklist de Configuración
+¿Necesitas ayuda con algún paso?
 
-- [ ] SSH habilitado en Hostinger
-- [ ] Secretos agregados en GitHub (HOSTINGER_HOST, HOSTINGER_USER, HOSTINGER_SSH_KEY)
-- [ ] Git configurado en Hostinger (`git config user.email` y `git config user.name`)
-- [ ] Clave SSH agregada a GitHub
-- [ ] Primer push realizado
-- [ ] Verificado en Actions que se ejecutó sin errores
-- [ ] Sitio muestra los cambios
-
----
-
-## 🆘 Si no funciona
-
-1. **Verifica que SSH esté habilitado en Hostinger:**
-   ```bash
-   ssh -v mobelsalejandro@mobelsalejandro.shop
-   ```
-
-2. **Si sale "Permission denied":**
-   - La clave SSH en el Secret no es la correcta
-   - Recopia tu clave privada completa (incluyendo BEGIN y END)
-
-3. **Si sale "Repository not found":**
-   - Git no está inicializado en `public_html/laravel_app`
-   - Haz `git init` y `git remote add origin https://github.com/guilleq18/mobels_alejandro.git`
-
-4. **Ver el error en GitHub:**
-   - Go a Actions → el workflow que falló → click en el job
-   - Scroll down para ver dónde falló
-
----
-
-## 📚 Recursos
-
-- [GitHub Actions Documentation](https://docs.github.com/en/actions)
-- [SSH Action](https://github.com/appleboy/ssh-action)
-- [Hostinger SSH Support](https://www.hostinger.es/soporte)

@@ -3,7 +3,7 @@ name: Deploy to Hostinger
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
@@ -16,7 +16,7 @@ jobs:
           host: ${{ secrets.HOSTINGER_HOST }}
           username: ${{ secrets.HOSTINGER_USER }}
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
-          port: 22
+          port: ${{ secrets.HOSTINGER_PORT }}
           script: |
             set -e
             echo "🚀 Iniciando deploy..."
@@ -24,7 +24,7 @@ jobs:
             cd ~/public_html/laravel_app
             
             echo "📥 Actualizando código..."
-            git pull origin main
+            git pull origin master
             
             echo "📦 Instalando dependencias..."
             composer install --no-dev --optimize-autoloader
