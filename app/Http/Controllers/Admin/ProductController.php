@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Support\UploadedAsset;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
@@ -104,7 +105,7 @@ class ProductController extends Controller
 
     private function storeUploadedImage(UploadedFile $file, string $folder): string
     {
-        $directory = public_path('uploads/'.$folder);
+        $directory = UploadedAsset::uploadsDirectory($folder);
         File::ensureDirectoryExists($directory);
 
         $filename = Str::uuid()->toString().'.'.$file->extension();

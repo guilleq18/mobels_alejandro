@@ -8,9 +8,13 @@ use App\Http\Controllers\Admin\QuoteRequestController as AdminQuoteRequestContro
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\QuoteRequestController;
+use App\Http\Controllers\UploadedAssetController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
+Route::get('/uploads/{path}', [UploadedAssetController::class, 'show'])
+    ->where('path', '.*')
+    ->name('uploads.show');
 Route::get('/productos', [ProductController::class, 'index'])->name('products.index');
 Route::get('/productos/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::post('/productos/{product}/presupuesto', [QuoteRequestController::class, 'store'])->name('products.quote-requests.store');
@@ -34,20 +38,4 @@ Route::prefix('admin')->group(function (): void {
         Route::get('/presupuestos', [AdminQuoteRequestController::class, 'index'])->name('quote-requests.index');
         Route::post('/logout', [AdminAuthController::class, 'destroy'])->name('logout');
     });
-});
-
-// 🔴 ACCESO DIRECTO AL ADMIN (TEMPORAL - Solo en desarrollo/host)
-// Para entrar: https://mobelsalejandro.shop/admin/bypass-login
-Route::get('/admin/bypass-login', function () {
-    $user = \App\Models\User::firstOrCreate(
-        ['email' => 'alejandro@example.com'],
-        [
-            'name' => 'Alejandro',
-            'password' => \Illuminate\Support\Facades\Hash::make('password'),
-        ]
-    );
-    
-    \Illuminate\Support\Facades\Auth::login($user);
-    
-    return redirect('/admin')->with('status', '✅ Acceso al admin activado');
 });

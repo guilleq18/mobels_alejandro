@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryRequest;
 use App\Models\Category;
+use App\Support\UploadedAsset;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
@@ -84,7 +85,7 @@ class CategoryController extends Controller
 
     private function storeUploadedImage(UploadedFile $file, string $folder): string
     {
-        $directory = public_path('uploads/'.$folder);
+        $directory = UploadedAsset::uploadsDirectory($folder);
         File::ensureDirectoryExists($directory);
 
         $filename = Str::uuid()->toString().'.'.$file->extension();
