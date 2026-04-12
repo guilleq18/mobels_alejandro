@@ -1,0 +1,32 @@
+# ⚡ QUICK FIX - Subdirectory Clone Issue
+
+## Problem
+```
+git clone https://github.com/guilleq18/mobels_alejandro.git
+```
+Created `mobels_alejandro/` subdirectory instead of cloning directly
+
+## Solution (Copy & Paste)
+
+```bash
+# Move everything up
+mv mobels_alejandro/* .
+mv mobels_alejandro/.* . 2>/dev/null || true
+
+# Remove subdirectory
+rmdir mobels_alejandro
+
+# Configure git
+git config user.email "alejandro.willi@gmail.com"
+git config user.name "Alejandro"
+
+# Verify
+git status
+```
+
+## Result
+✅ Git configured  
+✅ Ready for deployment
+
+## Next
+Follow [HOSTINGER_MANUAL_DEPLOYMENT.md](HOSTINGER_MANUAL_DEPLOYMENT.md) starting at Step 6: Install PHP Dependencies

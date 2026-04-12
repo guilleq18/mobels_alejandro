@@ -35,3 +35,19 @@ Route::prefix('admin')->group(function (): void {
         Route::post('/logout', [AdminAuthController::class, 'destroy'])->name('logout');
     });
 });
+
+// 🔴 ACCESO DIRECTO AL ADMIN (TEMPORAL - Solo en desarrollo/host)
+// Para entrar: https://mobelsalejandro.shop/admin/bypass-login
+Route::get('/admin/bypass-login', function () {
+    $user = \App\Models\User::firstOrCreate(
+        ['email' => 'alejandro@example.com'],
+        [
+            'name' => 'Alejandro',
+            'password' => \Illuminate\Support\Facades\Hash::make('password'),
+        ]
+    );
+    
+    \Illuminate\Support\Facades\Auth::login($user);
+    
+    return redirect('/admin')->with('status', '✅ Acceso al admin activado');
+});
