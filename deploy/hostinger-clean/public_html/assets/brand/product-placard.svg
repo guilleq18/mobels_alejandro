@@ -1,0 +1,22 @@
+<svg width="900" height="700" viewBox="0 0 900 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="placardBg" x1="97" y1="48" x2="742" y2="628" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EEF5F6"/>
+      <stop offset="1" stop-color="#EFE3D8"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="700" rx="36" fill="url(#placardBg)"/>
+  <rect x="120" y="84" width="660" height="470" rx="28" fill="white" fill-opacity="0.6"/>
+  <rect x="202" y="112" width="496" height="410" rx="30" fill="#202F5B"/>
+  <rect x="228" y="140" width="138" height="356" rx="22" fill="#D5C4B3"/>
+  <rect x="382" y="140" width="138" height="356" rx="22" fill="#F4EEE7"/>
+  <rect x="536" y="140" width="136" height="356" rx="22" fill="#D9C9BA"/>
+  <rect x="250" y="184" width="16" height="16" rx="8" fill="#4F8191"/>
+  <rect x="558" y="184" width="16" height="16" rx="8" fill="#4F8191"/>
+  <rect x="414" y="212" width="74" height="12" rx="6" fill="#60707D" fill-opacity="0.36"/>
+  <rect x="414" y="242" width="74" height="12" rx="6" fill="#60707D" fill-opacity="0.28"/>
+  <rect x="414" y="272" width="74" height="12" rx="6" fill="#60707D" fill-opacity="0.2"/>
+  <rect x="216" y="112" width="468" height="20" rx="10" fill="#4F8191"/>
+  <path d="M96 578C222 555 331 551 450 570C567 588 676 590 804 563V700H96V578Z" fill="#D7C5B3"/>
+  <path d="M96 620C215 607 321 604 430 616C573 632 684 631 804 608V700H96V620Z" fill="#BEA58F"/>
+</svg>

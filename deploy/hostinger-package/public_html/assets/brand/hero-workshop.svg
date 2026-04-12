@@ -1,0 +1,64 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="178" y1="79" x2="1351" y2="852" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EDF4F6"/>
+      <stop offset="0.54" stop-color="#F6F1EC"/>
+      <stop offset="1" stop-color="#E6D7C7"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="344" y1="96" x2="1180" y2="829" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4F8191"/>
+      <stop offset="1" stop-color="#202F5B"/>
+    </linearGradient>
+    <linearGradient id="warm" x1="289" y1="307" x2="977" y2="938" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D8C6B2"/>
+      <stop offset="1" stop-color="#9A6A46"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" rx="44" fill="url(#bg)"/>
+  <circle cx="1384" cy="146" r="160" fill="#D7E3E7"/>
+  <circle cx="195" cy="138" r="118" fill="#DDEBEC"/>
+  <path d="M0 653C198 620 339 600 544 621C717 639 855 704 1044 704C1232 704 1405 662 1600 613V900H0V653Z" fill="#D6C3B1"/>
+  <path d="M0 709C212 675 377 662 585 691C733 711 873 762 1043 762C1234 762 1393 731 1600 681V900H0V709Z" fill="#C8B29E"/>
+  <rect x="114" y="112" width="1372" height="522" rx="34" fill="white" fill-opacity="0.55" stroke="#D7E3E7" stroke-width="2"/>
+
+  <rect x="182" y="188" width="44" height="352" rx="20" fill="url(#steel)"/>
+  <rect x="278" y="154" width="320" height="386" rx="28" fill="#2F3137"/>
+  <rect x="304" y="183" width="270" height="120" rx="18" fill="#4F8191"/>
+  <rect x="304" y="323" width="126" height="191" rx="18" fill="#EFE7DE"/>
+  <rect x="448" y="323" width="126" height="191" rx="18" fill="#D7C5B3"/>
+  <rect x="332" y="350" width="68" height="8" rx="4" fill="#60707D" fill-opacity="0.42"/>
+  <rect x="474" y="350" width="68" height="8" rx="4" fill="#60707D" fill-opacity="0.42"/>
+  <rect x="288" y="144" width="300" height="24" rx="12" fill="#9A6A46"/>
+  <rect x="330" y="208" width="218" height="18" rx="9" fill="#D7E3E7" fill-opacity="0.7"/>
+
+  <rect x="664" y="128" width="262" height="418" rx="28" fill="url(#steel)"/>
+  <rect x="691" y="156" width="208" height="366" rx="22" fill="#F4EEE6"/>
+  <rect x="710" y="184" width="76" height="313" rx="18" fill="#D9C8B8"/>
+  <rect x="804" y="184" width="76" height="313" rx="18" fill="#E7DED5"/>
+  <rect x="748" y="330" width="12" height="12" rx="6" fill="#4F8191"/>
+  <rect x="842" y="330" width="12" height="12" rx="6" fill="#4F8191"/>
+  <rect x="710" y="142" width="170" height="16" rx="8" fill="#D7E3E7" fill-opacity="0.75"/>
+
+  <rect x="1001" y="246" width="344" height="246" rx="26" fill="#F8F6F2" stroke="#D7E3E7" stroke-width="2"/>
+  <rect x="1044" y="268" width="258" height="38" rx="14" fill="#9A6A46"/>
+  <rect x="1064" y="306" width="218" height="22" rx="11" fill="#D7E3E7"/>
+  <rect x="1078" y="332" width="190" height="118" rx="18" fill="#4F8191"/>
+  <rect x="1023" y="492" width="18" height="116" rx="9" fill="#2F3137"/>
+  <rect x="1306" y="492" width="18" height="116" rx="9" fill="#2F3137"/>
+  <rect x="1068" y="452" width="22" height="144" rx="11" fill="#2F3137"/>
+  <rect x="1256" y="452" width="22" height="144" rx="11" fill="#2F3137"/>
+  <rect x="1092" y="450" width="160" height="20" rx="10" fill="#D5C4B3"/>
+  <rect x="1112" y="484" width="120" height="12" rx="6" fill="#60707D" fill-opacity="0.32"/>
+
+  <rect x="1079" y="172" width="20" height="90" rx="10" fill="#2F3137"/>
+  <rect x="1245" y="172" width="20" height="90" rx="10" fill="#2F3137"/>
+  <circle cx="1089" cy="270" r="24" fill="#F5F2ED"/>
+  <circle cx="1255" cy="270" r="24" fill="#F5F2ED"/>
+
+  <path d="M128 670H1470" stroke="#60707D" stroke-opacity="0.18" stroke-width="4"/>
+  <path d="M210 690H1388" stroke="#60707D" stroke-opacity="0.08" stroke-width="2"/>
+  <rect x="184" y="736" width="148" height="18" rx="9" fill="#4F8191" fill-opacity="0.15"/>
+  <rect x="354" y="736" width="196" height="18" rx="9" fill="#202F5B" fill-opacity="0.12"/>
+  <rect x="572" y="736" width="126" height="18" rx="9" fill="#9A6A46" fill-opacity="0.16"/>
+</svg>

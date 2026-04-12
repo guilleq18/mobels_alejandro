@@ -1,0 +1,81 @@
+# ⚡ HOSTINGER DEPLOY - RESUMEN EJECUTIVO
+
+## 📦 ARCHIVO LISTO
+
+**`deploy/hostinger-package.zip`** - Descarga este archivo y sigue los pasos
+
+---
+
+## 🎯 PASOS RESUMIDOS (15 minutos)
+
+### 1️⃣ SUBIR A HOSTINGER
+- Extrae `hostinger-package.zip` en `public_html/` vía cPanel o FTP
+- La estructura debe quedar: `public_html/laravel_app/` + `public_html/public/`
+
+### 2️⃣ EDITAR `.env` 
+**Ubicación:** `public_html/laravel_app/.env`
+
+```
+APP_URL=https://tu-dominio.com
+DB_DATABASE=nombre_bd_hostinger
+DB_USERNAME=usuario_hostinger
+DB_PASSWORD=contraseña_hostinger
+```
+
+### 3️⃣ DOCUMENT ROOT (MUY IMPORTANTE)
+En cPanel → **Sitios Web** → Editar → Document Root = `public_html/public`
+
+### 4️⃣ CREAR BASE DE DATOS
+En cPanel → **Bases de Datos MySQL**
+- Nueva BD + usuario con privilegios
+- Importar SQL (o correr `php artisan migrate --force`)
+
+### 5️⃣ PERMISOS
+Carpetas que necesitan permisos 755/775:
+- `public_html/laravel_app/storage/`
+- `public_html/laravel_app/bootstrap/cache/`
+
+### 6️⃣ SSL
+En cPanel → **SSL/TLS** → Instalar → Forza HTTPS
+
+### 7️⃣ VERIFICAR
+```
+https://tu-dominio.com
+```
+¿Carga? ✅ ¡Listo!
+
+---
+
+## 🆘 SI SALE ERROR 500
+
+1. Ve a `public_html/laravel_app/storage/logs/laravel.log`
+2. Lee el error
+3. Usual: Datos de `.env` incorrectos o BD no existe
+
+---
+
+## 📋 DATOS A TENER LISTOS
+
+| Dato | Dónde lo consigues |
+|------|-------------------|
+| Dominio | Hostinger → Sitios Web |
+| BD Nombre | Hostinger → MySQL → Nueva BD |
+| BD Usuario | Hostinger → MySQL → Crear usuario |
+| BD Contraseña | La que crees al crear usuario |
+| Email del servidor | Hostinger → Email (opcional) |
+
+---
+
+## ✅ CHECKLIST
+
+- [ ] `hostinger-package.zip` extraído
+- [ ] `.env` configurado
+- [ ] Document Root apuntando a `public_html/public`
+- [ ] BD creada e importada
+- [ ] Permisos en 755/775
+- [ ] SSL/HTTPS habilitado
+- [ ] Sitio accesible en HTTPS
+
+---
+
+📖 Para más detalles: ver `HOSTINGER_QUICK_START.md`

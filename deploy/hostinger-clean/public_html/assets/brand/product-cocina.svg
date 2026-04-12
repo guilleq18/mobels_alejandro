@@ -1,0 +1,25 @@
+<svg width="900" height="700" viewBox="0 0 900 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cocinaBg" x1="106" y1="61" x2="752" y2="671" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ECF4F6"/>
+      <stop offset="1" stop-color="#EFE3D7"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="700" rx="36" fill="url(#cocinaBg)"/>
+  <rect x="72" y="88" width="756" height="432" rx="30" fill="white" fill-opacity="0.64"/>
+  <rect x="128" y="148" width="264" height="148" rx="22" fill="#4F8191"/>
+  <rect x="412" y="148" width="116" height="148" rx="22" fill="#D9C8B7"/>
+  <rect x="548" y="148" width="224" height="148" rx="22" fill="#202F5B"/>
+  <rect x="128" y="318" width="160" height="154" rx="22" fill="#F4EFE8"/>
+  <rect x="306" y="318" width="160" height="154" rx="22" fill="#E3D7CA"/>
+  <rect x="484" y="318" width="120" height="154" rx="22" fill="#EFE7DE"/>
+  <rect x="622" y="318" width="150" height="154" rx="22" fill="#D5C4B3"/>
+  <rect x="118" y="298" width="666" height="26" rx="13" fill="#9A6A46"/>
+  <rect x="158" y="194" width="204" height="16" rx="8" fill="#D7E3E7" fill-opacity="0.8"/>
+  <rect x="158" y="370" width="96" height="10" rx="5" fill="#60707D" fill-opacity="0.32"/>
+  <rect x="336" y="370" width="96" height="10" rx="5" fill="#60707D" fill-opacity="0.32"/>
+  <rect x="518" y="370" width="56" height="10" rx="5" fill="#60707D" fill-opacity="0.32"/>
+  <rect x="654" y="370" width="86" height="10" rx="5" fill="#60707D" fill-opacity="0.32"/>
+  <path d="M86 548C224 520 365 518 488 536C613 554 713 557 814 528V700H86V548Z" fill="#D5C4B3"/>
+  <path d="M86 596C222 576 337 573 462 588C603 605 704 604 814 576V700H86V596Z" fill="#BEA58E"/>
+</svg>
