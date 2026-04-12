@@ -1,0 +1,98 @@
+📋 CONFIGURAR .env EN HOSTINGER
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+EL .env ES CRÍTICO - No se sube a GitHub por seguridad.
+Debe estar directamente en el servidor.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+OPCIÓN A: VÍA PANEL HOSTINGER (Más fácil)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Ve a: https://panel.hostinger.com
+2. Busca "File Manager" o "Administrador de archivos"
+3. Navega a: /public_html/laravel_app/
+4. Botón derecho → "Crear archivo"
+5. Nombre: .env
+6. Abre el archivo y pega el contenido de .env.production
+
+Campos IMPORTANTES a revisar:
+
+DB_DATABASE=u519347385_mobels
+DB_USERNAME=u519347385_mbaguero
+DB_PASSWORD=Alejandro123!
+
+APP_URL=https://mobelsalejandro.shop
+
+FILESYSTEM_DISK=public
+
+7. Guarda el archivo
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+OPCIÓN B: VÍA SSH (Si quieres automatizar)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+En PowerShell:
+
+ssh -p 65002 u519347385@147.79.84.18
+
+Luego dentro del servidor:
+
+cat > ~/public_html/laravel_app/.env << 'EOF'
+APP_NAME="MOBELS ALEJANDRO"
+APP_ENV=production
+APP_DEBUG=false
+APP_TIMEZONE=America/Argentina/Buenos_Aires
+APP_URL=https://mobelsalejandro.shop
+
+DB_CONNECTION=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_DATABASE=u519347385_mobels
+DB_USERNAME=u519347385_mbaguero
+DB_PASSWORD=Alejandro123!
+
+SESSION_DRIVER=database
+FILESYSTEM_DISK=public
+CACHE_STORE=database
+
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.hostinger.com
+MAIL_PORT=465
+MAIL_ENCRYPTION=ssl
+MAIL_USERNAME=contacto@mobelsalejandro.shop
+MAIL_FROM_ADDRESS=contacto@mobelsalejandro.shop
+EOF
+
+Luego:
+exit
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DESPUÉS - Verificar que funcionó:
+
+Ve a: https://mobelsalejandro.shop
+
+Si ves el sitio sin errores = ✓ Correcto
+Si ves "Error 500" = Revisar DB_* en el .env
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+IMPORTANTE:
+
+⚠️ Los passwords y credenciales en .env.production son 
+   ejemplos. Usa tus valores reales de Hostinger.
+
+⚠️ .env.production es SOLO para referencia.
+   Nunca lo subas a GitHub (está en .gitignore).
+
+⚠️ Después de crear el .env en Hostinger, ejecuta 
+   desde Hostinger via SSH:
+
+   cd ~/public_html/laravel_app
+   php artisan key:generate
+   php artisan migrate --force
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
