@@ -1,0 +1,96 @@
+# 🎯 PRÓXIMOS PASOS - Activar Deploy Automático
+
+Ya generaste las claves SSH. Ahora ejecuta estos comandos en orden:
+
+---
+
+## PASO 1: Copiar clave PRIVADA a portapapeles
+
+```powershell
+Get-Content "$env:USERPROFILE\.ssh\hostinger_key" | Set-Clipboard
+```
+
+Luego:
+1. Ve a: https://github.com/guilleq18/mobels_alejandro/settings/secrets/actions
+2. Click **New repository secret**
+3. **Name:** `HOSTINGER_SSH_KEY`
+4. **Value:** Pega (Ctrl+V)
+5. Click **Add secret**
+
+---
+
+## PASO 2: Copiar clave PÚBLICA a Hostinger
+
+```powershell
+Get-Content "$env:USERPROFILE\.ssh\hostinger_key.pub" | Set-Clipboard
+```
+
+Luego:
+1. Ve a: https://panel.hostinger.com/
+2. **Avanzado** → **Acceso SSH**
+3. **Claves SSH** → **Agregar clave SSH**
+4. Pega (Ctrl+V)
+5. Guarda
+
+---
+
+## PASO 3: Conectar a Hostinger y configurar Git
+
+En PowerShell:
+
+```powershell
+ssh -p 65002 u519347385@147.79.84.18
+```
+
+Cuando se conecte, ejecuta:
+
+```bash
+cd ~/public_html/laravel_app
+
+git config user.email "tu@email.com"
+git config user.name "Tu Nombre"
+
+git remote set-url origin https://github.com/guilleq18/mobels_alejandro.git
+
+git pull origin master
+
+exit
+```
+
+---
+
+## PASO 4: Hacer push de prueba (en tu PC)
+
+```powershell
+cd e:\Dev\Projects\ecomerce_mobelsalejandro
+
+git add .
+git commit -m "Deploy automático activado"
+git push origin master
+```
+
+---
+
+## PASO 5: Verificar que funcionó
+
+1. Ve a: https://github.com/guilleq18/mobels_alejandro/actions
+2. Verás un workflow "Deploy to Hostinger" ejecutándose
+3. Espera a que termine (debe salir verde ✅)
+4. Ve a: https://mobelsalejandro.shop
+5. ¡Los cambios están en vivo!
+
+---
+
+## ✅ ¿Completaste todos los pasos?
+
+Una vez que hayas hecho todo:
+
+```powershell
+git status
+```
+
+Debería mostrar: `On branch master` y `Your branch is up to date`
+
+---
+
+**¿Estás en cuál paso?**
