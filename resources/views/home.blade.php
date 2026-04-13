@@ -6,9 +6,6 @@
 
 @section('page_head')
     <style>
-        body.landing-home{position:relative;background:#9ebbc2;isolation:isolate}
-        body.landing-home::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:url('{{ $landingBackgroundUrl }}') center center / cover no-repeat;filter:blur({{ $landingBackgroundBlur }}px) saturate(.92) brightness(.9);transform:scale(1.04)}
-        body.landing-home::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at top,rgba(255,255,255,.18),transparent 24%),linear-gradient(180deg,rgba(215,232,235,.56) 0%,rgba(170,197,203,.5) 38%,rgba(122,161,169,.46) 100%)}
         body.landing-home .wrap{position:relative;z-index:1;width:min(1240px,calc(100% - 1.5rem));padding:1.8rem 0 3rem}
         body.landing-home .topbar{margin:0 auto 1rem;padding:1rem 1.15rem;border:1px solid rgba(32,47,91,.08);border-radius:1.45rem;background:rgba(255,255,255,.42);backdrop-filter:blur(20px);box-shadow:0 18px 38px rgba(32,47,91,.08)}
         body.landing-home .logo,body.landing-home .nav a,body.landing-home .footer{color:var(--brand-strong)}
@@ -22,14 +19,14 @@
         .showcase-frame{padding:1.1rem;border-radius:2rem}
         .showcase-hero{display:grid;gap:1.1rem}
         .showcase-copy-card{padding:1.2rem 1.25rem;border-radius:1.7rem;border:1px solid rgba(27,39,50,.08);background:rgba(255,255,255,.72);box-shadow:0 24px 54px rgba(14,25,37,.14);backdrop-filter:blur(14px)}
-        .showcase-copy{display:grid;align-content:start;gap:1rem;padding:0}
+        .showcase-copy{display:grid;align-content:start;justify-items:center;gap:1rem;padding:0;text-align:center}
         .showcase-kicker,.showcase-chip,.showcase-tab{display:inline-flex;align-items:center;gap:.5rem;width:max-content;padding:.5rem .8rem;border-radius:999px;border:1px solid rgba(79,129,145,.14);background:rgba(79,129,145,.08);font-size:.82rem;font-weight:800;letter-spacing:.08em;color:var(--brand-strong);text-transform:uppercase}
         .showcase-kicker::before,.showcase-chip::before,.showcase-tab::before{content:"";width:.55rem;height:.55rem;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-strong))}
         .showcase-rating{display:inline-flex;align-items:center;gap:.55rem;width:max-content;padding:.7rem .95rem;border-radius:1rem;border:1px solid rgba(42,59,73,.08);background:#fff;color:var(--brand-strong);font-weight:700;box-shadow:0 12px 28px rgba(32,47,91,.08)}
         .showcase-rating span{font-size:.84rem;color:var(--muted);font-weight:600}
         .showcase-title{margin:0;width:100%;max-width:none;font-family:"Montserrat",sans-serif;font-size:clamp(1.7rem,4vw,3.55rem);font-weight:800;line-height:.92;letter-spacing:-.06em;text-wrap:balance}
-        .showcase-lead{margin:0;max-width:58ch;font-size:1.02rem;line-height:1.85;color:var(--muted)}
-        .showcase-actions{display:flex;gap:.8rem;flex-wrap:wrap;padding-top:.35rem}
+        .showcase-lead{margin:0 auto;max-width:58ch;font-size:1.02rem;line-height:1.85;color:var(--muted)}
+        .showcase-actions{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;padding-top:.35rem}
         .showcase-actions .btn,.showcase-actions .text-link{min-width:12.5rem}
         .showcase-trust{display:grid;gap:.75rem;padding-top:.7rem}
         .showcase-trust strong{font-size:.84rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
@@ -39,7 +36,6 @@
         .showcase-media{position:relative;overflow:hidden;border-radius:1.65rem;height:calc(100svh - 10.75rem);min-height:34rem}
         .showcase-media::before{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(79,129,145,.12),transparent 34%),radial-gradient(circle at bottom right,rgba(213,196,179,.2),transparent 26%);pointer-events:none}
         .showcase-media img{width:100%;height:100%;min-height:0;object-fit:cover;border-radius:1.65rem}
-        .showcase-mosaic{display:grid;grid-template-columns:1fr 1fr 1.15fr;gap:1rem}
         .showcase-card{padding:1rem;border-radius:1.5rem}
         .showcase-card--image{overflow:hidden;padding:.75rem}
         .showcase-card--image img{width:100%;height:13rem;object-fit:cover;border-radius:1.1rem}
@@ -81,7 +77,7 @@
         .showcase-cta{display:grid;grid-template-columns:minmax(0,1.1fr) auto;align-items:center;gap:1rem;padding:1.3rem 1.4rem;border-radius:1.7rem;background:linear-gradient(135deg,rgba(244,242,238,.78),rgba(215,227,231,.76))}
         .showcase-cta p{margin:0;max-width:42rem;color:var(--muted);line-height:1.8}
         .showcase-cta h2{margin:.2rem 0 .5rem}
-        @media (max-width:1080px){.showcase-hero,.showcase-mosaic,.showcase-bottom,.showcase-workflow{grid-template-columns:1fr}.showcase-tabs,.showcase-rooms,.showcase-proof-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.showcase-product{grid-template-columns:1fr}.showcase-product__actions{justify-content:flex-start}.showcase-cta{grid-template-columns:1fr}.showcase-title{max-width:none}.showcase-media{height:calc(100svh - 9.75rem);min-height:28rem}}
+        @media (max-width:1080px){.showcase-hero,.showcase-bottom,.showcase-workflow{grid-template-columns:1fr}.showcase-tabs,.showcase-rooms,.showcase-proof-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.showcase-product{grid-template-columns:1fr}.showcase-product__actions{justify-content:flex-start}.showcase-cta{grid-template-columns:1fr}.showcase-title{max-width:none}.showcase-media{height:calc(100svh - 9.75rem);min-height:28rem}}
         @media (max-width:760px){body.landing-home .wrap{width:min(1240px,calc(100% - 1rem));padding-top:1rem}
             body.landing-home .topbar{padding:.85rem;border-radius:1.2rem}
             .showcase-frame{padding:.85rem;border-radius:1.5rem}
@@ -123,39 +119,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="showcase-mosaic">
-                <article class="showcase-card showcase-card--image">
-                    @if ($featuredProducts->isNotEmpty())
-                        <img src="{{ $featuredProducts->first()->primary_image_url }}" alt="{{ $featuredProducts->first()->name }}">
-                    @endif
-                    <h3 class="brand-font">Diseño con lectura arquitectónica</h3>
-                    <p>Propuestas limpias, proporciones equilibradas y muebles pensados para integrarse con el ambiente.</p>
-                </article>
-
-                <article class="showcase-card showcase-card--image">
-                    @if ($featuredProducts->count() > 1)
-                        <img src="{{ $featuredProducts->skip(1)->first()->primary_image_url }}" alt="{{ $featuredProducts->skip(1)->first()->name }}">
-                    @elseif ($featuredProducts->isNotEmpty())
-                        <img src="{{ $featuredProducts->first()->primary_image_url }}" alt="{{ $featuredProducts->first()->name }}">
-                    @endif
-                    <h3 class="brand-font">Materiales y terminaciones</h3>
-                    <p>Melaminas, herrajes y detalles resueltos para que el resultado se vea sólido, prolijo y durable.</p>
-                </article>
-
-                <article class="showcase-card">
-                    <span class="showcase-chip">Servicio integral</span>
-                    <h3 class="brand-font">Cada proyecto busca resolver uso, guardado y presencia visual.</h3>
-                    <p>
-                        Desde cocinas y placares hasta puestos de trabajo y recepciones, planteamos soluciones a medida
-                        para que el mueble acompañe el ritmo real del espacio.
-                    </p>
-                    <div class="showcase-card__footer">
-                        <span class="availability-tag">Amoblamientos a medida</span>
-                        <a class="text-link" href="#colecciones">Explorar ambientes</a>
-                    </div>
-                </article>
             </div>
         </section>
 
