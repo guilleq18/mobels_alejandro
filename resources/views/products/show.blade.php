@@ -155,11 +155,9 @@
                             >
                                 Pedir por WhatsApp
                             </button>
-                        @endif
-
-                        @unless ($whatsAppNumber)
+                        @else
                             <button class="btn btn-primary" type="button" disabled>Canal no configurado</button>
-                        @endunless
+                        @endif
                     </div>
                     @if ($whatsAppNumber)
                         <p class="product-detail-channel-note">
