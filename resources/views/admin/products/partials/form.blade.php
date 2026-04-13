@@ -259,7 +259,7 @@
                         <label class="field">
                             <span>Subir imagenes del carrusel</span>
                             <input type="file" name="variant_gallery_uploads[{{ $variantIndex }}][]" accept="image/*" multiple data-variant-gallery-upload>
-                            <small class="field-help">Podés combinar rutas manuales con subidas directas. El orden manual se respeta primero y los archivos subidos se agregan al final.</small>
+                            <small class="field-help">Podés subir hasta 5 imágenes por vez. El orden manual se respeta primero y los archivos subidos se agregan al final.</small>
                             @if ($variantImagesError)
                                 <small class="field-error">{{ $variantImagesError }}</small>
                             @endif
@@ -327,7 +327,7 @@
                     <label class="field">
                         <span>Subir imagenes del carrusel</span>
                         <input type="file" name="variant_gallery_uploads[__INDEX__][]" accept="image/*" multiple data-variant-gallery-upload>
-                        <small class="field-help">Podés combinar rutas manuales con subidas directas.</small>
+                        <small class="field-help">Podés subir hasta 5 imágenes por vez.</small>
                     </label>
                 </div>
 

@@ -35,7 +35,7 @@ class ProductRequest extends FormRequest
             'variant_swatch_uploads' => ['nullable', 'array'],
             'variant_swatch_uploads.*' => ['nullable', 'image', 'max:3072'],
             'variant_gallery_uploads' => ['nullable', 'array'],
-            'variant_gallery_uploads.*' => ['nullable', 'array'],
+            'variant_gallery_uploads.*' => ['nullable', 'array', 'max:5'],
             'variant_gallery_uploads.*.*' => ['nullable', 'image', 'max:5120'],
             'is_active' => ['boolean'],
             'is_featured' => ['boolean'],
@@ -47,6 +47,7 @@ class ProductRequest extends FormRequest
         return [
             'lead_time_days.required' => 'Definí en cuántos dias queda disponible este producto.',
             'variant_swatch_uploads.*.image' => 'La muestra de melamina tiene que ser una imagen válida.',
+            'variant_gallery_uploads.*.max' => 'Podés subir hasta 5 imágenes por vez en cada melamina.',
             'variant_gallery_uploads.*.*.image' => 'Las imágenes del carrusel tienen que ser archivos de imagen válidos.',
             'variants.*.swatch_image.max' => 'La muestra de melamina es demasiado larga para guardarse como texto.',
             'variants.*.images.*.max' => 'Una de las imágenes del carrusel es demasiado larga para guardarse como texto.',

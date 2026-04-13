@@ -2,6 +2,7 @@
     <script>
         (() => {
             const builder = document.querySelector('[data-variant-builder]');
+            const MAX_GALLERY_UPLOADS = 5;
 
             if (!builder) {
                 return;
@@ -172,6 +173,22 @@
                 }
 
                 updateVariantTitle(nameInput.closest('[data-variant-item]'));
+            });
+
+            builder.addEventListener('change', (event) => {
+                const galleryUploadInput = event.target.closest('[data-variant-gallery-upload]');
+
+                if (!galleryUploadInput) {
+                    return;
+                }
+
+                galleryUploadInput.setCustomValidity('');
+
+                if (galleryUploadInput.files && galleryUploadInput.files.length > MAX_GALLERY_UPLOADS) {
+                    galleryUploadInput.value = '';
+                    galleryUploadInput.setCustomValidity(`Podés subir hasta ${MAX_GALLERY_UPLOADS} imágenes por vez en cada melamina.`);
+                    galleryUploadInput.reportValidity();
+                }
             });
 
             reindex();
