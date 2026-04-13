@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+    RewriteBase /
+
+    # Redirige todas las solicitudes que NO sean hacia archivos existentes o carpetas existentes
+    # hacia public/ para mantener compatibilidad con despliegue en public_html
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ public/index.php [QSA,L]
+</IfModule>

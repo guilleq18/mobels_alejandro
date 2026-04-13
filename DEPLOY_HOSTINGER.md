@@ -1,239 +1,213 @@
-# Guía para desplegar en Hostinger
+# 📋 Guía de Despliegue en Hostinger
 
-Esta guía te ayudará a subir tu proyecto Laravel (MÖBELS Alejandro) a Hostinger.
+Este documento describe los pasos y configuraciones necesarias para desplegar correctamente el e-commerce de MOBELS Alejandro en Hostinger shared hosting con despliegue automático por Git.
 
-## Paso 1: Preparar el archivo .env
+## ✅ Requisitos Previos
 
-1. Copiá el archivo `.env.example` y renombralo a `.env`
-2. Editá el archivo `.env` con los datos de tu hosting en Hostinger:
+- Git configurado en Hostinger
+- SSH/SFTP acceso a la cuenta
+- PHP 8.2+
+- MySQL (o SQLite para desarrollo)
+- Acceso al panel de control de Hostinger
 
-```env
-APP_NAME="MÖBELS Alejandro"
+## 🔧 Configuración Inicial (Primera vez)
+
+### 1. Variables de Entorno `.env`
+
+Actualiza el archivo `.env` en la raíz del proyecto con los valores de producción en Hostinger:
+
+```bash
+# Copia el archivo de plantilla
+cp .env.example .env
+
+# Edita con tus valores:
+APP_NAME="MOBELS ALEJANDRO"
 APP_ENV=production
-APP_KEY=  # Lo generarás en el paso 4
+APP_KEY=base64:KVWaKh6F7sKlqd9zxL0p2mN3jKvBqY5rU8tW9xP0qY1=
 APP_DEBUG=false
-APP_TIMEZONE=America/Argentina/Buenos_Aires
-APP_URL=https://tudominio.com
+APP_URL=https://tu-dominio.com
 
-APP_LOCALE=es
-APP_FALLBACK_LOCALE=es
-APP_FAKER_LOCALE=es_AR
-
-LOG_CHANNEL=errorlog
-LOG_LEVEL=error
-
+# Base de datos (MySQL en Hostinger)
 DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
+DB_HOST=localhost
 DB_PORT=3306
-DB_DATABASE=nombre_base_datos
-DB_USERNAME=usuario_base_datos
-DB_PASSWORD=contraseña_base_datos
+DB_DATABASE=tu_base_datos
+DB_USERNAME=tu_usuario
+DB_PASSWORD=tu_contraseña
 
+# Caché y sesión
+CACHE_DRIVER=file
 SESSION_DRIVER=file
-SESSION_LIFETIME=120
-
-BROADCAST_CONNECTION=log
-FILESYSTEM_DISK=public
 QUEUE_CONNECTION=sync
-CACHE_STORE=file
 
+# Mail (si necesitas envíos)
 MAIL_MAILER=smtp
-MAIL_HOST=smtp.hostinger.com
-MAIL_PORT=465
-MAIL_USERNAME=tu@tudominio.com
-MAIL_PASSWORD=tu_contraseña_email
-MAIL_FROM_ADDRESS=info@tudominio.com
-MAIL_FROM_NAME="MÖBELS Alejandro"
-
-STORE_INSTAGRAM_URL=https://www.instagram.com/mobels_alejandro/
-STORE_WHATSAPP_NUMBER=+549XXXXXXXXXX
-STORE_WHATSAPP_DEFAULT_MESSAGE="Hola MÖBELS Alejandro, quiero pedir un presupuesto."
+MAIL_HOST=tu-servidor-smtp
+MAIL_PORT=587
+MAIL_USERNAME=tu-email
+MAIL_PASSWORD=tu-contraseña
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=noreply@tu-dominio.com
+MAIL_FROM_NAME="MOBELS Alejandro"
 ```
 
-## Paso 2: Subir archivos a Hostinger
+**❗ IMPORTANTE**: Guarda el `.env` de forma segura. Nunca haga commit de este archivo (debe estar en `.gitignore`).
 
-### Opción A: Usando el Administrador de Archivos de cPanel
+### 2. Generar Clave de Aplicación
 
-1. Iniciá sesión en tu cuenta de Hostinger
-2. Andá a **Hosting** → **Administrar** → **Administrador de Archivos**
-3. Navegá a la carpeta `public_html` (o la carpeta de tu dominio principal)
-4. Subí **todos los archivos** del proyecto (excepto `.env`, `node_modules`, `vendor`)
+```bash
+php artisan key:generate
+```
 
-### Opción B: Usando FTP (FileZilla)
+Si ya tienes una clave válida en `.env.production`, usala en `.env`.
 
-1. Conectate a tu hosting via FTP con los datos de Hostinger
-2. Navegá a `public_html`
-3. Subí todos los archivos del proyecto
+### 3. Permisos de Carpetas Críticas
 
-## Paso 3: Estructura de carpetas en Hostinger
+Asegúrate de que estas carpetas tengan permisos de escritura (755 o 775):
 
-Después de subir los archivos, la estructura debería verse así:
+```bash
+chmod -R 755 storage
+chmod -R 755 bootstrap/cache
+chmod -R 755 public/uploads
+```
+
+**En Hostinger File Manager (UI)**:
+- Navega a `storage/` → Click derecho → Permisos → 755
+- Navega a `bootstrap/cache/` → Click derecho → Permisos → 755
+- Navega a `public/uploads/` → Click derecho → Permisos → 755
+
+### 4. Base de Datos
+
+#### Opción A: MySQL (Recomendado para Hostinger)
+
+```bash
+# Ejecuta las migraciones
+php artisan migrate --force
+
+# (Opcional) Carga datos de prueba
+php artisan db:seed --class=DatabaseSeeder
+```
+
+#### Opción B: SQLite
+
+Si prefieres SQLite durante desarrollo:
+
+```bash
+php artisan migrate --force
+# El archivo database.sqlite se creará en database/
+```
+
+## 🚀 Despliegue Automático (Cada push a main/master)
+
+Hostinger ejecutará automáticamente estos pasos:
+
+1. ✅ Git pull del repositorio
+2. ✅ `.htaccess` en raíz redirige a `public/` automáticamente
+3. ✅ Laravel responde desde `public/index.php` sin mover archivos
+
+**No requiere intervención manual.**
+
+### Validar que el despliegue funcionó
+
+1. Abre tu dominio: `https://tu-dominio.com`
+2. Deberías ver la página de inicio del e-commerce
+3. Revisa los logs si algo falla:
+   ```bash
+   tail storage/logs/laravel.log
+   ```
+
+## 📝 Acciones Post-Deploy
+
+Después de cada despliegue importante:
+
+```bash
+# Limpiar caché
+php artisan cache:clear
+php artisan config:clear
+php artisan view:clear
+php artisan route:clear
+
+# Recompilar autoload si hay cambios en composer.json
+composer install --no-dev --optimize-autoloader
+```
+
+(Estos comandos pueden ejecutarse manualmente desde SSH o agregarse a un webhook de Hostinger)
+
+## 🐛 Solución de Problemas
+
+### "Sitio vacío" o "Error 404"
+
+- ✅ Verifica que `.htaccess` existe en `/public_html/` (en la raíz)
+- ✅ Comprueba que `mod_rewrite` está habilitado en Apache:
+  ```bash
+  php -m | grep -i rewrite
+  # O desde SSH: apache2ctl -M | grep rewrite
+  ```
+- ✅ Revisa el archivo `storage/logs/laravel.log`
+
+### "Error de permisos" en storage/
+
+```bash
+chmod -R 755 storage bootstrap/cache
+```
+
+### "Error: Class not found" o "Base de datos no existe"
+
+- Ejecuta: `php artisan migrate --force`
+- Verifica las credenciales en `.env`
+- Asegúrate de que la base de datos MySQL existe en Hostinger
+
+### Assets no cargan (`/css/`, `/js/`, `/images/`)
+
+- Vite compila a `public/build/`
+- Asegúrate de ejecutar: `npm run build` antes de hacer commit
+- Verifica que `public/` está accesible y tiene permisos 755
+
+## 📂 Estructura de Despliegue
+
+Cuando Hostinger despliega, el repositorio va a `public_html/`:
 
 ```
 public_html/
+├── .htaccess          ← Redirecciona a public/
 ├── app/
 ├── bootstrap/
 ├── config/
 ├── database/
 ├── public/
-│   ├── .htaccess
-│   ├── index.php
-│   ├── uploads/
-│   └── ...
+│   ├── .htaccess      ← Reglas de Laravel
+│   ├── index.php      ← Punto de entrada
+│   ├── build/         ← Assets compilados por Vite
+│   ├── css/
+│   ├── js/
+│   ├── images/
+│   └── uploads/
 ├── resources/
 ├── routes/
-├── storage/
-├── tests/
+├── storage/           ← DEBE tener permisos 755
 ├── vendor/
-├── .env
-├── .htaccess
-├── artisan
+├── .env               ← Variables privadas
 ├── composer.json
-├── package.json
-└── ...
+└── ... (resto de archivos)
 ```
 
-## Paso 4: Configurar la carpeta pública
+## 🔐 Seguridad
 
-En Hostinger, el dominio apunta por defecto a `public_html`. Para Laravel, necesitás que apunte a `public_html/public`.
+- ✅ `.env` nunca en Git (ya en `.gitignore`)
+- ✅ `APP_DEBUG=false` en producción
+- ✅ `storage/logs/` accesible solo a ti (chmod 755)
+- ✅ `public/uploads/` monitoreado para ataques
+- ✅ Desactiva el `welcome.blade.php` en producción si queda expuesto
 
-### Opción A: Modificar el .htaccess principal
+## 📞 Contacto y Support
 
-Creá o editá el archivo `.htaccess` en `public_html/` (fuera de public) con:
+Si algo no funciona:
+1. Revisa `storage/logs/laravel.log`
+2. Ejecuta: `php artisan tinker` para debuggear
+3. Contacta a Hostinger support si es problema de servidor
 
-```apache
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteRule ^$ public/ [L]
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ public/$1 [L]
-</IfModule>
-```
+---
 
-### Opción B: Cambiar el Document Root (recomendado)
-
-1. En cPanel de Hostinger, andá a **Sitios Web** → **Configuración**
-2. Cambiá el **Document Root** para que apunte a `public_html/public`
-
-## Paso 5: Instalar dependencias
-
-Hostinger en planes compartidos no permite ejecutar Composer directamente. Tenés dos opciones:
-
-### Opción A: Subir vendor desde tu computadora local
-
-1. En tu computadora, ejecutá: `composer install --no-dev --optimize-autoloader`
-2. Subí la carpeta `vendor` completa a Hostinger
-
-### Opción B: Usar SSH (si tu plan lo permite)
-
-1. Conectate via SSH a Hostinger
-2. Ejecutá: `composer install --no-dev --optimize-autoloader`
-
-## Paso 6: Generar APP_KEY
-
-### Opción A: Generar localmente
-
-1. En tu computadora, ejecutá: `php artisan key:generate`
-2. Copiá el valor de `APP_KEY` del archivo `.env` generado
-3. Pegalo en el `.env` de Hostinger
-
-### Opción B: Usar SSH (si tu plan lo permite)
-
-1. Conectate via SSH
-2. Ejecutá: `php artisan key:generate`
-
-## Paso 7: Configurar base de datos
-
-1. En cPanel de Hostinger, andá a **Bases de Datos MySQL**
-2. Creá una nueva base de datos
-3. Creá un usuario y asignale todos los privilegios a esa base de datos
-4. Actualizá el archivo `.env` con estos datos
-
-## Paso 8: Ejecutar migraciones
-
-### Opción A: Exportar e importar SQL
-
-1. En tu computadora, exportá la base de datos SQLite o MySQL
-2. En Hostinger, andá a **phpMyAdmin**
-3. Importá el SQL en tu base de datos
-
-### Opción B: Usar SSH (si tu plan lo permite)
-
-1. Conectate via SSH
-2. Ejecutá: `php artisan migrate --force`
-
-## Paso 9: Permisos de carpetas
-
-Asegurate de que las siguientes carpetas tengan permisos de escritura (755 o 775):
-
-- `storage/`
-- `storage/app/`
-- `storage/framework/`
-- `storage/framework/cache/`
-- `storage/framework/sessions/`
-- `storage/framework/views/`
-- `storage/logs/`
-- `bootstrap/cache/`
-
-## Paso 10: Configurar SSL
-
-1. En Hostinger, andá a **SSL** en el panel de control
-2. Activá el certificado SSL gratuito (Let's Encrypt)
-3. Forzá el redireccionamiento HTTPS
-
-## Paso 11: Optimizaciones finales
-
-### Caché de configuración
-
-Si tenés acceso SSH, ejecutá:
-```bash
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
-```
-
-### Compilar assets (opcional)
-
-Si modificaste CSS/JS:
-1. En tu computadora: `npm run build`
-2. Subí la carpeta `public/build` a Hostinger
-
-## Verificación
-
-1. Visitá tu dominio: `https://tudominio.com`
-2. Verificá que la página de inicio cargue correctamente
-3. Probá navegar por los productos
-4. Verificá el panel de administración
-
-## Solución de problemas comunes
-
-### Error 500
-
-1. Revisá el archivo `storage/logs/laravel.log`
-2. Verificá que el `.env` esté correctamente configurado
-3. Asegurate de que `APP_DEBUG=false` en producción
-
-### Error de permisos
-
-Asegurate de que las carpetas `storage` y `bootstrap/cache` tengan permisos de escritura.
-
-### Error de base de datos
-
-Verificá que los datos de conexión en `.env` sean correctos.
-
-### Assets no cargan
-
-1. Verificá que `APP_URL` en `.env` sea correcto
-2. Si usaste Vite, aseguráte de haber compilado los assets (`npm run build`)
-
-## Notas importantes
-
-- **Nunca compartas tu archivo `.env`** - contiene información sensible
-- **Mantené actualizado** - Laravel y sus dependencias reciben actualizaciones de seguridad
-- **Backups** - Configura backups automáticos en Hostinger
-- **Monitoreo** - Revisá los logs regularmente
-
-## Soporte
-
-Si tenés problemas específicos con Hostinger, contactá su soporte técnico. Para problemas con Laravel, consultá la documentación oficial en [laravel.com](https://laravel.com/docs).
+**Última actualización**: Abril 2026  
+**Versión de Laravel**: 11.31  
+**Versión de PHP**: 8.2+
