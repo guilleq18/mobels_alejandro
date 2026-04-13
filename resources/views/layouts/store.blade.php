@@ -152,8 +152,6 @@
                     <a href="{{ route('products.index') }}" @class(['is-active' => request()->routeIs('products.*')])>Catalogo</a>
                     @auth
                         <a href="{{ route('admin.dashboard') }}">Panel</a>
-                    @else
-                        <a href="{{ route('login') }}">Acceso admin</a>
                     @endauth
                 </nav>
             </header>

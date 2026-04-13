@@ -20,7 +20,6 @@
     @endif
 
     <span class="brand-lockup__copy">
-        <span class="brand-lockup__eyebrow">SERVICIOS GENERALES</span>
         <strong class="brand-font">M&Ouml;BELS ALEJANDRO</strong>
         <span>Melamina, herreria y amoblamientos a medida</span>
     </span>
