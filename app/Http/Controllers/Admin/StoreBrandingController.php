@@ -21,6 +21,9 @@ class StoreBrandingController extends Controller
             'brandLogoUrl' => StoreSetting::assetUrl('brand_logo_path'),
             'homeHeroImagePath' => StoreSetting::value('home_hero_image_path'),
             'homeHeroImageUrl' => StoreSetting::assetUrl('home_hero_image_path', 'assets/brand/hero-workshop.svg'),
+            'landingBackgroundPath' => StoreSetting::value('landing_background_path'),
+            'landingBackgroundUrl' => StoreSetting::assetUrl('landing_background_path', 'assets/brand/landing-background.png'),
+            'landingBackgroundBlur' => $this->normalizeBlurValue(StoreSetting::value('landing_background_blur', 5)),
         ]);
     }
 
@@ -28,6 +31,8 @@ class StoreBrandingController extends Controller
     {
         $brandLogoPath = $request->validated('brand_logo_path');
         $homeHeroImagePath = $request->validated('home_hero_image_path');
+        $landingBackgroundPath = $request->validated('landing_background_path');
+        $landingBackgroundBlur = $this->normalizeBlurValue($request->validated('landing_background_blur'));
 
         if ($request->boolean('clear_brand_logo')) {
             $brandLogoPath = null;
@@ -35,6 +40,10 @@ class StoreBrandingController extends Controller
 
         if ($request->boolean('clear_home_hero_image')) {
             $homeHeroImagePath = null;
+        }
+
+        if ($request->boolean('clear_landing_background')) {
+            $landingBackgroundPath = null;
         }
 
         if ($request->hasFile('brand_logo_upload')) {
@@ -51,9 +60,18 @@ class StoreBrandingController extends Controller
             );
         }
 
+        if ($request->hasFile('landing_background_upload')) {
+            $landingBackgroundPath = $this->storeUploadedImage(
+                $request->file('landing_background_upload'),
+                'branding/landing-background',
+            );
+        }
+
         StoreSetting::putMany([
             'brand_logo_path' => $brandLogoPath,
             'home_hero_image_path' => $homeHeroImagePath,
+            'landing_background_path' => $landingBackgroundPath,
+            'landing_background_blur' => (string) $landingBackgroundBlur,
         ]);
 
         return redirect()
@@ -70,5 +88,10 @@ class StoreBrandingController extends Controller
         $file->move($directory, $filename);
 
         return 'uploads/'.$folder.'/'.$filename;
+    }
+
+    private function normalizeBlurValue(mixed $value): int
+    {
+        return max(0, min(24, (int) ($value ?? 5)));
     }
 }

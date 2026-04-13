@@ -74,12 +74,16 @@ class HomeController extends Controller
         ];
 
         $heroBannerUrl = StoreSetting::assetUrl('home_hero_image_path', 'assets/brand/hero-workshop.svg');
+        $landingBackgroundUrl = StoreSetting::assetUrl('landing_background_path', 'assets/brand/landing-background.png');
+        $landingBackgroundBlur = max(0, min(24, (int) StoreSetting::value('landing_background_blur', 5)));
 
         return view('home', compact(
             'advantages',
             'categories',
             'featuredProducts',
             'heroBannerUrl',
+            'landingBackgroundBlur',
+            'landingBackgroundUrl',
             'metrics',
             'serviceHighlights',
             'workflow',

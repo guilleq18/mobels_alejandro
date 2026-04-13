@@ -3,7 +3,7 @@
 @section('title', 'Identidad Visual | Panel Admin')
 @section('eyebrow', 'Marca')
 @section('page-title', 'Identidad visual')
-@section('page-copy', 'Actualizá el logo del sitio y la imagen principal del inicio sin tocar código ni mover archivos manualmente.')
+@section('page-copy', 'Actualizá el logo, la imagen principal y el fondo de la landing sin tocar código ni mover archivos manualmente.')
 
 @section('content')
     <section class="form-shell">
@@ -83,6 +83,77 @@
                     </label>
                 </div>
 
+                <div class="panel-header" style="margin-top: .25rem;">
+                    <div>
+                        <span class="pill">Landing page</span>
+                        <h2>Fondo fijo y blur</h2>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <label class="field">
+                        <span>Ruta o URL del fondo de la landing</span>
+                        <input
+                            type="text"
+                            name="landing_background_path"
+                            value="{{ old('landing_background_path', $landingBackgroundPath) }}"
+                            placeholder="Ej: uploads/branding/landing-background/fondo.jpg"
+                        >
+                        <small class="field-help">Se usa como fondo fijo detrás de toda la landing. Puede ser una ruta pública o una URL externa.</small>
+                        @error('landing_background_path')
+                            <small class="field-error">{{ $message }}</small>
+                        @enderror
+                    </label>
+
+                    <label class="field">
+                        <span>Subir nuevo fondo de la landing</span>
+                        <input type="file" name="landing_background_upload" accept="image/*">
+                        <small class="field-help">Recomendado: imagen horizontal optimizada. Validación de la app: hasta 8 MB, sujeto también al límite PHP de Hostinger.</small>
+                        @error('landing_background_upload')
+                            <small class="field-error">{{ $message }}</small>
+                        @enderror
+                    </label>
+                </div>
+
+                <div class="checkboxes">
+                    <label class="check">
+                        <input type="checkbox" name="clear_landing_background" value="1" @checked(old('clear_landing_background'))>
+                        <span>Volver al fondo predeterminado de la landing</span>
+                    </label>
+                </div>
+
+                <div class="form-grid">
+                    <label class="field">
+                        <span>Blur del fondo</span>
+                        <input
+                            id="landing-background-blur"
+                            type="range"
+                            name="landing_background_blur"
+                            min="0"
+                            max="24"
+                            step="1"
+                            value="{{ old('landing_background_blur', $landingBackgroundBlur) }}"
+                        >
+                        <small class="field-help">Cuanto más alto el valor, más suave y menos protagonista se verá la foto de fondo.</small>
+                        @error('landing_background_blur')
+                            <small class="field-error">{{ $message }}</small>
+                        @enderror
+                    </label>
+
+                    <label class="field">
+                        <span>Valor actual del blur</span>
+                        <input
+                            id="landing-background-blur-display"
+                            type="number"
+                            min="0"
+                            max="24"
+                            step="1"
+                            value="{{ old('landing_background_blur', $landingBackgroundBlur) }}"
+                        >
+                        <small class="field-help">Se aplica en píxeles sobre el fondo fijo de la landing. Puedes escribir el valor o mover el slider.</small>
+                    </label>
+                </div>
+
                 <div class="form-actions">
                     <button class="button button-primary" type="submit">Guardar identidad visual</button>
                     <a class="ghost-link" href="{{ route('admin.dashboard') }}">Volver al dashboard</a>
@@ -110,6 +181,21 @@
                 <img src="{{ $homeHeroImageUrl }}" alt="Vista previa de la imagen principal del inicio">
             </div>
 
+            <div>
+                <h2 style="margin: .75rem 0 .45rem;">Fondo actual de la landing</h2>
+                <p class="help-copy">Queda fijo detrás del contenido y usa el blur configurado abajo.</p>
+            </div>
+
+            <div class="thumb thumb--wide" style="width: 100%; height: 15rem;">
+                <img
+                    src="{{ $landingBackgroundUrl }}"
+                    alt="Vista previa del fondo de la landing"
+                    style="filter: blur({{ $landingBackgroundBlur }}px); transform: scale(1.06);"
+                >
+            </div>
+
+            <p class="help-copy" style="margin-top: -.4rem;">Blur actual: <strong>{{ $landingBackgroundBlur }} px</strong></p>
+
             @if ($brandLogoUrl)
                 <div>
                     <h2 style="margin: .75rem 0 .45rem;">Archivo de logo cargado</h2>
@@ -120,4 +206,31 @@
             @endif
         </aside>
     </section>
+@endsection
+
+@section('page_scripts')
+    <script>
+        (function () {
+            const blurInput = document.getElementById('landing-background-blur');
+            const blurDisplay = document.getElementById('landing-background-blur-display');
+
+            if (! blurInput || ! blurDisplay) {
+                return;
+            }
+
+            const syncFromRange = () => {
+                blurDisplay.value = blurInput.value;
+            };
+
+            const syncFromNumber = () => {
+                const normalizedValue = Math.max(0, Math.min(24, Number(blurDisplay.value || 0)));
+                blurInput.value = normalizedValue;
+                blurDisplay.value = normalizedValue;
+            };
+
+            blurInput.addEventListener('input', syncFromRange);
+            blurDisplay.addEventListener('input', syncFromNumber);
+            syncFromRange();
+        }());
+    </script>
 @endsection
