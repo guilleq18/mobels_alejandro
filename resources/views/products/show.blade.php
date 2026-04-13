@@ -29,12 +29,12 @@
         .product-detail-page .melamine-card{width:100%;height:100%;padding:clamp(1rem,2vw,1.3rem);display:grid;align-content:start;gap:1rem}
         .product-detail-page .melamine-card h3{margin:0;font-size:1.08rem;letter-spacing:-.03em}
         .product-detail-page .color-palette{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem;justify-content:stretch}
-        .product-detail-page .color-chip{align-items:center;justify-content:flex-start;gap:.5rem;padding:.8rem .75rem;flex-direction:column;background:rgba(255,255,255,.36);border:1px solid rgba(42,59,73,.08);box-shadow:none;width:100%;aspect-ratio:1 / 1}
-        .product-detail-page .color-chip__copy{gap:.12rem}
-        .product-detail-page .color-chip__copy{width:100%;min-height:2rem;display:flex;align-items:center;justify-content:center}
-        .product-detail-page .color-chip__copy strong{display:block;width:100%;font-size:.62rem;line-height:1.35;letter-spacing:.02em;text-align:center}
+        .product-detail-page .color-chip{position:relative;display:grid;place-items:center;padding:.32rem;background:rgba(255,255,255,.34);border:1px solid rgba(42,59,73,.08);box-shadow:none;width:100%;aspect-ratio:1 / 1;border-radius:1.15rem;overflow:hidden}
+        .product-detail-page .color-chip__copy{position:absolute;inset:0;z-index:2;display:grid;place-items:center;padding:.75rem;text-align:center}
+        .product-detail-page .color-chip__copy strong{display:block;width:100%;font-size:.72rem;line-height:1.3;letter-spacing:.03em;text-align:center;color:#f7fbfc;text-shadow:0 2px 10px rgba(24,33,43,.45)}
         .product-detail-page .color-chip__copy small{display:none}
-        .product-detail-page .color-swatch{margin-top:auto}
+        .product-detail-page .color-swatch{width:100%;height:100%;margin:0;border-radius:.92rem;overflow:hidden;position:relative}
+        .product-detail-page .color-swatch::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(24,33,43,.08),rgba(24,33,43,.22))}
         .product-detail-page .detail-card{width:100%;height:100%;padding:clamp(1rem,2vw,1.45rem);display:flex;flex-direction:column;justify-content:space-between;gap:1rem;min-height:0}
         .product-detail-page .detail-copy{max-width:none}
         .product-detail-price{font-size:2.88rem;line-height:.95;letter-spacing:-.05em}
