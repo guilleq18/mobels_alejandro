@@ -37,7 +37,7 @@
                     <label class="field">
                         <span>Subir nuevo logo</span>
                         <input type="file" name="brand_logo_upload" accept="image/*">
-                        <small class="field-help">Si subís un archivo, tiene prioridad sobre la ruta manual.</small>
+                        <small class="field-help">Si subís un archivo, tiene prioridad sobre la ruta manual. Validación de la app: hasta 4 MB, pero Hostinger puede cortar antes si `upload_max_filesize` o `post_max_size` son más bajos.</small>
                         @error('brand_logo_upload')
                             <small class="field-error">{{ $message }}</small>
                         @enderror
@@ -69,7 +69,7 @@
                     <label class="field">
                         <span>Subir nueva imagen de inicio</span>
                         <input type="file" name="home_hero_image_upload" accept="image/*">
-                        <small class="field-help">Recomendado: imagen horizontal en buena resolución.</small>
+                        <small class="field-help">Recomendado: imagen horizontal optimizada. Validación de la app: hasta 6 MB, pero también manda el límite PHP configurado en Hostinger.</small>
                         @error('home_hero_image_upload')
                             <small class="field-error">{{ $message }}</small>
                         @enderror
