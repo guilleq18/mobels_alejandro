@@ -18,11 +18,11 @@
         .product-detail-hero__content{display:grid;gap:.45rem}
         .product-detail-hero__content .page-title{margin:0;max-width:none;font-size:clamp(1.9rem,3.6vw,3.05rem)}
         .product-detail-hero__content .copy{margin:0;max-width:72ch;font-size:clamp(.96rem,1.5vw,1.05rem);line-height:1.6}
-        .product-detail-main{display:grid;gap:clamp(.85rem,1.8vw,1.15rem)}
+        .product-detail-main{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(.85rem,1.8vw,1.15rem);align-items:stretch}
         .product-detail-purchase{display:flex;align-items:end;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-top:1rem;border-top:1px solid rgba(42,59,73,.1)}
         .product-detail-page .gallery-stage{position:relative}
         .product-detail-page .gallery-counter{position:absolute;right:1rem;bottom:1rem;z-index:2;padding:.55rem .8rem;border-radius:999px;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);box-shadow:0 12px 24px rgba(42,59,73,.12)}
-        .product-detail-page .detail-media{width:100%;min-height:0}
+        .product-detail-page .detail-media{width:100%;min-height:0;height:100%}
         .product-detail-page .gallery-stage{min-height:clamp(20rem,62svh,46rem);height:clamp(20rem,62svh,46rem)}
         .product-detail-page .gallery-meta{display:none}
         .product-detail-page .color-palette{justify-content:center}
@@ -30,9 +30,10 @@
         .product-detail-page .color-chip__copy{gap:.12rem}
         .product-detail-page .color-chip__copy strong{display:block;width:100%;font-size:.62rem;line-height:1.35;letter-spacing:.02em;text-align:center}
         .product-detail-page .color-chip__copy small{display:none}
-        .product-detail-page .detail-card{width:100%;padding:clamp(1rem,2vw,1.45rem)}
+        .product-detail-page .detail-card{width:100%;height:100%;padding:clamp(1rem,2vw,1.45rem);display:flex;flex-direction:column;justify-content:space-between;gap:1rem}
         .product-detail-page .detail-copy{max-width:none}
         .product-detail-price{font-size:2.4rem;line-height:.95;letter-spacing:-.05em}
+        @media (max-width:980px){.product-detail-main{grid-template-columns:1fr}}
         @media (max-width:760px){body.product-detail-page .wrap{width:min(1240px,calc(100% - 1rem));padding-top:1rem}.product-detail-hero{padding:.75rem 1rem}.product-detail-hero__content .page-title{font-size:clamp(1.7rem,8vw,2.5rem)}.product-detail-price{font-size:2rem}.product-detail-purchase{align-items:stretch}.product-detail-purchase > *{width:100%}.product-detail-page .gallery-stage{min-height:clamp(18rem,48svh,26rem);height:clamp(18rem,48svh,26rem)}}
     </style>
 @endsection
