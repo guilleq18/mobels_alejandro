@@ -20,9 +20,8 @@
         .showcase{display:grid;gap:1.45rem}
         .showcase-frame,.showcase-card,.showcase-highlight,.showcase-room,.showcase-product,.showcase-process,.showcase-cta,.showcase-proof,.showcase-story{border:1px solid rgba(27,39,50,.08);background:rgba(255,255,255,.65);box-shadow:0 24px 54px rgba(14,25,37,.18);backdrop-filter:blur(12px)}
         .showcase-frame{padding:1.1rem;border-radius:2rem}
-        .showcase-hero{display:grid;grid-template-columns:minmax(0,.9fr) minmax(320px,1.1fr);gap:1rem}
-        .showcase-panel{padding:1.1rem;border-radius:1.5rem;background:linear-gradient(180deg,rgba(244,242,238,.34),rgba(255,255,255,.4));backdrop-filter:blur(12px)}
-        .showcase-copy{display:grid;align-content:start;gap:1rem;padding:1rem .8rem 1rem .35rem}
+        .showcase-hero{display:grid;gap:1rem}
+        .showcase-copy{display:grid;align-content:start;gap:1rem;padding:.6rem .2rem 0}
         .showcase-kicker,.showcase-chip,.showcase-tab{display:inline-flex;align-items:center;gap:.5rem;width:max-content;padding:.5rem .8rem;border-radius:999px;border:1px solid rgba(79,129,145,.14);background:rgba(79,129,145,.08);font-size:.82rem;font-weight:800;letter-spacing:.08em;color:var(--brand-strong);text-transform:uppercase}
         .showcase-kicker::before,.showcase-chip::before,.showcase-tab::before{content:"";width:.55rem;height:.55rem;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-strong))}
         .showcase-rating{display:inline-flex;align-items:center;gap:.55rem;width:max-content;padding:.7rem .95rem;border-radius:1rem;border:1px solid rgba(42,59,73,.08);background:#fff;color:var(--brand-strong);font-weight:700;box-shadow:0 12px 28px rgba(32,47,91,.08)}
@@ -36,13 +35,9 @@
         .showcase-trust-list{display:flex;gap:1rem;flex-wrap:wrap}
         .showcase-trust-list span{display:inline-flex;align-items:center;gap:.45rem;padding:.5rem .8rem;border-radius:999px;background:rgba(244,242,238,.9);color:var(--ink);font-weight:700}
         .showcase-trust-list span::before{content:"";width:.45rem;height:.45rem;border-radius:999px;background:var(--sand)}
-        .showcase-media{position:relative;padding:1rem;border-radius:1.6rem;background:linear-gradient(145deg,rgba(244,242,238,.32),rgba(255,255,255,.4));overflow:hidden;backdrop-filter:blur(12px)}
-        .showcase-media::before{content:"";position:absolute;inset:.85rem;border-radius:1.2rem;background:linear-gradient(160deg,rgba(79,129,145,.18),transparent 34%),radial-gradient(circle at bottom right,rgba(213,196,179,.26),transparent 26%)}
-        .showcase-media img{position:relative;z-index:1;width:100%;height:100%;min-height:29rem;object-fit:cover;border-radius:1.2rem}
-        .showcase-floating{position:absolute;z-index:2;right:2rem;bottom:2rem;display:grid;gap:.8rem;width:min(17rem,calc(100% - 4rem))}
-        .showcase-floating-card{padding:.95rem 1rem;border-radius:1.2rem;background:rgba(255,255,255,.65);backdrop-filter:blur(18px);box-shadow:0 18px 36px rgba(32,47,91,.12)}
-        .showcase-floating-card strong{display:block;font-size:1rem}
-        .showcase-floating-card p{margin:.25rem 0 0;color:var(--muted);line-height:1.6}
+        .showcase-media{position:relative;overflow:hidden;border-radius:1.65rem}
+        .showcase-media::before{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(79,129,145,.12),transparent 34%),radial-gradient(circle at bottom right,rgba(213,196,179,.2),transparent 26%);pointer-events:none}
+        .showcase-media img{width:100%;height:100%;min-height:32rem;object-fit:cover;border-radius:1.65rem}
         .showcase-mosaic{display:grid;grid-template-columns:1fr 1fr 1.15fr;gap:1rem}
         .showcase-card{padding:1rem;border-radius:1.5rem}
         .showcase-card--image{overflow:hidden;padding:.75rem}
@@ -95,10 +90,9 @@
             .showcase-actions > *{flex:1 1 100%}
             .showcase-actions .btn,.showcase-actions .text-link{width:100%}
             .showcase-media img{min-height:18rem}
-            .showcase-floating{position:static;width:100%;margin-top:.85rem}
             .showcase-product__meta{grid-template-columns:1fr}
         }
-        @media (max-width:560px){.showcase-copy,.showcase-panel,.showcase-card,.showcase-room,.showcase-product,.showcase-process,.showcase-story,.showcase-proof,.showcase-cta{padding:1rem}.showcase-panel{padding:.9rem}.showcase-title{font-size:clamp(2.35rem,13vw,3.5rem)}.showcase-lead,.showcase-categories-head p,.showcase-cta p{font-size:.97rem;line-height:1.7}.showcase-card--image img{height:11rem}}
+        @media (max-width:560px){.showcase-copy,.showcase-card,.showcase-room,.showcase-product,.showcase-process,.showcase-story,.showcase-proof,.showcase-cta{padding:1rem}.showcase-title{font-size:clamp(2.35rem,13vw,3.5rem)}.showcase-lead,.showcase-categories-head p,.showcase-cta p{font-size:.97rem;line-height:1.7}.showcase-card--image img{height:11rem}}
     </style>
 @endsection
 
@@ -106,54 +100,40 @@
     <div class="showcase">
         <section class="showcase-frame">
             <div class="showcase-hero">
-                <div class="showcase-panel">
-                    <div class="showcase-copy">
-                        <div class="showcase-rating">
-                            <span>4.9</span>
-                            <strong>Atencion personalizada y trabajo a medida</strong>
-                        </div>
-
-                        <div>
-                            <span class="showcase-kicker">Melamina · Herreria · Instalacion</span>
-                            <h1 class="showcase-title brand-font">Diseñamos muebles que hacen rendir mejor cada ambiente.</h1>
-                        </div>
-
-                        <p class="showcase-lead">
-                            Creamos amoblamientos para hogares, oficinas y espacios comerciales con una presentación más profesional,
-                            materiales consistentes y una lógica de proyecto que acompaña desde la idea hasta la colocación final.
-                        </p>
-
-                        <div class="showcase-actions">
-                            <a class="btn btn-primary" href="{{ route('products.index') }}">Ver catalogo</a>
-                            <a class="text-link" href="#proceso">Conocer el proceso</a>
-                        </div>
-
-                        <div class="showcase-trust">
-                            <strong>Ideal para</strong>
-                            <div class="showcase-trust-list">
-                                <span>Cocinas integrales</span>
-                                <span>Placares a medida</span>
-                                <span>Oficinas y locales</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="showcase-panel showcase-media">
+                <div class="showcase-media">
                     <img
                         src="{{ $heroBannerUrl }}"
                         alt="Portada de MÖBELS Alejandro con amoblamientos a medida"
                     >
+                </div>
 
-                    <div class="showcase-floating">
-                        <div class="showcase-floating-card">
-                            <strong class="brand-font">Proyecto integral</strong>
-                            <p>Relevamiento, propuesta, fabricación y colocación bajo una misma coordinación.</p>
-                        </div>
+                <div class="showcase-copy">
+                    <div class="showcase-rating">
+                        <span>4.9</span>
+                        <strong>Atencion personalizada y trabajo a medida</strong>
+                    </div>
 
-                        <div class="showcase-floating-card">
-                            <strong class="brand-font">{{ $categories->count() }} lineas activas</strong>
-                            <p>Soluciones para hogar, oficina y espacios comerciales con la misma identidad visual.</p>
+                    <div>
+                        <span class="showcase-kicker">Melamina · Herreria · Instalacion</span>
+                        <h1 class="showcase-title brand-font">Diseñamos muebles que hacen rendir mejor cada ambiente.</h1>
+                    </div>
+
+                    <p class="showcase-lead">
+                        Creamos amoblamientos para hogares, oficinas y espacios comerciales con una presentación más profesional,
+                        materiales consistentes y una lógica de proyecto que acompaña desde la idea hasta la colocación final.
+                    </p>
+
+                    <div class="showcase-actions">
+                        <a class="btn btn-primary" href="{{ route('products.index') }}">Ver catalogo</a>
+                        <a class="text-link" href="#proceso">Conocer el proceso</a>
+                    </div>
+
+                    <div class="showcase-trust">
+                        <strong>Ideal para</strong>
+                        <div class="showcase-trust-list">
+                            <span>Cocinas integrales</span>
+                            <span>Placares a medida</span>
+                            <span>Oficinas y locales</span>
                         </div>
                     </div>
                 </div>
