@@ -14,7 +14,7 @@
             .brand-card,.form-card{border:1px solid var(--line);background:var(--panel);backdrop-filter:blur(18px);box-shadow:0 18px 40px rgba(42,59,73,.08);border-radius:1.7rem}
             .brand-card{padding:1.5rem;background:linear-gradient(160deg,rgba(32,47,91,.96),rgba(79,129,145,.88));color:#f2f8fb;display:grid;align-content:space-between;gap:2rem}
             .brand-lockup{display:flex;gap:.95rem;align-items:center}
-            .brand-lockup__mark{width:3.4rem;height:3.4rem;flex:none}
+            .brand-lockup__mark{width:3.4rem;height:3.4rem;flex:none;object-fit:cover;border-radius:1rem;background:rgba(255,255,255,.16)}
             .brand-lockup__copy{display:grid;gap:.15rem}
             .brand-lockup__copy strong{font-size:1rem;letter-spacing:.08em}
             .brand-lockup__copy span{color:rgba(242,248,251,.78)}

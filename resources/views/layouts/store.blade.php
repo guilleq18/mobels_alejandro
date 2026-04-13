@@ -8,6 +8,7 @@
             content="@yield('description', 'Base ecommerce en Laravel para M&Ouml;BELS Alejandro, con identidad visual inspirada en la marca.')"
         >
         <title>@yield('title', 'M&Ouml;BELS Alejandro | Ecommerce de Melamina')</title>
+        @yield('page_head')
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=manrope:400,500,600,700,800|montserrat:500,600,700,800&display=swap" rel="stylesheet" />
         <style>
@@ -21,7 +22,7 @@
             .nav a{position:relative;transition:color .2s ease}.nav a:hover,.nav a.is-active{color:var(--brand-strong)}
             .nav a.is-active::after{content:"";position:absolute;left:0;right:0;bottom:-.35rem;height:2px;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-strong))}
             .brand-lockup{display:flex;gap:.95rem;align-items:center}
-            .brand-lockup__mark{width:3.4rem;height:3.4rem;flex:none;filter:drop-shadow(0 16px 22px rgba(32,47,91,.2))}
+            .brand-lockup__mark{width:3.4rem;height:3.4rem;flex:none;filter:drop-shadow(0 16px 22px rgba(32,47,91,.2));object-fit:cover;border-radius:1rem;background:rgba(255,255,255,.76)}
             .brand-lockup__copy{display:grid;gap:.15rem}
             .brand-lockup__copy strong{font-size:.98rem;letter-spacing:.1em}
             .brand-lockup__copy span{color:var(--muted)}

@@ -43,6 +43,15 @@
                 <a class="button button-secondary" href="{{ route('admin.quote-requests.index') }}">Ver presupuestos</a>
             </div>
         </article>
+
+        <article class="panel">
+            <span class="pill">Marca</span>
+            <h2>Actualizar identidad visual</h2>
+            <p>Cambiá el logo del sitio y la imagen principal del inicio desde el panel.</p>
+            <div class="inline-actions" style="margin-top: 1rem;">
+                <a class="button button-secondary" href="{{ route('admin.branding.edit') }}">Editar identidad</a>
+            </div>
+        </article>
     </section>
 
     <section class="split-grid">

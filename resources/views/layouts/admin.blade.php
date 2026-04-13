@@ -14,7 +14,7 @@
             .admin-shell{min-height:100vh;display:grid;grid-template-columns:300px minmax(0,1fr)}
             .sidebar{padding:1.6rem 1.3rem;border-right:1px solid rgba(42,59,73,.08);background:linear-gradient(180deg,rgba(255,255,255,.82),rgba(255,255,255,.62));backdrop-filter:blur(18px);display:grid;align-content:start;gap:1.35rem;position:sticky;top:0;height:100vh}
             .brand-lockup{display:flex;gap:.95rem;align-items:center}
-            .brand-lockup__mark{width:3.35rem;height:3.35rem;flex:none;filter:drop-shadow(0 16px 24px rgba(32,47,91,.2))}
+            .brand-lockup__mark{width:3.35rem;height:3.35rem;flex:none;filter:drop-shadow(0 16px 24px rgba(32,47,91,.2));object-fit:cover;border-radius:1rem;background:rgba(255,255,255,.76)}
             .brand-lockup__copy{display:grid;gap:.15rem}
             .brand-lockup__copy strong{font-size:1rem;letter-spacing:.08em}
             .brand-lockup__copy span{color:var(--muted)}
@@ -125,6 +125,7 @@
                     <a href="{{ route('admin.dashboard') }}" @class(['is-active' => request()->routeIs('admin.dashboard')])>Dashboard <span>Resumen</span></a>
                     <a href="{{ route('admin.categories.index') }}" @class(['is-active' => request()->routeIs('admin.categories.*')])>Categorias <span>ABM</span></a>
                     <a href="{{ route('admin.products.index') }}" @class(['is-active' => request()->routeIs('admin.products.*')])>Productos <span>ABM</span></a>
+                    <a href="{{ route('admin.branding.edit') }}" @class(['is-active' => request()->routeIs('admin.branding.*')])>Identidad <span>Marca</span></a>
                     <a href="{{ route('admin.quote-requests.index') }}" @class(['is-active' => request()->routeIs('admin.quote-requests.*')])>Presupuestos <span>Inbox</span></a>
                 </nav>
 

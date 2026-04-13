@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Admin\StoreBrandingController as AdminStoreBrandingController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
@@ -35,6 +36,8 @@ Route::prefix('admin')->group(function (): void {
             ->except('show')
             ->names('products')
             ->parameters(['productos' => 'product']);
+        Route::get('/identidad-visual', [AdminStoreBrandingController::class, 'edit'])->name('branding.edit');
+        Route::put('/identidad-visual', [AdminStoreBrandingController::class, 'update'])->name('branding.update');
         Route::get('/presupuestos', [AdminQuoteRequestController::class, 'index'])->name('quote-requests.index');
         Route::post('/logout', [AdminAuthController::class, 'destroy'])->name('logout');
     });
