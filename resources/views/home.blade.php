@@ -20,8 +20,9 @@
         .showcase{display:grid;gap:1.45rem}
         .showcase-frame,.showcase-card,.showcase-highlight,.showcase-room,.showcase-product,.showcase-process,.showcase-cta,.showcase-proof,.showcase-story{border:1px solid rgba(27,39,50,.08);background:rgba(255,255,255,.65);box-shadow:0 24px 54px rgba(14,25,37,.18);backdrop-filter:blur(12px)}
         .showcase-frame{padding:1.1rem;border-radius:2rem}
-        .showcase-hero{display:grid;gap:1rem}
-        .showcase-copy{display:grid;align-content:start;gap:1rem;padding:.6rem .2rem 0}
+        .showcase-hero{display:grid;gap:1.1rem}
+        .showcase-copy-card{padding:1.2rem 1.25rem;border-radius:1.7rem;border:1px solid rgba(27,39,50,.08);background:rgba(255,255,255,.72);box-shadow:0 24px 54px rgba(14,25,37,.14);backdrop-filter:blur(14px)}
+        .showcase-copy{display:grid;align-content:start;gap:1rem;padding:0}
         .showcase-kicker,.showcase-chip,.showcase-tab{display:inline-flex;align-items:center;gap:.5rem;width:max-content;padding:.5rem .8rem;border-radius:999px;border:1px solid rgba(79,129,145,.14);background:rgba(79,129,145,.08);font-size:.82rem;font-weight:800;letter-spacing:.08em;color:var(--brand-strong);text-transform:uppercase}
         .showcase-kicker::before,.showcase-chip::before,.showcase-tab::before{content:"";width:.55rem;height:.55rem;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-strong))}
         .showcase-rating{display:inline-flex;align-items:center;gap:.55rem;width:max-content;padding:.7rem .95rem;border-radius:1rem;border:1px solid rgba(42,59,73,.08);background:#fff;color:var(--brand-strong);font-weight:700;box-shadow:0 12px 28px rgba(32,47,91,.08)}
@@ -35,9 +36,9 @@
         .showcase-trust-list{display:flex;gap:1rem;flex-wrap:wrap}
         .showcase-trust-list span{display:inline-flex;align-items:center;gap:.45rem;padding:.5rem .8rem;border-radius:999px;background:rgba(244,242,238,.9);color:var(--ink);font-weight:700}
         .showcase-trust-list span::before{content:"";width:.45rem;height:.45rem;border-radius:999px;background:var(--sand)}
-        .showcase-media{position:relative;overflow:hidden;border-radius:1.65rem}
+        .showcase-media{position:relative;overflow:hidden;border-radius:1.65rem;height:calc(100svh - 10.75rem);min-height:34rem}
         .showcase-media::before{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(79,129,145,.12),transparent 34%),radial-gradient(circle at bottom right,rgba(213,196,179,.2),transparent 26%);pointer-events:none}
-        .showcase-media img{width:100%;height:100%;min-height:32rem;object-fit:cover;border-radius:1.65rem}
+        .showcase-media img{width:100%;height:100%;min-height:0;object-fit:cover;border-radius:1.65rem}
         .showcase-mosaic{display:grid;grid-template-columns:1fr 1fr 1.15fr;gap:1rem}
         .showcase-card{padding:1rem;border-radius:1.5rem}
         .showcase-card--image{overflow:hidden;padding:.75rem}
@@ -80,7 +81,7 @@
         .showcase-cta{display:grid;grid-template-columns:minmax(0,1.1fr) auto;align-items:center;gap:1rem;padding:1.3rem 1.4rem;border-radius:1.7rem;background:linear-gradient(135deg,rgba(244,242,238,.78),rgba(215,227,231,.76))}
         .showcase-cta p{margin:0;max-width:42rem;color:var(--muted);line-height:1.8}
         .showcase-cta h2{margin:.2rem 0 .5rem}
-        @media (max-width:1080px){.showcase-hero,.showcase-mosaic,.showcase-bottom,.showcase-workflow{grid-template-columns:1fr}.showcase-tabs,.showcase-rooms,.showcase-proof-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.showcase-product{grid-template-columns:1fr}.showcase-product__actions{justify-content:flex-start}.showcase-cta{grid-template-columns:1fr}.showcase-title{max-width:none}.showcase-media img{min-height:22rem}}
+        @media (max-width:1080px){.showcase-hero,.showcase-mosaic,.showcase-bottom,.showcase-workflow{grid-template-columns:1fr}.showcase-tabs,.showcase-rooms,.showcase-proof-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.showcase-product{grid-template-columns:1fr}.showcase-product__actions{justify-content:flex-start}.showcase-cta{grid-template-columns:1fr}.showcase-title{max-width:none}.showcase-media{height:calc(100svh - 9.75rem);min-height:28rem}}
         @media (max-width:760px){body.landing-home .wrap{width:min(1240px,calc(100% - 1rem));padding-top:1rem}
             body.landing-home .topbar{padding:.85rem;border-radius:1.2rem}
             .showcase-frame{padding:.85rem;border-radius:1.5rem}
@@ -89,10 +90,10 @@
             .showcase-actions{width:100%}
             .showcase-actions > *{flex:1 1 100%}
             .showcase-actions .btn,.showcase-actions .text-link{width:100%}
-            .showcase-media img{min-height:18rem}
+            .showcase-media{height:calc(100svh - 8.4rem);min-height:21rem}
             .showcase-product__meta{grid-template-columns:1fr}
         }
-        @media (max-width:560px){.showcase-copy,.showcase-card,.showcase-room,.showcase-product,.showcase-process,.showcase-story,.showcase-proof,.showcase-cta{padding:1rem}.showcase-title{font-size:clamp(2.35rem,13vw,3.5rem)}.showcase-lead,.showcase-categories-head p,.showcase-cta p{font-size:.97rem;line-height:1.7}.showcase-card--image img{height:11rem}}
+        @media (max-width:560px){.showcase-copy-card,.showcase-card,.showcase-room,.showcase-product,.showcase-process,.showcase-story,.showcase-proof,.showcase-cta{padding:1rem}.showcase-title{font-size:clamp(2.35rem,13vw,3.5rem)}.showcase-lead,.showcase-categories-head p,.showcase-cta p{font-size:.97rem;line-height:1.7}.showcase-card--image img{height:11rem}.showcase-media{height:calc(100svh - 7.6rem);min-height:18rem}}
     </style>
 @endsection
 
@@ -107,17 +108,19 @@
                     >
                 </div>
 
-                <div class="showcase-copy">
-                    <h1 class="showcase-title brand-font">Diseñamos muebles que hacen rendir mejor cada ambiente.</h1>
+                <div class="showcase-copy-card">
+                    <div class="showcase-copy">
+                        <h1 class="showcase-title brand-font">Diseñamos muebles que hacen rendir mejor cada ambiente.</h1>
 
-                    <p class="showcase-lead">
-                        Creamos amoblamientos para hogares, oficinas y espacios comerciales con una presentación más profesional,
-                        materiales consistentes y una lógica de proyecto que acompaña desde la idea hasta la colocación final.
-                    </p>
+                        <p class="showcase-lead">
+                            Creamos amoblamientos para hogares, oficinas y espacios comerciales con una presentación más profesional,
+                            materiales consistentes y una lógica de proyecto que acompaña desde la idea hasta la colocación final.
+                        </p>
 
-                    <div class="showcase-actions">
-                        <a class="btn btn-primary" href="{{ route('products.index') }}">Ver catalogo</a>
-                        <a class="text-link" href="#proceso">Conocer el proceso</a>
+                        <div class="showcase-actions">
+                            <a class="btn btn-primary" href="{{ route('products.index') }}">Ver catalogo</a>
+                            <a class="text-link" href="#proceso">Conocer el proceso</a>
+                        </div>
                     </div>
                 </div>
             </div>
