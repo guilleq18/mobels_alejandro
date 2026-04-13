@@ -119,26 +119,6 @@
     @enderror
 </label>
 
-<div class="form-grid">
-    <label class="field">
-        <span>Ruta publica o URL de imagen</span>
-        <input type="text" name="image" value="{{ old('image', $product->image) }}" placeholder="Ej: uploads/products/escritorio.jpg">
-        <small class="field-help">Si queda vacío, el producto usa el visual demo que definimos para la marca.</small>
-        @error('image')
-            <small class="field-error">{{ $message }}</small>
-        @enderror
-    </label>
-
-    <label class="field">
-        <span>Subir imagen</span>
-        <input type="file" name="image_upload" accept="image/*">
-        <small class="field-help">La subida directa sobrescribe la imagen manual para esta edición.</small>
-        @error('image_upload')
-            <small class="field-error">{{ $message }}</small>
-        @enderror
-    </label>
-</div>
-
 <section class="variant-builder" data-variant-builder>
     <div class="panel-header">
         <div>

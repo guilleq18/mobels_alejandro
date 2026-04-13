@@ -87,20 +87,13 @@ class ProductController extends Controller
 
     private function payload(ProductRequest $request): array
     {
-        $payload = collect($request->validated())
+        return collect($request->validated())
             ->except([
-                'image_upload',
                 'variants',
                 'variant_swatch_uploads',
                 'variant_gallery_uploads',
             ])
             ->all();
-
-        if ($request->hasFile('image_upload')) {
-            $payload['image'] = $this->storeUploadedImage($request->file('image_upload'), 'products');
-        }
-
-        return $payload;
     }
 
     private function storeUploadedImage(UploadedFile $file, string $folder): string

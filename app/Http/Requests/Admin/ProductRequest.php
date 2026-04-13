@@ -27,8 +27,6 @@ class ProductRequest extends FormRequest
             'price' => ['required', 'numeric', 'min:0'],
             'stock' => ['nullable', 'integer', 'min:0'],
             'lead_time_days' => ['required', 'integer', 'min:1', 'max:120'],
-            'image' => ['nullable', 'string', 'max:2048'],
-            'image_upload' => ['nullable', 'image', 'max:3072'],
             'variants' => ['nullable', 'array'],
             'variants.*.name' => ['nullable', 'string', 'max:120'],
             'variants.*.swatch_image' => ['nullable', 'string', 'max:65535'],
@@ -61,7 +59,6 @@ class ProductRequest extends FormRequest
         $slug = trim((string) $this->input('slug'));
         $sku = trim((string) $this->input('sku'));
         $description = trim((string) $this->input('description'));
-        $image = trim((string) $this->input('image'));
         $stock = $this->input('stock');
         $variants = collect($this->input('variants', []))
             ->map(function (mixed $variant): array {
@@ -94,7 +91,6 @@ class ProductRequest extends FormRequest
             'slug' => Str::slug($slug !== '' ? $slug : $name),
             'sku' => $sku !== '' ? strtoupper($sku) : null,
             'description' => $description !== '' ? $description : null,
-            'image' => $image !== '' ? $image : null,
             'price' => $this->normalizePrice($this->input('price')),
             'stock' => $stock === null || $stock === '' ? 0 : (int) $stock,
             'lead_time_days' => max(1, (int) $this->input('lead_time_days', 7)),
