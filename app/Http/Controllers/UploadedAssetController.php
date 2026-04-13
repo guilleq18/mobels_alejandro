@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Support\UploadedAsset;
-use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class UploadedAssetController extends Controller
 {
-    public function show(string $path): Response
+    public function show(string $path): BinaryFileResponse
     {
         $absolutePath = UploadedAsset::findAbsolutePath('uploads/'.$path);
 
