@@ -1,7 +1,27 @@
 @extends('layouts.store')
 
+@section('body_class', 'product-detail-page')
 @section('description', $product->short_description)
 @section('title', $product->name.' | M&Ouml;BELS Alejandro')
+
+@section('page_head')
+    <style>
+        body.product-detail-page .wrap{width:min(1240px,calc(100% - 1.5rem));padding:1.8rem 0 3rem}
+        body.product-detail-page .topbar{margin:0 auto 1rem;padding:1rem 1.15rem;border:1px solid rgba(32,47,91,.08);border-radius:1.45rem;background:rgba(255,255,255,.42);backdrop-filter:blur(20px);box-shadow:0 18px 38px rgba(32,47,91,.08)}
+        body.product-detail-page .logo,body.product-detail-page .nav a,body.product-detail-page .footer{color:var(--brand-strong)}
+        body.product-detail-page .brand-lockup__copy span{color:rgba(32,47,91,.66)}
+        body.product-detail-page .brand-lockup__eyebrow{color:var(--brand)}
+        body.product-detail-page .nav a{opacity:.88}
+        body.product-detail-page .nav a:hover,body.product-detail-page .nav a.is-active{color:var(--brand-strong);opacity:1}
+        body.product-detail-page .nav a.is-active::after{background:linear-gradient(135deg,var(--brand),var(--sand))}
+        .product-detail-hero{padding:1.2rem 1.25rem;border-radius:1.7rem;border:1px solid rgba(27,39,50,.08);background:rgba(255,255,255,.72);box-shadow:0 24px 54px rgba(14,25,37,.14);backdrop-filter:blur(14px)}
+        .product-detail-hero__content{display:grid;gap:.9rem}
+        .product-detail-hero__content .page-title{margin:0;max-width:13ch}
+        .product-detail-hero__content .copy{margin:0;max-width:60ch}
+        .product-detail-price{font-size:2.4rem;line-height:.95;letter-spacing:-.05em}
+        @media (max-width:760px){body.product-detail-page .wrap{width:min(1240px,calc(100% - 1rem));padding-top:1rem}.product-detail-price{font-size:2rem}}
+    </style>
+@endsection
 
 @section('content')
     @php
@@ -10,19 +30,10 @@
         $initialImage = $initialImages[0];
     @endphp
 
-    <section class="page-intro">
-        <div class="page-intro__header">
-            <div>
-                <p class="breadcrumbs">
-                    <a href="{{ route('home') }}">Inicio</a>
-                    <span class="muted"> / </span>
-                    <a href="{{ route('products.index') }}">Catalogo</a>
-                    <span class="muted"> / {{ $product->name }}</span>
-                </p>
-                <span class="chip">{{ $product->category?->name }}</span>
-                <h1 class="page-title">{{ $product->name }}</h1>
-            </div>
-
+    <section class="product-detail-hero">
+        <div class="product-detail-hero__content">
+            <span class="chip">{{ $product->category?->name }}</span>
+            <h1 class="page-title">{{ $product->name }}</h1>
             <p class="copy">{{ $product->short_description }}</p>
         </div>
     </section>
@@ -89,20 +100,10 @@
         <div class="detail-stack">
             <article class="note-card detail-card">
                 <span class="pill">Descripcion</span>
-                <strong class="detail-price brand-font">AR$ {{ number_format((float) $product->price, 0, ',', '.') }}</strong>
-                <div class="card-actions">
-                    <span class="availability-tag">{{ $product->availability_label }}</span>
-                    <span class="muted">
-                        {{ count($galleryVariants) }} {{ Illuminate\Support\Str::plural('melamina', count($galleryVariants)) }} disponibles
-                    </span>
-                </div>
+                <strong class="detail-price product-detail-price brand-font">AR$ {{ number_format((float) $product->price, 0, ',', '.') }}</strong>
                 <p class="detail-copy">{{ $product->description }}</p>
                 <div class="detail-actions">
                     <a class="btn btn-primary" href="#presupuesto">Pedir presupuesto</a>
-                    <a class="btn btn-secondary" href="{{ route('products.index', ['categoria' => $product->category?->slug]) }}">
-                        Ver mas de {{ $product->category?->name }}
-                    </a>
-                    <a class="btn btn-secondary" href="{{ route('products.index') }}">Volver al catalogo</a>
                 </div>
             </article>
 
