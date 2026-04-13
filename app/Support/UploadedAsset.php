@@ -25,7 +25,7 @@ class UploadedAsset
         $candidates = array_filter([
             public_path($relativePath),
             base_path($relativePath),
-            is_dir(base_path('../public_html')) ? base_path('../public_html/'.$relativePath) : null,
+            self::legacySharedHostingPath($relativePath),
         ]);
 
         foreach ($candidates as $candidate) {
@@ -39,12 +39,50 @@ class UploadedAsset
 
     private static function resolveUploadsRoot(): string
     {
-        $sharedHostingPublic = base_path('../public_html');
+        if (self::isSingleRootPublicHtmlDeploy()) {
+            return public_path('uploads');
+        }
 
-        if (is_dir($sharedHostingPublic)) {
+        $sharedHostingPublic = self::sharedHostingPublicPath();
+
+        if ($sharedHostingPublic && is_dir($sharedHostingPublic)) {
             return $sharedHostingPublic.DIRECTORY_SEPARATOR.'uploads';
         }
 
         return public_path('uploads');
+    }
+
+    private static function legacySharedHostingPath(string $relativePath): ?string
+    {
+        $sharedHostingPublic = self::sharedHostingPublicPath();
+
+        if (! $sharedHostingPublic || self::isSingleRootPublicHtmlDeploy()) {
+            return null;
+        }
+
+        return $sharedHostingPublic.DIRECTORY_SEPARATOR.str_replace('/', DIRECTORY_SEPARATOR, $relativePath);
+    }
+
+    private static function sharedHostingPublicPath(): ?string
+    {
+        $path = base_path('../public_html');
+
+        return is_dir($path) ? $path : null;
+    }
+
+    private static function isSingleRootPublicHtmlDeploy(): bool
+    {
+        $sharedHostingPublic = self::sharedHostingPublicPath();
+
+        if (! $sharedHostingPublic) {
+            return false;
+        }
+
+        $basePath = realpath(base_path());
+        $publicHtmlPath = realpath($sharedHostingPublic);
+
+        return $basePath !== false
+            && $publicHtmlPath !== false
+            && $basePath === $publicHtmlPath;
     }
 }

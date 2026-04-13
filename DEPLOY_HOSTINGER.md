@@ -4,6 +4,16 @@ Este repo queda preparado para desplegarse completo dentro de `public_html` por 
 
 ## `.env`
 
+El repo debe versionar `.env.example`. En Hostinger debes crear un archivo `.env` real a partir de ese ejemplo y completarlo con tus credenciales.
+
+Si tienes terminal:
+
+```bash
+cp .env.example .env
+```
+
+Si no tienes terminal, crea `.env` manualmente en la raíz del proyecto usando `.env.example` como base.
+
 Configura al menos estas variables en producción:
 
 ```env
@@ -51,7 +61,13 @@ Después del primer deploy, ejecuta:
 php artisan migrate --force
 ```
 
-Si también necesitas datos iniciales:
+Si quieres migrar los datos que hoy están en SQLite:
+
+```bash
+mysql -u TU_USUARIO -p TU_BASE < database/mysql_data_from_sqlite.sql
+```
+
+Si no necesitas conservar la base actual y te alcanza con los datos semilla:
 
 ```bash
 php artisan db:seed --force
@@ -70,6 +86,7 @@ Comprueba estos puntos:
 
 - `public/index.php` ya apunta correctamente a `../vendor/autoload.php` y `../bootstrap/app.php` para esta estructura.
 - Las URLs generadas por la app deben usar el dominio raíz, por eso `APP_URL` tiene que quedar bien configurado.
+- El repo incluye `scripts/export_sqlite_to_mysql.py` para regenerar `database/mysql_data_from_sqlite.sql` a partir de `database/database.sqlite` cuando haga falta.
 - Si tu despliegue Git no instala dependencias automáticamente y aparece un error sobre `vendor/autoload.php`, ejecuta una vez:
 
 ```bash
