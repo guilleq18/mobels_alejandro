@@ -6,15 +6,15 @@
 
 @section('page_head')
     <style>
-        body.landing-home{background:radial-gradient(circle at top,rgba(79,129,145,.16),transparent 24%),linear-gradient(180deg,#233449 0%,#202f5b 28%,#18212b 100%)}
+        body.landing-home{background:radial-gradient(circle at top,rgba(255,255,255,.34),transparent 24%),radial-gradient(circle at 18% 16%,rgba(79,129,145,.22),transparent 26%),linear-gradient(180deg,#d8e8eb 0%,#b8d0d6 34%,#95b7c0 100%)}
         body.landing-home .wrap{width:min(1240px,calc(100% - 1.5rem));padding:1.8rem 0 3rem}
-        body.landing-home .topbar{margin:0 auto 1rem;padding:1rem 1.15rem;border:1px solid rgba(255,255,255,.12);border-radius:1.45rem;background:rgba(255,255,255,.1);backdrop-filter:blur(20px)}
-        body.landing-home .logo,body.landing-home .nav a,body.landing-home .footer{color:#eef4f7}
-        body.landing-home .brand-lockup__copy span{color:rgba(238,244,247,.7)}
-        body.landing-home .brand-lockup__eyebrow{color:#d7e3e7}
-        body.landing-home .nav a{opacity:.86}
-        body.landing-home .nav a:hover,body.landing-home .nav a.is-active{color:#fff;opacity:1}
-        body.landing-home .nav a.is-active::after{background:linear-gradient(135deg,#d7e3e7,#d5c4b3)}
+        body.landing-home .topbar{margin:0 auto 1rem;padding:1rem 1.15rem;border:1px solid rgba(32,47,91,.08);border-radius:1.45rem;background:rgba(255,255,255,.42);backdrop-filter:blur(20px);box-shadow:0 18px 38px rgba(32,47,91,.08)}
+        body.landing-home .logo,body.landing-home .nav a,body.landing-home .footer{color:var(--brand-strong)}
+        body.landing-home .brand-lockup__copy span{color:rgba(32,47,91,.66)}
+        body.landing-home .brand-lockup__eyebrow{color:var(--brand)}
+        body.landing-home .nav a{opacity:.88}
+        body.landing-home .nav a:hover,body.landing-home .nav a.is-active{color:var(--brand-strong);opacity:1}
+        body.landing-home .nav a.is-active::after{background:linear-gradient(135deg,var(--brand),var(--sand))}
         .showcase{display:grid;gap:1.45rem}
         .showcase-frame,.showcase-card,.showcase-highlight,.showcase-room,.showcase-product,.showcase-process,.showcase-cta,.showcase-proof,.showcase-story{border:1px solid rgba(27,39,50,.08);background:rgba(255,255,255,.96);box-shadow:0 24px 54px rgba(14,25,37,.18)}
         .showcase-frame{padding:1.1rem;border-radius:2rem}
