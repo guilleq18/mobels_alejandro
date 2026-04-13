@@ -158,7 +158,7 @@
             </main>
 
             <footer class="footer">
-                M&Ouml;BELS Alejandro · Laravel v{{ Illuminate\Foundation\Application::VERSION }} · PHP v{{ PHP_VERSION }}
+                Mobels Alejandro - Desarrollado por Valle Gestion Comercial
             </footer>
         </div>
 

@@ -25,6 +25,9 @@
         .product-detail-page .gallery-counter{position:absolute;right:1rem;bottom:1rem;z-index:2;padding:.55rem .8rem;border-radius:999px;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);box-shadow:0 12px 24px rgba(42,59,73,.12)}
         .product-detail-page .detail-media{width:100%;min-height:0;height:100%}
         .product-detail-page .gallery-stage{min-height:clamp(20rem,62svh,46rem);height:clamp(20rem,62svh,46rem)}
+        .product-detail-page .gallery-stage > img[data-gallery-image]{cursor:zoom-in}
+        .product-detail-page .gallery-expand{position:absolute;top:1rem;right:1rem;z-index:2;display:inline-flex;align-items:center;justify-content:center;width:2.9rem;height:2.9rem;border:1px solid rgba(42,59,73,.12);border-radius:999px;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);box-shadow:0 12px 24px rgba(42,59,73,.12);cursor:pointer}
+        .product-detail-page .gallery-expand svg{width:1.1rem;height:1.1rem;stroke:var(--brand-strong)}
         .product-detail-page .gallery-meta{display:none}
         .product-detail-page .melamine-card{width:100%;height:100%;padding:clamp(1rem,2vw,1.3rem);display:grid;align-content:start;gap:.8rem}
         .product-detail-page .melamine-card h3{margin:0;font-size:1.08rem;letter-spacing:-.03em}
@@ -41,9 +44,27 @@
         .product-detail-page .detail-card__category{display:inline-flex;align-items:center;padding:.65rem 1rem;border-radius:999px;background:rgba(79,129,145,.12);border:1px solid rgba(79,129,145,.14);font-size:1rem;font-weight:700;color:var(--brand-strong)}
         .product-detail-page .detail-copy{max-width:none}
         .product-detail-price{font-size:3.46rem;line-height:.95;letter-spacing:-.05em}
+        .gallery-lightbox{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:1.25rem;background:rgba(13,18,25,.78);backdrop-filter:blur(12px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,visibility .2s ease}
+        .gallery-lightbox.is-open{opacity:1;visibility:visible;pointer-events:auto}
+        .gallery-lightbox__dialog{width:min(1120px,100%);max-height:calc(100svh - 2.5rem);display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:1rem;padding:1rem;border-radius:1.6rem;border:1px solid rgba(255,255,255,.1);background:rgba(18,26,36,.92);box-shadow:0 30px 70px rgba(0,0,0,.35)}
+        .gallery-lightbox__header{display:flex;align-items:center;justify-content:space-between;gap:1rem;color:#f3f8fb}
+        .gallery-lightbox__header strong{font-size:1.05rem;letter-spacing:.02em}
+        .gallery-lightbox__header span{color:rgba(243,248,251,.72);font-size:.95rem}
+        .gallery-lightbox__close{display:inline-flex;align-items:center;justify-content:center;width:2.85rem;height:2.85rem;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:#f3f8fb;cursor:pointer}
+        .gallery-lightbox__stage{position:relative;min-height:0;border-radius:1.2rem;overflow:hidden;background:rgba(255,255,255,.04)}
+        .gallery-lightbox__stage img{width:100%;height:100%;max-height:calc(100svh - 13rem);object-fit:contain;background:#111923}
+        .gallery-lightbox__nav{position:absolute;top:50%;transform:translateY(-50%);width:3rem;height:3rem;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.1);color:#f3f8fb;display:grid;place-items:center;font-size:1.4rem;cursor:pointer}
+        .gallery-lightbox__nav.is-prev{left:1rem}
+        .gallery-lightbox__nav.is-next{right:1rem}
+        .gallery-lightbox__nav[disabled]{opacity:.35;cursor:not-allowed}
+        .gallery-lightbox__counter{position:absolute;right:1rem;bottom:1rem;padding:.6rem .85rem;border-radius:999px;background:rgba(17,25,35,.72);color:#f3f8fb;font-weight:700}
+        .gallery-lightbox__thumbs{display:flex;gap:.7rem;overflow:auto;padding-bottom:.1rem}
+        .gallery-lightbox__thumb{flex:none;width:5.25rem;height:5.25rem;padding:.2rem;border-radius:1rem;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);overflow:hidden;cursor:pointer}
+        .gallery-lightbox__thumb img{width:100%;height:100%;object-fit:cover;border-radius:.82rem}
+        .gallery-lightbox__thumb.is-active{border-color:rgba(215,227,231,.82);box-shadow:0 0 0 1px rgba(215,227,231,.58)}
         @media (max-width:980px){.product-detail-main{grid-template-columns:1fr}.product-detail-sidebar{grid-template-rows:auto auto}}
-        @media (max-width:760px){body.product-detail-page .wrap{width:min(1240px,calc(100% - 1rem));padding-top:1rem}.product-detail-hero{padding:.75rem 1rem}.product-detail-hero__content .page-title{font-size:clamp(.98rem,5.1vw,1.56rem)}.product-detail-price{font-size:2.88rem}.product-detail-purchase{align-items:stretch}.product-detail-purchase > *{width:100%}.product-detail-page .gallery-stage{min-height:clamp(18rem,48svh,26rem);height:clamp(18rem,48svh,26rem)}.product-detail-page .color-palette{grid-template-columns:1fr 1fr}.product-detail-page .detail-card__header{align-items:stretch}.product-detail-page .detail-card__label,.product-detail-page .detail-card__category{justify-content:center}}
-        @media (max-width:560px){.product-detail-page .color-palette{grid-template-columns:1fr}}
+        @media (max-width:760px){body.product-detail-page .wrap{width:min(1240px,calc(100% - 1rem));padding-top:1rem}.product-detail-hero{padding:.75rem 1rem}.product-detail-hero__content .page-title{font-size:clamp(.98rem,5.1vw,1.56rem)}.product-detail-price{font-size:2.88rem}.product-detail-purchase{align-items:stretch}.product-detail-purchase > *{width:100%}.product-detail-page .gallery-stage{min-height:clamp(18rem,48svh,26rem);height:clamp(18rem,48svh,26rem)}.product-detail-page .color-palette{grid-template-columns:1fr 1fr}.product-detail-page .detail-card__header{align-items:stretch}.product-detail-page .detail-card__label,.product-detail-page .detail-card__category{justify-content:center}.gallery-lightbox{padding:.75rem}.gallery-lightbox__dialog{max-height:calc(100svh - 1.5rem);padding:.75rem}.gallery-lightbox__thumb{width:4.2rem;height:4.2rem}.gallery-lightbox__nav{width:2.7rem;height:2.7rem}}
+        @media (max-width:560px){.product-detail-page .color-palette{grid-template-columns:1fr}.gallery-lightbox__header{align-items:start;flex-direction:column}.gallery-lightbox__stage img{max-height:calc(100svh - 15rem)}}
     </style>
 @endsection
 
@@ -52,6 +73,7 @@
         $initialVariant = $galleryVariants[0];
         $initialImages = $initialVariant['images'];
         $initialImage = $initialImages[0];
+        $quoteCtaUrl = $whatsAppUrl ?? $instagramUrl;
     @endphp
 
     <section class="product-detail-hero">
@@ -66,6 +88,12 @@
             <script type="application/json" data-gallery-payload>@json($galleryVariants)</script>
 
             <div class="gallery-stage">
+                <button class="gallery-expand" type="button" data-gallery-open-modal aria-label="Abrir imagen en pantalla completa">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
                 <button class="gallery-nav is-prev" type="button" data-gallery-prev aria-label="Imagen anterior">
                     &#8249;
                 </button>
@@ -114,7 +142,11 @@
                 <p class="detail-copy">{{ $product->description }}</p>
                 <div class="product-detail-purchase">
                     <strong class="detail-price product-detail-price brand-font">AR$ {{ number_format((float) $product->price, 0, ',', '.') }}</strong>
-                    <a class="btn btn-primary" href="#presupuesto">Pedir presupuesto</a>
+                    @if ($quoteCtaUrl)
+                        <a class="btn btn-primary" href="{{ $quoteCtaUrl }}" target="_blank" rel="noreferrer">Pedir presupuesto</a>
+                    @else
+                        <button class="btn btn-primary" type="button" disabled>Pedir presupuesto</button>
+                    @endif
                 </div>
             </article>
 
@@ -139,6 +171,41 @@
             </article>
         </div>
     </section>
+
+    <div class="gallery-lightbox" data-gallery-modal aria-hidden="true">
+        <div class="gallery-lightbox__dialog" role="dialog" aria-modal="true" aria-label="Vista ampliada de imagen de producto">
+            <div class="gallery-lightbox__header">
+                <div>
+                    <strong data-gallery-modal-variant>{{ $initialVariant['name'] }}</strong>
+                    <span>Vista ampliada del producto</span>
+                </div>
+
+                <button class="gallery-lightbox__close" type="button" data-gallery-close-modal aria-label="Cerrar visor">
+                    &#10005;
+                </button>
+            </div>
+
+            <div class="gallery-lightbox__stage">
+                <button class="gallery-lightbox__nav is-prev" type="button" data-gallery-modal-prev aria-label="Imagen anterior">
+                    &#8249;
+                </button>
+
+                <img
+                    src="{{ $initialImage['url'] }}"
+                    alt="{{ $initialImage['alt'] }}"
+                    data-gallery-modal-image
+                >
+
+                <span class="gallery-lightbox__counter" data-gallery-modal-counter>1 / {{ count($initialImages) }}</span>
+
+                <button class="gallery-lightbox__nav is-next" type="button" data-gallery-modal-next aria-label="Imagen siguiente">
+                    &#8250;
+                </button>
+            </div>
+
+            <div class="gallery-lightbox__thumbs" data-gallery-modal-thumbs></div>
+        </div>
+    </div>
 
     @if ($relatedProducts->isNotEmpty())
         <section class="related-section">
@@ -213,10 +280,20 @@
             const thumbsNode = gallery.querySelector('[data-gallery-thumbs]');
             const prevButton = gallery.querySelector('[data-gallery-prev]');
             const nextButton = gallery.querySelector('[data-gallery-next]');
+            const openModalButton = gallery.querySelector('[data-gallery-open-modal]');
             const variantButtons = Array.from(gallery.querySelectorAll('[data-variant-index]'));
+            const modalNode = document.querySelector('[data-gallery-modal]');
+            const modalImageNode = modalNode?.querySelector('[data-gallery-modal-image]');
+            const modalCounterNode = modalNode?.querySelector('[data-gallery-modal-counter]');
+            const modalVariantNode = modalNode?.querySelector('[data-gallery-modal-variant]');
+            const modalThumbsNode = modalNode?.querySelector('[data-gallery-modal-thumbs]');
+            const modalPrevButton = modalNode?.querySelector('[data-gallery-modal-prev]');
+            const modalNextButton = modalNode?.querySelector('[data-gallery-modal-next]');
+            const closeModalButton = modalNode?.querySelector('[data-gallery-close-modal]');
 
             let activeVariantIndex = 0;
             let activeImageIndex = 0;
+            let modalOpen = false;
 
             const renderThumbs = () => {
                 const variant = payload[activeVariantIndex];
@@ -232,6 +309,24 @@
                 `).join('');
             };
 
+            const renderModalThumbs = () => {
+                if (!modalThumbsNode) {
+                    return;
+                }
+
+                const variant = payload[activeVariantIndex];
+
+                modalThumbsNode.innerHTML = variant.images.map((image, imageIndex) => `
+                    <button
+                        type="button"
+                        class="gallery-lightbox__thumb ${imageIndex === activeImageIndex ? 'is-active' : ''}"
+                        data-modal-image-index="${imageIndex}"
+                    >
+                        <img src="${image.url}" alt="${image.alt}">
+                    </button>
+                `).join('');
+            };
+
             const render = () => {
                 const variant = payload[activeVariantIndex];
                 const image = variant.images[activeImageIndex];
@@ -240,15 +335,54 @@
                 imageNode.alt = image.alt;
                 variantNameNode.textContent = variant.name;
                 counterNode.textContent = `${activeImageIndex + 1} / ${variant.images.length}`;
+                if (modalImageNode) {
+                    modalImageNode.src = image.url;
+                    modalImageNode.alt = image.alt;
+                }
+                if (modalCounterNode) {
+                    modalCounterNode.textContent = `${activeImageIndex + 1} / ${variant.images.length}`;
+                }
+                if (modalVariantNode) {
+                    modalVariantNode.textContent = variant.name;
+                }
 
                 prevButton.disabled = variant.images.length <= 1;
                 nextButton.disabled = variant.images.length <= 1;
+                if (modalPrevButton) {
+                    modalPrevButton.disabled = variant.images.length <= 1;
+                }
+                if (modalNextButton) {
+                    modalNextButton.disabled = variant.images.length <= 1;
+                }
 
                 variantButtons.forEach((button, index) => {
                     button.classList.toggle('is-active', index === activeVariantIndex);
                 });
 
                 renderThumbs();
+                renderModalThumbs();
+            };
+
+            const openModal = () => {
+                if (!modalNode) {
+                    return;
+                }
+
+                modalOpen = true;
+                modalNode.classList.add('is-open');
+                modalNode.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            };
+
+            const closeModal = () => {
+                if (!modalNode) {
+                    return;
+                }
+
+                modalOpen = false;
+                modalNode.classList.remove('is-open');
+                modalNode.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
             };
 
             gallery.addEventListener('click', (event) => {
@@ -269,6 +403,11 @@
                     return;
                 }
 
+                if (event.target.closest('[data-gallery-open-modal]') || event.target.closest('[data-gallery-image]')) {
+                    openModal();
+                    return;
+                }
+
                 if (event.target.closest('[data-gallery-prev]')) {
                     const variant = payload[activeVariantIndex];
                     activeImageIndex = (activeImageIndex - 1 + variant.images.length) % variant.images.length;
@@ -277,6 +416,57 @@
                 }
 
                 if (event.target.closest('[data-gallery-next]')) {
+                    const variant = payload[activeVariantIndex];
+                    activeImageIndex = (activeImageIndex + 1) % variant.images.length;
+                    render();
+                }
+            });
+
+            modalNode?.addEventListener('click', (event) => {
+                if (event.target === modalNode || event.target.closest('[data-gallery-close-modal]')) {
+                    closeModal();
+                    return;
+                }
+
+                const modalThumbButton = event.target.closest('[data-modal-image-index]');
+
+                if (modalThumbButton) {
+                    activeImageIndex = Number(modalThumbButton.dataset.modalImageIndex);
+                    render();
+                    return;
+                }
+
+                if (event.target.closest('[data-gallery-modal-prev]')) {
+                    const variant = payload[activeVariantIndex];
+                    activeImageIndex = (activeImageIndex - 1 + variant.images.length) % variant.images.length;
+                    render();
+                    return;
+                }
+
+                if (event.target.closest('[data-gallery-modal-next]')) {
+                    const variant = payload[activeVariantIndex];
+                    activeImageIndex = (activeImageIndex + 1) % variant.images.length;
+                    render();
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (!modalOpen) {
+                    return;
+                }
+
+                if (event.key === 'Escape') {
+                    closeModal();
+                    return;
+                }
+
+                if (event.key === 'ArrowLeft') {
+                    const variant = payload[activeVariantIndex];
+                    activeImageIndex = (activeImageIndex - 1 + variant.images.length) % variant.images.length;
+                    render();
+                }
+
+                if (event.key === 'ArrowRight') {
                     const variant = payload[activeVariantIndex];
                     activeImageIndex = (activeImageIndex + 1) % variant.images.length;
                     render();
