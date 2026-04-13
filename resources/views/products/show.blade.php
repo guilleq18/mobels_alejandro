@@ -19,22 +19,26 @@
         .product-detail-hero__content .page-title{margin:0;max-width:none;font-size:clamp(1.9rem,3.6vw,3.05rem)}
         .product-detail-hero__content .copy{margin:0;max-width:72ch;font-size:clamp(.96rem,1.5vw,1.05rem);line-height:1.6}
         .product-detail-main{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(.85rem,1.8vw,1.15rem);align-items:stretch}
+        .product-detail-sidebar{display:grid;grid-template-rows:minmax(0,7fr) minmax(0,3fr);gap:clamp(.85rem,1.8vw,1.15rem);min-height:0}
         .product-detail-purchase{display:flex;align-items:end;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-top:1rem;border-top:1px solid rgba(42,59,73,.1)}
         .product-detail-page .gallery-stage{position:relative}
         .product-detail-page .gallery-counter{position:absolute;right:1rem;bottom:1rem;z-index:2;padding:.55rem .8rem;border-radius:999px;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);box-shadow:0 12px 24px rgba(42,59,73,.12)}
         .product-detail-page .detail-media{width:100%;min-height:0;height:100%}
         .product-detail-page .gallery-stage{min-height:clamp(20rem,62svh,46rem);height:clamp(20rem,62svh,46rem)}
         .product-detail-page .gallery-meta{display:none}
-        .product-detail-page .color-palette{justify-content:center}
-        .product-detail-page .color-chip{align-items:start;gap:.65rem;padding:.8rem .75rem;flex-direction:column;background:transparent;border:0;box-shadow:none}
+        .product-detail-page .melamine-card{width:100%;height:100%;padding:clamp(1rem,2vw,1.3rem);display:grid;align-content:start;gap:1rem}
+        .product-detail-page .melamine-card h3{margin:0;font-size:1.08rem;letter-spacing:-.03em}
+        .product-detail-page .color-palette{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem;justify-content:stretch}
+        .product-detail-page .color-chip{align-items:start;gap:.65rem;padding:.8rem .75rem;flex-direction:column;background:rgba(255,255,255,.36);border:1px solid rgba(42,59,73,.08);box-shadow:none;width:100%}
         .product-detail-page .color-chip__copy{gap:.12rem}
         .product-detail-page .color-chip__copy strong{display:block;width:100%;font-size:.62rem;line-height:1.35;letter-spacing:.02em;text-align:center}
         .product-detail-page .color-chip__copy small{display:none}
-        .product-detail-page .detail-card{width:100%;height:100%;padding:clamp(1rem,2vw,1.45rem);display:flex;flex-direction:column;justify-content:space-between;gap:1rem}
+        .product-detail-page .detail-card{width:100%;height:100%;padding:clamp(1rem,2vw,1.45rem);display:flex;flex-direction:column;justify-content:space-between;gap:1rem;min-height:0}
         .product-detail-page .detail-copy{max-width:none}
         .product-detail-price{font-size:2.4rem;line-height:.95;letter-spacing:-.05em}
-        @media (max-width:980px){.product-detail-main{grid-template-columns:1fr}}
-        @media (max-width:760px){body.product-detail-page .wrap{width:min(1240px,calc(100% - 1rem));padding-top:1rem}.product-detail-hero{padding:.75rem 1rem}.product-detail-hero__content .page-title{font-size:clamp(1.7rem,8vw,2.5rem)}.product-detail-price{font-size:2rem}.product-detail-purchase{align-items:stretch}.product-detail-purchase > *{width:100%}.product-detail-page .gallery-stage{min-height:clamp(18rem,48svh,26rem);height:clamp(18rem,48svh,26rem)}}
+        @media (max-width:980px){.product-detail-main{grid-template-columns:1fr}.product-detail-sidebar{grid-template-rows:auto auto}}
+        @media (max-width:760px){body.product-detail-page .wrap{width:min(1240px,calc(100% - 1rem));padding-top:1rem}.product-detail-hero{padding:.75rem 1rem}.product-detail-hero__content .page-title{font-size:clamp(1.7rem,8vw,2.5rem)}.product-detail-price{font-size:2rem}.product-detail-purchase{align-items:stretch}.product-detail-purchase > *{width:100%}.product-detail-page .gallery-stage{min-height:clamp(18rem,48svh,26rem);height:clamp(18rem,48svh,26rem)}.product-detail-page .color-palette{grid-template-columns:1fr 1fr}}
+        @media (max-width:560px){.product-detail-page .color-palette{grid-template-columns:1fr}}
     </style>
 @endsection
 
@@ -52,8 +56,8 @@
         </div>
     </section>
 
-    <section class="product-detail-main">
-        <article class="detail-media" data-product-gallery>
+    <section class="product-detail-main" data-product-gallery>
+        <article class="detail-media">
             <script type="application/json" data-gallery-payload>@json($galleryVariants)</script>
 
             <div class="gallery-stage">
@@ -81,23 +85,6 @@
                 </div>
             </div>
 
-            <div class="color-palette" data-gallery-variants>
-                @foreach ($galleryVariants as $variantIndex => $variant)
-                    <button
-                        type="button"
-                        class="color-chip {{ $loop->first ? 'is-active' : '' }}"
-                        data-variant-index="{{ $variantIndex }}"
-                    >
-                        <span class="color-swatch">
-                            <img src="{{ $variant['swatch_url'] }}" alt="Muestra de melamina {{ $variant['name'] }}">
-                        </span>
-                        <span class="color-chip__copy">
-                            <strong>{{ $variant['name'] }}</strong>
-                        </span>
-                    </button>
-                @endforeach
-            </div>
-
             <div class="gallery-thumbs" data-gallery-thumbs>
                 @foreach ($initialImages as $imageIndex => $image)
                     <button
@@ -111,14 +98,36 @@
             </div>
         </article>
 
-        <article class="note-card detail-card">
-            <span class="pill">Descripcion</span>
-            <p class="detail-copy">{{ $product->description }}</p>
-            <div class="product-detail-purchase">
-                <strong class="detail-price product-detail-price brand-font">AR$ {{ number_format((float) $product->price, 0, ',', '.') }}</strong>
-                <a class="btn btn-primary" href="#presupuesto">Pedir presupuesto</a>
-            </div>
-        </article>
+        <div class="product-detail-sidebar">
+            <article class="note-card detail-card">
+                <span class="pill">Descripcion</span>
+                <p class="detail-copy">{{ $product->description }}</p>
+                <div class="product-detail-purchase">
+                    <strong class="detail-price product-detail-price brand-font">AR$ {{ number_format((float) $product->price, 0, ',', '.') }}</strong>
+                    <a class="btn btn-primary" href="#presupuesto">Pedir presupuesto</a>
+                </div>
+            </article>
+
+            <article class="note-card melamine-card">
+                <h3>Opciones de Melamina</h3>
+                <div class="color-palette" data-gallery-variants>
+                    @foreach ($galleryVariants as $variantIndex => $variant)
+                        <button
+                            type="button"
+                            class="color-chip {{ $loop->first ? 'is-active' : '' }}"
+                            data-variant-index="{{ $variantIndex }}"
+                        >
+                            <span class="color-swatch">
+                                <img src="{{ $variant['swatch_url'] }}" alt="Muestra de melamina {{ $variant['name'] }}">
+                            </span>
+                            <span class="color-chip__copy">
+                                <strong>{{ $variant['name'] }}</strong>
+                            </span>
+                        </button>
+                    @endforeach
+                </div>
+            </article>
+        </div>
     </section>
 
     <section class="quote-section" id="presupuesto">
