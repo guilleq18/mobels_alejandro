@@ -7,8 +7,8 @@
 @section('page_head')
     <style>
         body.landing-home{position:relative;background:#9ebbc2;isolation:isolate}
-        body.landing-home::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:url('{{ asset('assets/brand/landing-background.png') }}') center center / cover no-repeat;filter:blur(16px) saturate(.82) brightness(.82);transform:scale(1.08)}
-        body.landing-home::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at top,rgba(255,255,255,.28),transparent 24%),linear-gradient(180deg,rgba(215,232,235,.82) 0%,rgba(170,197,203,.78) 38%,rgba(122,161,169,.74) 100%)}
+        body.landing-home::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:url('{{ asset('assets/brand/landing-background.png') }}') center center / cover no-repeat;filter:blur(5px) saturate(.92) brightness(.9);transform:scale(1.04)}
+        body.landing-home::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at top,rgba(255,255,255,.18),transparent 24%),linear-gradient(180deg,rgba(215,232,235,.56) 0%,rgba(170,197,203,.5) 38%,rgba(122,161,169,.46) 100%)}
         body.landing-home .wrap{position:relative;z-index:1;width:min(1240px,calc(100% - 1.5rem));padding:1.8rem 0 3rem}
         body.landing-home .topbar{margin:0 auto 1rem;padding:1rem 1.15rem;border:1px solid rgba(32,47,91,.08);border-radius:1.45rem;background:rgba(255,255,255,.42);backdrop-filter:blur(20px);box-shadow:0 18px 38px rgba(32,47,91,.08)}
         body.landing-home .logo,body.landing-home .nav a,body.landing-home .footer{color:var(--brand-strong)}
