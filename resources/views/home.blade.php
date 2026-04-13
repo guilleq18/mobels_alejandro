@@ -60,7 +60,7 @@
         .showcase-price span{display:block;font-size:.88rem;color:var(--muted)}
         .showcase-price strong{display:block;font-size:1.6rem}
         .showcase-product__actions{display:flex;gap:.75rem;flex-wrap:wrap;justify-content:flex-end}
-        .showcase-bottom{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:1rem}
+        .showcase-bottom{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:1rem;scroll-margin-top:1.35rem}
         .showcase-story,.showcase-proof{padding:1.25rem;border-radius:1.7rem}
         .showcase-story{background:linear-gradient(140deg,rgba(32,47,91,.98),rgba(79,129,145,.88));color:#f4f8fb}
         .showcase-story p,.showcase-story li{color:rgba(244,248,251,.82)}
@@ -116,6 +116,7 @@
                         <div class="showcase-actions">
                             <a class="btn btn-primary" href="{{ route('products.index') }}">Ver catalogo</a>
                             <a class="text-link" href="#proceso">Conocer el proceso</a>
+                            <a class="text-link" href="#nosotros">Nosotros</a>
                         </div>
                     </div>
                 </div>
@@ -153,7 +154,30 @@
             @endforeach
         </section>
 
-        <section class="showcase-bottom">
+        <section class="showcase-workflow" id="proceso">
+            @foreach ($workflow as $item)
+                <article class="showcase-process">
+                    <span class="showcase-process__step">{{ $item['step'] }}</span>
+                    <h3 class="brand-font">{{ $item['title'] }}</h3>
+                    <p>{{ $item['copy'] }}</p>
+                </article>
+            @endforeach
+        </section>
+
+        <section class="showcase-cta">
+            <div>
+                <span class="showcase-kicker">Siguiente paso</span>
+                <h2 class="brand-font">Entrá al catálogo y elegí una base para tu próximo proyecto.</h2>
+                <p>
+                    Si ya tienes medidas o una idea avanzada, puedes pasar directamente al catálogo. Si estás en etapa de exploración,
+                    esta home ya te deja claro cómo trabaja la marca y qué tipo de soluciones ofrece.
+                </p>
+            </div>
+
+            <a class="btn btn-primary" href="{{ route('products.index') }}">Ir al catalogo</a>
+        </section>
+
+        <section class="showcase-bottom" id="nosotros">
             <article class="showcase-story">
                 <span class="showcase-kicker" style="background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.14);color:#f4f8fb;">Nuestra mirada</span>
                 <h2 class="brand-font">Diseñamos muebles para que el espacio se vea mejor y funcione mejor.</h2>
@@ -184,29 +208,6 @@
                     @endforeach
                 </div>
             </article>
-        </section>
-
-        <section class="showcase-workflow" id="proceso">
-            @foreach ($workflow as $item)
-                <article class="showcase-process">
-                    <span class="showcase-process__step">{{ $item['step'] }}</span>
-                    <h3 class="brand-font">{{ $item['title'] }}</h3>
-                    <p>{{ $item['copy'] }}</p>
-                </article>
-            @endforeach
-        </section>
-
-        <section class="showcase-cta">
-            <div>
-                <span class="showcase-kicker">Siguiente paso</span>
-                <h2 class="brand-font">Entrá al catálogo y elegí una base para tu próximo proyecto.</h2>
-                <p>
-                    Si ya tienes medidas o una idea avanzada, puedes pasar directamente al catálogo. Si estás en etapa de exploración,
-                    esta home ya te deja claro cómo trabaja la marca y qué tipo de soluciones ofrece.
-                </p>
-            </div>
-
-            <a class="btn btn-primary" href="{{ route('products.index') }}">Ir al catalogo</a>
         </section>
     </div>
 @endsection
