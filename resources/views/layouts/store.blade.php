@@ -133,7 +133,7 @@
             @media (max-width:420px){.wrap{width:min(1120px,calc(100% - 1rem))}.nav{grid-template-columns:1fr}.filters{grid-template-columns:1fr}.gallery-thumbs{grid-template-columns:repeat(2,minmax(0,1fr))}.gallery-counter{font-size:.92rem}.brand-lockup{gap:.75rem}.brand-lockup__mark{width:2.9rem;height:2.9rem}.brand-lockup__copy strong{font-size:.88rem;letter-spacing:.08em}}
         </style>
     </head>
-    <body>
+    <body class="@yield('body_class')">
         <div class="wrap">
             <header class="topbar">
                 <a href="{{ route('home') }}" class="logo">
