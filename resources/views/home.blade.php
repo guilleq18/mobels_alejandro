@@ -122,39 +122,6 @@
             </div>
         </section>
 
-        <section class="showcase-frame showcase-categories" id="colecciones">
-            <div class="showcase-categories-head">
-                <div>
-                    <span class="showcase-kicker">Soluciones por ambiente</span>
-                    <h2 class="brand-font">Soluciones pensadas para cada ambiente y cada necesidad de uso.</h2>
-                </div>
-                <p>
-                    Trabajamos muebles que combinan estética, resistencia y organización, con una propuesta visual coherente
-                    para viviendas, oficinas y espacios comerciales.
-                </p>
-            </div>
-
-            <div class="showcase-tabs">
-                @foreach ($categories as $category)
-                    <a class="showcase-tab" href="{{ route('products.index', ['categoria' => $category->slug]) }}">{{ $category->name }}</a>
-                @endforeach
-            </div>
-
-            <div class="showcase-rooms">
-                @foreach ($categories as $category)
-                    <article class="showcase-room">
-                        <span class="showcase-chip">{{ $loop->iteration < 10 ? '0'.$loop->iteration : $loop->iteration }}</span>
-                        <h3 class="brand-font">{{ $category->name }}</h3>
-                        <p>{{ $category->description }}</p>
-                        <footer>
-                            <span class="muted">Linea comercial</span>
-                            <a class="text-link" href="{{ route('products.index', ['categoria' => $category->slug]) }}">Ver productos</a>
-                        </footer>
-                    </article>
-                @endforeach
-            </div>
-        </section>
-
         <section class="showcase-frame showcase-products">
             @foreach ($featuredProducts as $product)
                 <article class="showcase-product">

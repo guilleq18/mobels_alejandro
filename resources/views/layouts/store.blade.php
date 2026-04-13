@@ -150,7 +150,7 @@
                 <nav class="nav">
                     <a href="{{ route('home') }}" @class(['is-active' => request()->routeIs('home')])>Inicio</a>
                     <a href="{{ route('products.index') }}" @class(['is-active' => request()->routeIs('products.*')])>Catalogo</a>
-                    <a href="{{ route('home') }}#colecciones">Colecciones</a>
+                    <a href="{{ route('products.index') }}">Colecciones</a>
                     @auth
                         <a href="{{ route('admin.dashboard') }}">Panel</a>
                     @else
