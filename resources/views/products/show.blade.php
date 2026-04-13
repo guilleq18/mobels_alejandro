@@ -18,8 +18,17 @@
         .product-detail-hero__content{display:grid;gap:.9rem}
         .product-detail-hero__content .page-title{margin:0;max-width:13ch}
         .product-detail-hero__content .copy{margin:0;max-width:60ch}
+        .product-detail-purchase{display:flex;align-items:end;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-top:1rem;border-top:1px solid rgba(42,59,73,.1)}
+        .product-detail-page .gallery-stage{position:relative}
+        .product-detail-page .gallery-counter{position:absolute;right:1rem;bottom:1rem;z-index:2;padding:.55rem .8rem;border-radius:999px;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);box-shadow:0 12px 24px rgba(42,59,73,.12)}
+        .product-detail-page .gallery-meta{justify-content:flex-start}
+        .product-detail-page .gallery-meta .gallery-counter{display:none}
+        .product-detail-page .color-chip{align-items:start;gap:.65rem;padding:.8rem .75rem;flex-direction:column}
+        .product-detail-page .color-chip__copy{gap:.12rem}
+        .product-detail-page .color-chip__copy strong{font-size:.62rem;line-height:1.35;letter-spacing:.02em}
+        .product-detail-page .color-chip__copy small{display:none}
         .product-detail-price{font-size:2.4rem;line-height:.95;letter-spacing:-.05em}
-        @media (max-width:760px){body.product-detail-page .wrap{width:min(1240px,calc(100% - 1rem));padding-top:1rem}.product-detail-price{font-size:2rem}}
+        @media (max-width:760px){body.product-detail-page .wrap{width:min(1240px,calc(100% - 1rem));padding-top:1rem}.product-detail-price{font-size:2rem}.product-detail-purchase{align-items:stretch}.product-detail-purchase > *{width:100%}}
     </style>
 @endsection
 
@@ -53,6 +62,8 @@
                     data-gallery-image
                 >
 
+                <span class="gallery-counter" data-gallery-counter>1 / {{ count($initialImages) }}</span>
+
                 <button class="gallery-nav is-next" type="button" data-gallery-next aria-label="Imagen siguiente">
                     &#8250;
                 </button>
@@ -63,7 +74,6 @@
                     <span class="pill">Melamina activa</span>
                     <strong class="brand-font" data-gallery-variant-name>{{ $initialVariant['name'] }}</strong>
                 </div>
-                <span class="gallery-counter" data-gallery-counter>1 / {{ count($initialImages) }}</span>
             </div>
 
             <div class="color-palette" data-gallery-variants>
@@ -78,7 +88,6 @@
                         </span>
                         <span class="color-chip__copy">
                             <strong>{{ $variant['name'] }}</strong>
-                            <small>Muestra de melamina</small>
                         </span>
                     </button>
                 @endforeach
@@ -100,29 +109,11 @@
         <div class="detail-stack">
             <article class="note-card detail-card">
                 <span class="pill">Descripcion</span>
-                <strong class="detail-price product-detail-price brand-font">AR$ {{ number_format((float) $product->price, 0, ',', '.') }}</strong>
                 <p class="detail-copy">{{ $product->description }}</p>
-                <div class="detail-actions">
+                <div class="product-detail-purchase">
+                    <strong class="detail-price product-detail-price brand-font">AR$ {{ number_format((float) $product->price, 0, ',', '.') }}</strong>
                     <a class="btn btn-primary" href="#presupuesto">Pedir presupuesto</a>
                 </div>
-            </article>
-
-            <div class="spec-grid">
-                @foreach ($specs as $spec)
-                    <article class="spec">
-                        <span>{{ $spec['label'] }}</span>
-                        <strong class="brand-font">{{ $spec['value'] }}</strong>
-                    </article>
-                @endforeach
-            </div>
-
-            <article class="note-card">
-                <span class="pill">Por que encaja bien en la tienda</span>
-                <ul class="list">
-                    @foreach ($highlights as $highlight)
-                        <li>{{ $highlight }}</li>
-                    @endforeach
-                </ul>
             </article>
         </div>
     </section>
