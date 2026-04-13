@@ -16,7 +16,7 @@
         body.product-detail-page .nav a.is-active::after{background:linear-gradient(135deg,var(--brand),var(--sand))}
         .product-detail-hero{padding:.6rem 1.25rem;border-radius:1.45rem;border:1px solid rgba(27,39,50,.08);background:rgba(255,255,255,.72);box-shadow:0 24px 54px rgba(14,25,37,.14);backdrop-filter:blur(14px)}
         .product-detail-hero__content{display:grid;gap:.45rem}
-        .product-detail-hero__content .page-title{margin:0;max-width:none;font-size:clamp(1.52rem,2.88vw,2.44rem)}
+        .product-detail-hero__content .page-title{margin:0;max-width:none;font-size:clamp(1.22rem,2.3vw,1.95rem)}
         .product-detail-hero__content .copy{margin:0;max-width:72ch;font-size:clamp(.96rem,1.5vw,1.05rem);line-height:1.6}
         .product-detail-main{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(.85rem,1.8vw,1.15rem);align-items:stretch}
         .product-detail-sidebar{display:grid;grid-template-rows:minmax(0,7fr) minmax(0,3fr);gap:clamp(.85rem,1.8vw,1.15rem);min-height:0}
@@ -36,10 +36,13 @@
         .product-detail-page .color-swatch{width:100%;height:100%;margin:0;border-radius:.92rem;overflow:hidden;position:relative}
         .product-detail-page .color-swatch::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(24,33,43,.08),rgba(24,33,43,.22))}
         .product-detail-page .detail-card{width:100%;height:100%;padding:clamp(1rem,2vw,1.45rem);display:flex;flex-direction:column;justify-content:space-between;gap:1rem;min-height:0}
+        .product-detail-page .detail-card__header{display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap}
+        .product-detail-page .detail-card__label{font-size:1.06rem;padding:.65rem 1rem}
+        .product-detail-page .detail-card__category{display:inline-flex;align-items:center;padding:.65rem 1rem;border-radius:999px;background:rgba(79,129,145,.12);border:1px solid rgba(79,129,145,.14);font-size:1rem;font-weight:700;color:var(--brand-strong)}
         .product-detail-page .detail-copy{max-width:none}
-        .product-detail-price{font-size:2.88rem;line-height:.95;letter-spacing:-.05em}
+        .product-detail-price{font-size:3.46rem;line-height:.95;letter-spacing:-.05em}
         @media (max-width:980px){.product-detail-main{grid-template-columns:1fr}.product-detail-sidebar{grid-template-rows:auto auto}}
-        @media (max-width:760px){body.product-detail-page .wrap{width:min(1240px,calc(100% - 1rem));padding-top:1rem}.product-detail-hero{padding:.75rem 1rem}.product-detail-hero__content .page-title{font-size:clamp(1.35rem,6.4vw,2rem)}.product-detail-price{font-size:2.4rem}.product-detail-purchase{align-items:stretch}.product-detail-purchase > *{width:100%}.product-detail-page .gallery-stage{min-height:clamp(18rem,48svh,26rem);height:clamp(18rem,48svh,26rem)}.product-detail-page .color-palette{grid-template-columns:1fr 1fr}}
+        @media (max-width:760px){body.product-detail-page .wrap{width:min(1240px,calc(100% - 1rem));padding-top:1rem}.product-detail-hero{padding:.75rem 1rem}.product-detail-hero__content .page-title{font-size:clamp(.98rem,5.1vw,1.56rem)}.product-detail-price{font-size:2.88rem}.product-detail-purchase{align-items:stretch}.product-detail-purchase > *{width:100%}.product-detail-page .gallery-stage{min-height:clamp(18rem,48svh,26rem);height:clamp(18rem,48svh,26rem)}.product-detail-page .color-palette{grid-template-columns:1fr 1fr}.product-detail-page .detail-card__header{align-items:stretch}.product-detail-page .detail-card__label,.product-detail-page .detail-card__category{justify-content:center}}
         @media (max-width:560px){.product-detail-page .color-palette{grid-template-columns:1fr}}
     </style>
 @endsection
@@ -102,7 +105,12 @@
 
         <div class="product-detail-sidebar">
             <article class="note-card detail-card">
-                <span class="pill">Descripcion</span>
+                <div class="detail-card__header">
+                    <span class="pill detail-card__label">Descripcion</span>
+                    @if ($product->category)
+                        <span class="detail-card__category">{{ $product->category->name }}</span>
+                    @endif
+                </div>
                 <p class="detail-copy">{{ $product->description }}</p>
                 <div class="product-detail-purchase">
                     <strong class="detail-price product-detail-price brand-font">AR$ {{ number_format((float) $product->price, 0, ',', '.') }}</strong>
