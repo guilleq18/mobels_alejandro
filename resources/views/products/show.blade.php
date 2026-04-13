@@ -78,6 +78,8 @@
         $initialImages = $initialVariant['images'];
         $initialImage = $initialImages[0];
         $whatsAppNumber = $whatsAppNumber ?: null;
+        $productCategoryLabel = $product->category?->name ?? 'General';
+        $productPriceLabel = 'AR$ '.number_format((float) $product->price, 0, ',', '.');
     @endphp
 
     <section class="product-detail-hero">
@@ -317,9 +319,9 @@
             let feedbackTimeout = null;
 
             const storeConfig = {
-                productCategory: @json($product->category?->name ?? 'General'),
+                productCategory: @json($productCategoryLabel),
                 productName: @json($product->name),
-                productPrice: @json('AR$ '.number_format((float) $product->price, 0, ',', '.')),
+                productPrice: @json($productPriceLabel),
                 whatsAppDefaultMessage: @json($whatsAppDefaultMessage),
                 whatsAppNumber: @json($whatsAppNumber),
             };
