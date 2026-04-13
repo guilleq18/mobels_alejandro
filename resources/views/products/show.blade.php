@@ -16,7 +16,7 @@
         body.product-detail-page .nav a.is-active::after{background:linear-gradient(135deg,var(--brand),var(--sand))}
         .product-detail-hero{padding:.6rem 1.25rem;border-radius:1.45rem;border:1px solid rgba(27,39,50,.08);background:rgba(255,255,255,.72);box-shadow:0 24px 54px rgba(14,25,37,.14);backdrop-filter:blur(14px)}
         .product-detail-hero__content{display:grid;gap:.45rem}
-        .product-detail-hero__content .page-title{margin:0;max-width:none;font-size:clamp(1.9rem,3.6vw,3.05rem)}
+        .product-detail-hero__content .page-title{margin:0;max-width:none;font-size:clamp(1.52rem,2.88vw,2.44rem)}
         .product-detail-hero__content .copy{margin:0;max-width:72ch;font-size:clamp(.96rem,1.5vw,1.05rem);line-height:1.6}
         .product-detail-main{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(.85rem,1.8vw,1.15rem);align-items:stretch}
         .product-detail-sidebar{display:grid;grid-template-rows:minmax(0,7fr) minmax(0,3fr);gap:clamp(.85rem,1.8vw,1.15rem);min-height:0}
@@ -29,15 +29,17 @@
         .product-detail-page .melamine-card{width:100%;height:100%;padding:clamp(1rem,2vw,1.3rem);display:grid;align-content:start;gap:1rem}
         .product-detail-page .melamine-card h3{margin:0;font-size:1.08rem;letter-spacing:-.03em}
         .product-detail-page .color-palette{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem;justify-content:stretch}
-        .product-detail-page .color-chip{align-items:start;gap:.65rem;padding:.8rem .75rem;flex-direction:column;background:rgba(255,255,255,.36);border:1px solid rgba(42,59,73,.08);box-shadow:none;width:100%}
+        .product-detail-page .color-chip{align-items:center;justify-content:flex-start;gap:.5rem;padding:.8rem .75rem;flex-direction:column;background:rgba(255,255,255,.36);border:1px solid rgba(42,59,73,.08);box-shadow:none;width:100%;aspect-ratio:1 / 1}
         .product-detail-page .color-chip__copy{gap:.12rem}
+        .product-detail-page .color-chip__copy{width:100%;min-height:2rem;display:flex;align-items:center;justify-content:center}
         .product-detail-page .color-chip__copy strong{display:block;width:100%;font-size:.62rem;line-height:1.35;letter-spacing:.02em;text-align:center}
         .product-detail-page .color-chip__copy small{display:none}
+        .product-detail-page .color-swatch{margin-top:auto}
         .product-detail-page .detail-card{width:100%;height:100%;padding:clamp(1rem,2vw,1.45rem);display:flex;flex-direction:column;justify-content:space-between;gap:1rem;min-height:0}
         .product-detail-page .detail-copy{max-width:none}
-        .product-detail-price{font-size:2.4rem;line-height:.95;letter-spacing:-.05em}
+        .product-detail-price{font-size:2.88rem;line-height:.95;letter-spacing:-.05em}
         @media (max-width:980px){.product-detail-main{grid-template-columns:1fr}.product-detail-sidebar{grid-template-rows:auto auto}}
-        @media (max-width:760px){body.product-detail-page .wrap{width:min(1240px,calc(100% - 1rem));padding-top:1rem}.product-detail-hero{padding:.75rem 1rem}.product-detail-hero__content .page-title{font-size:clamp(1.7rem,8vw,2.5rem)}.product-detail-price{font-size:2rem}.product-detail-purchase{align-items:stretch}.product-detail-purchase > *{width:100%}.product-detail-page .gallery-stage{min-height:clamp(18rem,48svh,26rem);height:clamp(18rem,48svh,26rem)}.product-detail-page .color-palette{grid-template-columns:1fr 1fr}}
+        @media (max-width:760px){body.product-detail-page .wrap{width:min(1240px,calc(100% - 1rem));padding-top:1rem}.product-detail-hero{padding:.75rem 1rem}.product-detail-hero__content .page-title{font-size:clamp(1.35rem,6.4vw,2rem)}.product-detail-price{font-size:2.4rem}.product-detail-purchase{align-items:stretch}.product-detail-purchase > *{width:100%}.product-detail-page .gallery-stage{min-height:clamp(18rem,48svh,26rem);height:clamp(18rem,48svh,26rem)}.product-detail-page .color-palette{grid-template-columns:1fr 1fr}}
         @media (max-width:560px){.product-detail-page .color-palette{grid-template-columns:1fr}}
     </style>
 @endsection
