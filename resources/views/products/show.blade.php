@@ -28,7 +28,7 @@
         .product-detail-page .gallery-meta{display:none}
         .product-detail-page .melamine-card{width:100%;height:100%;padding:clamp(1rem,2vw,1.3rem);display:grid;align-content:start;gap:.8rem}
         .product-detail-page .melamine-card h3{margin:0;font-size:1.08rem;letter-spacing:-.03em}
-        .product-detail-page .color-palette{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;justify-content:stretch;width:min(100%,13rem);margin:0 auto}
+        .product-detail-page .color-palette{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;justify-content:stretch;width:min(100%,13rem);margin:0}
         .product-detail-page .color-chip{position:relative;display:grid;place-items:center;padding:.32rem;background:rgba(255,255,255,.34);border:1px solid rgba(42,59,73,.08);box-shadow:none;width:100%;aspect-ratio:1 / 1;border-radius:1.15rem;overflow:hidden}
         .product-detail-page .color-chip__copy{position:absolute;inset:0;z-index:2;display:grid;place-items:center;padding:.75rem;text-align:center}
         .product-detail-page .color-chip__copy strong{display:block;width:100%;font-size:.72rem;line-height:1.3;letter-spacing:.03em;text-align:center;color:#f7fbfc;text-shadow:0 2px 10px rgba(24,33,43,.45)}
