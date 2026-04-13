@@ -20,9 +20,19 @@
         .catalog-hero-card__header{display:flex;align-items:end;justify-content:space-between;gap:1rem;flex-wrap:wrap}
         .catalog-hero-card .page-title{max-width:13ch;margin-top:.75rem}
         .catalog-hero-card .copy{margin:0;max-width:52ch}
-        .catalog-hero-card__actions{display:flex;gap:.8rem;flex-wrap:wrap}
+        .catalog-product-link{display:grid;text-decoration:none;color:inherit;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+        .catalog-product-link:hover{transform:translateY(-3px);box-shadow:0 24px 44px rgba(32,47,91,.14);border-color:rgba(79,129,145,.24)}
+        .catalog-product-link .product-copy{gap:1.15rem}
+        .catalog-product-meta{display:flex;align-items:center;justify-content:space-between;gap:.85rem;flex-wrap:wrap}
+        .catalog-product-availability{display:inline-flex;align-items:center;gap:.45rem;padding:.45rem .75rem;border-radius:999px;background:rgba(79,129,145,.12);color:var(--brand-strong);font-size:.86rem;font-weight:700}
+        .catalog-product-availability::before{content:"";width:.5rem;height:.5rem;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-strong))}
+        .catalog-product-summary{display:grid;gap:.55rem}
+        .catalog-product-summary .muted{margin:0}
+        .catalog-product-price{display:grid;gap:.3rem;width:100%;padding-top:1rem;border-top:1px solid rgba(42,59,73,.1)}
+        .catalog-product-price span{font-size:.88rem;color:var(--muted)}
+        .catalog-product-price strong{display:block;width:100%;font-size:1.68rem;line-height:1.05}
         body.catalog-page .page-intro{padding:0}
-        @media (max-width:760px){body.catalog-page .wrap{width:min(1240px,calc(100% - 1rem));padding-top:1rem}.catalog-hero-card__actions{width:100%}.catalog-hero-card__actions > *{flex:1 1 100%}}
+        @media (max-width:760px){body.catalog-page .wrap{width:min(1240px,calc(100% - 1rem));padding-top:1rem}.catalog-product-meta{align-items:flex-start;flex-direction:column}}
     </style>
 @endsection
 
@@ -32,14 +42,6 @@
             <div class="catalog-hero-card__content">
                 <div class="catalog-hero-card__header">
                     <div>
-                        <p class="breadcrumbs">
-                            <a href="{{ route('home') }}">Inicio</a>
-                            <span class="muted"> / Catalogo</span>
-                            @if ($selectedCategory)
-                                <span class="muted"> / {{ $selectedCategory->name }}</span>
-                            @endif
-                        </p>
-                        <span class="chip">Catalogo publico</span>
                         <h1 class="page-title">
                             {{ $selectedCategory ? 'Productos de '.$selectedCategory->name : 'Muebles para cada espacio del proyecto.' }}
                         </h1>
@@ -49,11 +51,6 @@
                         {{ $selectedCategory?->description
                             ?? 'Explora la coleccion de M&Ouml;BELS Alejandro con una presentacion mas clara, filtros directos y acceso rapido a cada ficha para avanzar a presupuesto.' }}
                     </p>
-                </div>
-
-                <div class="catalog-hero-card__actions">
-                    <a class="btn btn-primary" href="{{ route('home') }}">Volver al inicio</a>
-                    <a class="text-link" href="#productos">Ver productos</a>
                 </div>
 
                 <div class="filters">
@@ -90,7 +87,7 @@
         @else
             <section class="listing-grid" id="productos">
                 @foreach ($products as $product)
-                    <article class="product">
+                    <a class="product catalog-product-link" href="{{ route('products.show', $product) }}">
                         <div class="visual">
                             <img
                                 class="product-banner"
@@ -100,29 +97,22 @@
                         </div>
 
                         <div class="product-copy">
-                            <div>
-                                <span class="pill">{{ $product->category?->name }}</span>
+                            <div class="catalog-product-summary">
+                                <div class="catalog-product-meta">
+                                    <span class="pill">{{ $product->category?->name }}</span>
+                                    <span class="catalog-product-availability">{{ $product->availability_label }}</span>
+                                </div>
                                 <h3>{{ $product->name }}</h3>
                                 <p>{{ $product->short_description }}</p>
                                 <p class="muted">{{ $product->description }}</p>
                             </div>
 
-                                <div class="price">
-                                    <div>
-                                        <span class="muted">Precio referencia</span>
-                                        <strong class="brand-font">AR$ {{ number_format((float) $product->price, 0, ',', '.') }}</strong>
-                                    </div>
-
-                                    <div class="card-actions">
-                                        <span class="availability-tag">{{ $product->availability_label }}</span>
-                                        <a class="btn btn-secondary btn-small" href="{{ route('products.show', $product) }}#presupuesto">
-                                            Pedir presupuesto
-                                        </a>
-                                        <a class="text-link" href="{{ route('products.show', $product) }}">Ver ficha</a>
-                                    </div>
-                                </div>
+                            <div class="catalog-product-price">
+                                <span>Precio referencia</span>
+                                <strong class="brand-font">AR$ {{ number_format((float) $product->price, 0, ',', '.') }}</strong>
                             </div>
-                        </article>
+                        </div>
+                    </a>
                 @endforeach
             </section>
         @endif
