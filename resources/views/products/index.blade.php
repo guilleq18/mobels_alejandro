@@ -27,10 +27,11 @@
         .catalog-product-availability{display:inline-flex;align-items:center;gap:.45rem;padding:.45rem .75rem;border-radius:999px;background:rgba(79,129,145,.12);color:var(--brand-strong);font-size:.86rem;font-weight:700}
         .catalog-product-availability::before{content:"";width:.5rem;height:.5rem;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-strong))}
         .catalog-product-summary{display:grid;gap:.55rem}
-        .catalog-product-summary .muted{margin:0}
+        .catalog-product-summary p,.catalog-product-summary .muted{margin:0;text-align:justify;text-justify:inter-word}
         .catalog-product-price{display:grid;gap:.3rem;width:100%;padding-top:1rem;border-top:1px solid rgba(42,59,73,.1)}
         .catalog-product-price span{font-size:.88rem;color:var(--muted)}
         .catalog-product-price strong{display:block;width:100%;font-size:1.68rem;line-height:1.05}
+        .catalog-product-link .visual{aspect-ratio:1.1 / 1;min-height:0}
         body.catalog-page .page-intro{padding:0}
         @media (max-width:760px){body.catalog-page .wrap{width:min(1240px,calc(100% - 1rem));padding-top:1rem}.catalog-product-meta{align-items:flex-start;flex-direction:column}}
     </style>
