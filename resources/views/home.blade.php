@@ -27,7 +27,7 @@
         .showcase-kicker::before,.showcase-chip::before,.showcase-tab::before{content:"";width:.55rem;height:.55rem;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-strong))}
         .showcase-rating{display:inline-flex;align-items:center;gap:.55rem;width:max-content;padding:.7rem .95rem;border-radius:1rem;border:1px solid rgba(42,59,73,.08);background:#fff;color:var(--brand-strong);font-weight:700;box-shadow:0 12px 28px rgba(32,47,91,.08)}
         .showcase-rating span{font-size:.84rem;color:var(--muted);font-weight:600}
-        .showcase-title{margin:0;width:100%;max-width:none;font-family:"Montserrat",sans-serif;font-size:clamp(3.4rem,8vw,7.1rem);font-weight:800;line-height:.88;letter-spacing:-.085em;text-wrap:balance}
+        .showcase-title{margin:0;width:100%;max-width:none;font-family:"Montserrat",sans-serif;font-size:clamp(1.7rem,4vw,3.55rem);font-weight:800;line-height:.92;letter-spacing:-.06em;text-wrap:balance}
         .showcase-lead{margin:0;max-width:58ch;font-size:1.02rem;line-height:1.85;color:var(--muted)}
         .showcase-actions{display:flex;gap:.8rem;flex-wrap:wrap;padding-top:.35rem}
         .showcase-actions .btn,.showcase-actions .text-link{min-width:12.5rem}
