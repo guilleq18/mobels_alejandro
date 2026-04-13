@@ -54,28 +54,13 @@ class ProductController extends Controller
             ->take(3)
             ->get();
 
-        $specs = [
-            ['label' => 'Categoria', 'value' => $product->category?->name ?? 'General'],
-            ['label' => 'SKU', 'value' => $product->sku ?? 'A definir'],
-            ['label' => 'Disponible', 'value' => $product->availability_label],
-            ['label' => 'Terminacion', 'value' => 'Melamina premium con herrajes seleccionados'],
-        ];
-
-        $highlights = [
-            'Medidas, colores y distribucion adaptables al espacio final.',
-            'Cada melamina puede mostrar su propia muestra visual y un carrusel de imagenes dedicado.',
-            'Fabricacion pensada para uso intensivo, limpieza simple y mantenimiento bajo.',
-            'La ficha ya permite enviar una consulta directa y dejar listo el siguiente paso comercial.',
-        ];
-
         return view('products.show', [
             'galleryVariants' => $this->buildGalleryVariants($product),
-            'highlights' => $highlights,
+            'instagramUrl' => config('store.instagram_url'),
             'product' => $product,
             'relatedProducts' => $relatedProducts,
-            'specs' => $specs,
-            'instagramUrl' => config('store.instagram_url'),
-            'whatsAppUrl' => $this->buildWhatsAppUrl($product),
+            'whatsAppDefaultMessage' => trim((string) config('store.whatsapp_default_message')),
+            'whatsAppNumber' => preg_replace('/\D+/', '', (string) config('store.whatsapp_number')),
         ]);
     }
 
@@ -121,24 +106,5 @@ class ProductController extends Controller
                 'alt' => $product->name,
             ]],
         ]];
-    }
-
-    private function buildWhatsAppUrl(Product $product): ?string
-    {
-        $number = preg_replace('/\D+/', '', (string) config('store.whatsapp_number'));
-
-        if ($number === '') {
-            return null;
-        }
-
-        $message = implode("\n", [
-            trim((string) config('store.whatsapp_default_message')),
-            'Producto: '.$product->name,
-            'Categoria: '.($product->category?->name ?? 'General'),
-            'Precio referencia: AR$ '.number_format((float) $product->price, 0, ',', '.'),
-            'Quiero revisar medidas, terminaciones y tiempos de entrega.',
-        ]);
-
-        return 'https://wa.me/'.$number.'?text='.rawurlencode($message);
     }
 }

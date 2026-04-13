@@ -21,6 +21,7 @@
         .product-detail-main{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(.85rem,1.8vw,1.15rem);align-items:stretch}
         .product-detail-sidebar{display:grid;grid-template-rows:minmax(0,7fr) minmax(0,3fr);gap:clamp(.85rem,1.8vw,1.15rem);min-height:0}
         .product-detail-purchase{display:flex;align-items:end;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-top:1rem;border-top:1px solid rgba(42,59,73,.1)}
+        .product-detail-cta-group{display:flex;gap:.75rem;flex-wrap:wrap;justify-content:flex-end}
         .product-detail-page .gallery-stage{position:relative}
         .product-detail-page .gallery-counter{position:absolute;right:1rem;bottom:1rem;z-index:2;padding:.55rem .8rem;border-radius:999px;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);box-shadow:0 12px 24px rgba(42,59,73,.12)}
         .product-detail-page .detail-media{width:100%;min-height:0;height:100%}
@@ -44,6 +45,9 @@
         .product-detail-page .detail-card__category{display:inline-flex;align-items:center;padding:.65rem 1rem;border-radius:999px;background:rgba(79,129,145,.12);border:1px solid rgba(79,129,145,.14);font-size:1rem;font-weight:700;color:var(--brand-strong)}
         .product-detail-page .detail-copy{max-width:none}
         .product-detail-price{font-size:3.46rem;line-height:.95;letter-spacing:-.05em}
+        .product-detail-channel-note{margin:0;font-size:.86rem;line-height:1.55;color:var(--muted)}
+        .product-detail-feedback{position:fixed;left:50%;bottom:1.25rem;z-index:90;transform:translate(-50%,1rem);padding:.85rem 1rem;border-radius:999px;background:rgba(18,26,36,.92);color:#f3f8fb;box-shadow:0 18px 40px rgba(0,0,0,.22);opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease}
+        .product-detail-feedback.is-visible{opacity:1;transform:translate(-50%,0)}
         .gallery-lightbox{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:1.25rem;background:rgba(13,18,25,.78);backdrop-filter:blur(12px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,visibility .2s ease}
         .gallery-lightbox.is-open{opacity:1;visibility:visible;pointer-events:auto}
         .gallery-lightbox__dialog{width:min(1120px,100%);max-height:calc(100svh - 2.5rem);display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:1rem;padding:1rem;border-radius:1.6rem;border:1px solid rgba(255,255,255,.1);background:rgba(18,26,36,.92);box-shadow:0 30px 70px rgba(0,0,0,.35)}
@@ -63,7 +67,7 @@
         .gallery-lightbox__thumb img{width:100%;height:100%;object-fit:cover;border-radius:.82rem}
         .gallery-lightbox__thumb.is-active{border-color:rgba(215,227,231,.82);box-shadow:0 0 0 1px rgba(215,227,231,.58)}
         @media (max-width:980px){.product-detail-main{grid-template-columns:1fr}.product-detail-sidebar{grid-template-rows:auto auto}}
-        @media (max-width:760px){body.product-detail-page .wrap{width:min(1240px,calc(100% - 1rem));padding-top:1rem}.product-detail-hero{padding:.75rem 1rem}.product-detail-hero__content .page-title{font-size:clamp(.98rem,5.1vw,1.56rem)}.product-detail-price{font-size:2.88rem}.product-detail-purchase{align-items:stretch}.product-detail-purchase > *{width:100%}.product-detail-page .gallery-stage{min-height:clamp(18rem,48svh,26rem);height:clamp(18rem,48svh,26rem)}.product-detail-page .color-palette{grid-template-columns:1fr 1fr}.product-detail-page .detail-card__header{align-items:stretch}.product-detail-page .detail-card__label,.product-detail-page .detail-card__category{justify-content:center}.gallery-lightbox{padding:.75rem}.gallery-lightbox__dialog{max-height:calc(100svh - 1.5rem);padding:.75rem}.gallery-lightbox__thumb{width:4.2rem;height:4.2rem}.gallery-lightbox__nav{width:2.7rem;height:2.7rem}}
+        @media (max-width:760px){body.product-detail-page .wrap{width:min(1240px,calc(100% - 1rem));padding-top:1rem}.product-detail-hero{padding:.75rem 1rem}.product-detail-hero__content .page-title{font-size:clamp(.98rem,5.1vw,1.56rem)}.product-detail-price{font-size:2.88rem}.product-detail-purchase{align-items:stretch}.product-detail-purchase > *{width:100%}.product-detail-cta-group{justify-content:stretch}.product-detail-cta-group > *{flex:1 1 100%}.product-detail-page .gallery-stage{min-height:clamp(18rem,48svh,26rem);height:clamp(18rem,48svh,26rem)}.product-detail-page .color-palette{grid-template-columns:1fr 1fr}.product-detail-page .detail-card__header{align-items:stretch}.product-detail-page .detail-card__label,.product-detail-page .detail-card__category{justify-content:center}.gallery-lightbox{padding:.75rem}.gallery-lightbox__dialog{max-height:calc(100svh - 1.5rem);padding:.75rem}.gallery-lightbox__thumb{width:4.2rem;height:4.2rem}.gallery-lightbox__nav{width:2.7rem;height:2.7rem}}
         @media (max-width:560px){.product-detail-page .color-palette{grid-template-columns:1fr}.gallery-lightbox__header{align-items:start;flex-direction:column}.gallery-lightbox__stage img{max-height:calc(100svh - 15rem)}}
     </style>
 @endsection
@@ -73,7 +77,7 @@
         $initialVariant = $galleryVariants[0];
         $initialImages = $initialVariant['images'];
         $initialImage = $initialImages[0];
-        $quoteCtaUrl = $whatsAppUrl ?? $instagramUrl;
+        $whatsAppNumber = $whatsAppNumber ?: null;
     @endphp
 
     <section class="product-detail-hero">
@@ -142,10 +146,25 @@
                 <p class="detail-copy">{{ $product->description }}</p>
                 <div class="product-detail-purchase">
                     <strong class="detail-price product-detail-price brand-font">AR$ {{ number_format((float) $product->price, 0, ',', '.') }}</strong>
-                    @if ($quoteCtaUrl)
-                        <a class="btn btn-primary" href="{{ $quoteCtaUrl }}" target="_blank" rel="noreferrer">Pedir presupuesto</a>
-                    @else
-                        <button class="btn btn-primary" type="button" disabled>Pedir presupuesto</button>
+                    <div class="product-detail-cta-group">
+                        @if ($whatsAppNumber)
+                            <button
+                                class="btn btn-primary"
+                                type="button"
+                                data-quote-channel="whatsapp"
+                            >
+                                Pedir por WhatsApp
+                            </button>
+                        @endif
+
+                        @unless ($whatsAppNumber)
+                            <button class="btn btn-primary" type="button" disabled>Canal no configurado</button>
+                        @endunless
+                    </div>
+                    @if ($whatsAppNumber)
+                        <p class="product-detail-channel-note">
+                            El mensaje se arma con el producto, la categoria, la melamina activa y la imagen que el cliente esta viendo.
+                        </p>
                     @endif
                 </div>
             </article>
@@ -206,6 +225,8 @@
             <div class="gallery-lightbox__thumbs" data-gallery-modal-thumbs></div>
         </div>
     </div>
+
+    <div class="product-detail-feedback" data-quote-feedback aria-live="polite"></div>
 
     @if ($relatedProducts->isNotEmpty())
         <section class="related-section">
@@ -289,11 +310,66 @@
             const modalThumbsNode = modalNode?.querySelector('[data-gallery-modal-thumbs]');
             const modalPrevButton = modalNode?.querySelector('[data-gallery-modal-prev]');
             const modalNextButton = modalNode?.querySelector('[data-gallery-modal-next]');
-            const closeModalButton = modalNode?.querySelector('[data-gallery-close-modal]');
+            const feedbackNode = document.querySelector('[data-quote-feedback]');
+            const quoteButtons = Array.from(document.querySelectorAll('[data-quote-channel]'));
 
             let activeVariantIndex = 0;
             let activeImageIndex = 0;
             let modalOpen = false;
+            let feedbackTimeout = null;
+
+            const storeConfig = {
+                productCategory: @json($product->category?->name ?? 'General'),
+                productName: @json($product->name),
+                productPrice: @json('AR$ '.number_format((float) $product->price, 0, ',', '.')),
+                whatsAppDefaultMessage: @json($whatsAppDefaultMessage),
+                whatsAppNumber: @json($whatsAppNumber),
+            };
+
+            const showFeedback = (message) => {
+                if (!feedbackNode) {
+                    return;
+                }
+
+                feedbackNode.textContent = message;
+                feedbackNode.classList.add('is-visible');
+
+                if (feedbackTimeout) {
+                    clearTimeout(feedbackTimeout);
+                }
+
+                feedbackTimeout = window.setTimeout(() => {
+                    feedbackNode.classList.remove('is-visible');
+                }, 2600);
+            };
+
+            const buildQuoteMessage = () => {
+                const variant = payload[activeVariantIndex];
+                const image = variant.images[activeImageIndex];
+
+                return [
+                    storeConfig.whatsAppDefaultMessage || 'Hola MÖBELS Alejandro, quiero pedir un presupuesto.',
+                    `Producto: ${storeConfig.productName}`,
+                    `Categoria: ${storeConfig.productCategory}`,
+                    `Melamina seleccionada: ${variant.name}`,
+                    `Precio referencia: ${storeConfig.productPrice}`,
+                    `Imagen de referencia: ${image.url}`,
+                    `Ficha del producto: ${window.location.href}`,
+                    'Quiero revisar medidas, terminaciones y tiempos de entrega.',
+                ].join('\n');
+            };
+
+            const openWhatsAppQuote = () => {
+                if (!storeConfig.whatsAppNumber) {
+                    showFeedback('WhatsApp todavia no esta configurado.');
+                    return;
+                }
+
+                const message = buildQuoteMessage();
+                const url = `https://wa.me/${storeConfig.whatsAppNumber}?text=${encodeURIComponent(message)}`;
+
+                window.open(url, '_blank', 'noopener');
+            };
 
             const renderThumbs = () => {
                 const variant = payload[activeVariantIndex];
@@ -471,6 +547,14 @@
                     activeImageIndex = (activeImageIndex + 1) % variant.images.length;
                     render();
                 }
+            });
+
+            quoteButtons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    if (button.dataset.quoteChannel === 'whatsapp') {
+                        openWhatsAppQuote();
+                    }
+                });
             });
 
             render();
