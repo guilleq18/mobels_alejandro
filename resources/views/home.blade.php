@@ -18,10 +18,10 @@
         body.landing-home .nav a:hover,body.landing-home .nav a.is-active{color:var(--brand-strong);opacity:1}
         body.landing-home .nav a.is-active::after{background:linear-gradient(135deg,var(--brand),var(--sand))}
         .showcase{display:grid;gap:1.45rem}
-        .showcase-frame,.showcase-card,.showcase-highlight,.showcase-room,.showcase-product,.showcase-process,.showcase-cta,.showcase-proof,.showcase-story{border:1px solid rgba(27,39,50,.08);background:rgba(255,255,255,.96);box-shadow:0 24px 54px rgba(14,25,37,.18)}
+        .showcase-frame,.showcase-card,.showcase-highlight,.showcase-room,.showcase-product,.showcase-process,.showcase-cta,.showcase-proof,.showcase-story{border:1px solid rgba(27,39,50,.08);background:rgba(255,255,255,.65);box-shadow:0 24px 54px rgba(14,25,37,.18);backdrop-filter:blur(12px)}
         .showcase-frame{padding:1.1rem;border-radius:2rem}
         .showcase-hero{display:grid;grid-template-columns:minmax(0,.9fr) minmax(320px,1.1fr);gap:1rem}
-        .showcase-panel{padding:1.1rem;border-radius:1.5rem;background:linear-gradient(180deg,rgba(244,242,238,.8),rgba(255,255,255,.96))}
+        .showcase-panel{padding:1.1rem;border-radius:1.5rem;background:linear-gradient(180deg,rgba(244,242,238,.7),rgba(255,255,255,.82))}
         .showcase-copy{display:grid;align-content:start;gap:1rem;padding:1rem .8rem 1rem .35rem}
         .showcase-kicker,.showcase-chip,.showcase-tab{display:inline-flex;align-items:center;gap:.5rem;width:max-content;padding:.5rem .8rem;border-radius:999px;border:1px solid rgba(79,129,145,.14);background:rgba(79,129,145,.08);font-size:.82rem;font-weight:800;letter-spacing:.08em;color:var(--brand-strong);text-transform:uppercase}
         .showcase-kicker::before,.showcase-chip::before,.showcase-tab::before{content:"";width:.55rem;height:.55rem;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-strong))}
@@ -76,13 +76,13 @@
         .showcase-list li{position:relative;padding-left:1.3rem;line-height:1.75}
         .showcase-list li::before{content:"";position:absolute;left:0;top:.7rem;width:.55rem;height:.55rem;border-radius:999px;background:linear-gradient(135deg,var(--sand),#fff)}
         .showcase-proof-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem;margin-top:1rem}
-        .showcase-highlight{padding:1rem;border-radius:1.25rem;background:rgba(244,242,238,.9)}
+        .showcase-highlight{padding:1rem;border-radius:1.25rem;background:rgba(244,242,238,.72)}
         .showcase-highlight strong{display:block;font-size:1.05rem}
         .showcase-highlight span{display:block;margin-top:.35rem;color:var(--muted);line-height:1.6}
         .showcase-workflow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.85rem}
         .showcase-process{padding:1.1rem;border-radius:1.5rem}
         .showcase-process__step{display:inline-flex;align-items:center;justify-content:center;width:2.9rem;height:2.9rem;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand-strong));color:#f4f9fc;font-weight:800;box-shadow:0 14px 28px rgba(32,47,91,.16)}
-        .showcase-cta{display:grid;grid-template-columns:minmax(0,1.1fr) auto;align-items:center;gap:1rem;padding:1.3rem 1.4rem;border-radius:1.7rem;background:linear-gradient(135deg,#f4f2ee,rgba(215,227,231,.95))}
+        .showcase-cta{display:grid;grid-template-columns:minmax(0,1.1fr) auto;align-items:center;gap:1rem;padding:1.3rem 1.4rem;border-radius:1.7rem;background:linear-gradient(135deg,rgba(244,242,238,.78),rgba(215,227,231,.76))}
         .showcase-cta p{margin:0;max-width:42rem;color:var(--muted);line-height:1.8}
         .showcase-cta h2{margin:.2rem 0 .5rem}
         @media (max-width:1080px){.showcase-hero,.showcase-mosaic,.showcase-bottom,.showcase-workflow{grid-template-columns:1fr}.showcase-tabs,.showcase-rooms,.showcase-proof-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.showcase-product{grid-template-columns:1fr}.showcase-product__actions{justify-content:flex-start}.showcase-cta{grid-template-columns:1fr}.showcase-title{max-width:none}.showcase-media img{min-height:22rem}}
