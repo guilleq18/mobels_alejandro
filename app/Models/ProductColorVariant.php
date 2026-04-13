@@ -48,6 +48,6 @@ class ProductColorVariant extends Model
             return $this->swatch_image_path;
         }
 
-        return '/'.ltrim($this->swatch_image_path, '/');
+        return asset(ltrim($this->swatch_image_path, '/'));
     }
 }

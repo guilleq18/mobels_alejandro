@@ -65,12 +65,12 @@ class Product extends Model
             return $this->image;
         }
 
-        return '/'.ltrim($this->image, '/');
+        return asset(ltrim($this->image, '/'));
     }
 
     public function getVisualAssetUrlAttribute(): string
     {
-        return $this->image_url ?? '/'.ltrim($this->visual_asset, '/');
+        return $this->image_url ?? asset(ltrim($this->visual_asset, '/'));
     }
 
     public function getPrimaryImageUrlAttribute(): string

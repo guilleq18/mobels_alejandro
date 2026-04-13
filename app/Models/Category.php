@@ -47,6 +47,6 @@ class Category extends Model
             return $this->image;
         }
 
-        return '/'.ltrim($this->image, '/');
+        return asset(ltrim($this->image, '/'));
     }
 }

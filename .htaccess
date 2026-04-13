@@ -4,11 +4,12 @@
     </IfModule>
 
     RewriteEngine On
-    RewriteBase /
 
-    # Redirige todas las solicitudes que NO sean hacia archivos existentes o carpetas existentes
-    # hacia public/ para mantener compatibilidad con despliegue en public_html
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ public/index.php [QSA,L]
+    # Evita URLs duplicadas como /public/... cuando el repo vive completo en public_html.
+    RewriteCond %{THE_REQUEST} \s/+public(?:/([^\s?]*))?[\s?] [NC]
+    RewriteRule ^public(?:/(.*))?$ /$1 [R=301,L]
+
+    # Sirve todo a traves de /public sin mover archivos despues del deploy.
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>

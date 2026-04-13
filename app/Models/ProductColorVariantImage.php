@@ -29,6 +29,6 @@ class ProductColorVariantImage extends Model
             return $this->image_path;
         }
 
-        return '/'.ltrim($this->image_path, '/');
+        return asset(ltrim($this->image_path, '/'));
     }
 }
