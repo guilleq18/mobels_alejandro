@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Presupuestos Admin | M&Ouml;BELS Alejandro')
+@section('title', 'Presupuestos Admin | MOBELS Alejandro')
 @section('eyebrow', 'Comercial')
 @section('page-title', 'Presupuestos recibidos')
 @section('page-copy', 'Listado centralizado de consultas enviadas desde las fichas de producto para que el seguimiento comercial quede ordenado.')

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Categorias Admin | M&Ouml;BELS Alejandro')
+@section('title', 'Categorias Admin | MOBELS Alejandro')
 @section('eyebrow', 'Catalogo')
 @section('page-title', 'Categorias')
 @section('page-copy', 'Organizá el catalogo por lineas comerciales y mantené visible la estructura de la tienda.')

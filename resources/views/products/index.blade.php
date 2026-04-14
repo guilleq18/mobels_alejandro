@@ -2,7 +2,7 @@
 
 @section('body_class', 'catalog-page')
 @section('description', 'Catalogo de productos de M&Ouml;BELS Alejandro con muebles de melamina para cocina, dormitorio, living y oficina.')
-@section('title', 'Catalogo | M&Ouml;BELS Alejandro')
+@section('title', 'Catalogo | MOBELS Alejandro')
 
 @section('page_head')
     <style>

@@ -2,7 +2,7 @@
 
 @section('body_class', 'landing-home')
 @section('description', 'Amoblamientos de melamina, herreria y muebles a medida para hogar, oficina y espacios comerciales en Catamarca.')
-@section('title', 'M&Ouml;BELS Alejandro | Amoblamientos de Melamina a Medida')
+@section('title', 'MOBELS Alejandro | Amoblamientos de Melamina a Medida')
 
 @section('page_head')
     <style>

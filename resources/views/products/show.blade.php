@@ -2,7 +2,7 @@
 
 @section('body_class', 'product-detail-page')
 @section('description', $product->short_description)
-@section('title', $product->name.' | M&Ouml;BELS Alejandro')
+@section('title', $product->name.' | MOBELS Alejandro')
 
 @section('page_head')
     <style>

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Productos Admin | M&Ouml;BELS Alejandro')
+@section('title', 'Productos Admin | MOBELS Alejandro')
 @section('eyebrow', 'Catalogo')
 @section('page-title', 'Productos')
 @section('page-copy', 'Cargá fichas, melaminas, carruseles, precio y visibilidad para controlar lo que el cliente ve en la tienda.')

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Dashboard Admin | M&Ouml;BELS Alejandro')
+@section('title', 'Dashboard Admin | MOBELS Alejandro')
 @section('eyebrow', 'Panel de control')
 @section('page-title', 'Dashboard comercial')
 @section('page-copy', 'Resumen rapido del catalogo, el contenido publicado y las solicitudes de presupuesto que ya entran desde la tienda.')

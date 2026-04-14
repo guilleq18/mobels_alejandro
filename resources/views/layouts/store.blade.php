@@ -11,7 +11,7 @@
             name="description"
             content="@yield('description', 'Base ecommerce en Laravel para M&Ouml;BELS Alejandro, con identidad visual inspirada en la marca.')"
         >
-        <title>@yield('title', 'M&Ouml;BELS Alejandro | Ecommerce de Melamina')</title>
+        <title>@yield('title', 'MOBELS Alejandro | Ecommerce de Melamina')</title>
         @yield('page_head')
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=manrope:400,500,600,700,800|montserrat:500,600,700,800&display=swap" rel="stylesheet" />

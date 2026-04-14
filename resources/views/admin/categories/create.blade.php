@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Nueva Categoria | M&Ouml;BELS Alejandro')
+@section('title', 'Nueva Categoria | MOBELS Alejandro')
 @section('eyebrow', 'Catalogo')
 @section('page-title', 'Crear categoria')
 @section('page-copy', 'Sumá una nueva linea comercial para ordenar el catalogo y usarla luego en productos.')
